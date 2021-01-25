@@ -166,7 +166,7 @@ const qcs = e => {
     }
     return i
   })
-  const c = lnc.t(i => i['_s'] + ' { ' + u.en(i.e('_s')).t(i => i.t(': ')).t('; ') + '; }').t('\n')
+  const c = lnc.t(i => i['_s'] + ' { ' + u.en(u.e(i, '_s')).t(i => i.t(': ')).t('; ') + '; }').t('\n')
   return c
 }
 

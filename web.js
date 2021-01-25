@@ -128,17 +128,8 @@ const go = (href, body, config) => {
 u.go = go
 
 const click = function(e) {
-  // if (e.target.dataset && e.target.dataset.href) {
-  //   go(e.target.dataset.href)
-  // }
-  // const id = e.target.id.includes('_') ? e.target.id.split('_')[0] : e.target.id
-
   const id = e.target.id
   const rules = this.rules || this
-  // if (rules.href) {
-  //   const href = rules.href[id]
-  //   href && go(href)
-  // }
 
   rules.fn[id]?.(e.target, e)
   // if (rules.click) {
