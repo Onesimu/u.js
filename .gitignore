@@ -1,0 +1,10 @@
+dist/
+.temp/
+node_modules/
+.DS_Store
+unpackage/
+package-lock.json
+
+**/tmp/*/
+dev/
+pg/

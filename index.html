@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="referrer" content="never">
+<title>首页</title>
+
+<script>
+  const agent = navigator.userAgent.toLowerCase();
+  var iver = agent.match(/cpu iphone os (.*?) like mac os/);
+  if(iver && iver[1]){
+    iver = iver[1].replace(/_/g,".")
+    iver = parseFloat(iver, 10);
+    console.log("当前iOS系统版本为：" + iver);
+    if(iver < 10 && window.location.href.indexOf('src') > -1){
+      window.location.href = window.location.href.replace('src', 'dst')
+    }
+  }
+
+  var cver = agent.match(/chrome\/(\d+\.\d)/i)
+  if(cver && cver[1]){
+    cver = cver[1]
+    cver = parseFloat(cver, 10);
+    console.log("当前Chrome版本为：" + cver)
+    if(cver < 55 && window.location.href.indexOf('src') > -1){
+      window.location.href = window.location.href.replace('src', 'dst')
+    }
+  }
+
+</script>
+
+<script>
+  ;(function () {
+  	if (/e=t/.test(window.location.href)){
+  		var script = document.createElement('script')
+  		script.src = "https://cdn.bootcss.com/eruda/2.4.1/eruda.js"
+  		document.head.appendChild(script)
+  		script.onload = function () {
+  			eruda.init()
+  		}
+  	}
+  })()
+</script>
+
+<script>
+  var s = 1;
+  var metaEl = document.querySelector('meta[name="viewport"]');
+  function update(ctx, evt, wth) {
+    var width = wth || 375
+    var curWidth = window.screen.width
+    var ts = curWidth / width
+
+    if (s !== ts) {
+      s = ts
+      metaEl.setAttribute('content', 'width=device-width,initial-scale=' + ts + ',maximum-scale='+ ts +',minimum-scale='+ ts +',user-scalable=no');
+    }
+  }
+  window.addEventListener('resize', update);
+  update()
+</script>
+
+<!-- <script src="rt/rt.js"></script> -->
+
+<script src="u.js"></script>
+<script src="web.js"></script>
+<script src="ut.js"></script>
+<!-- <script src="ui/ui.js"></script> -->
+<script src="fetch.js"></script>
+
+<script src="csx.js" type="module"></script>
+
+<style>
+html, body {
+	margin: auto;
+}
+
+ul, li {
+  display: block;
+  /* list-style: none; */
+  margin: auto;
+  padding: 0;
+}
+
+div {
+  display: block;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* div::before {
+  content: '';
+  display: inline-block;
+} */
+
+.i {
+  display: inline-block;
+}
+
+.p {
+	position: relative;
+}
+
+.a {
+  position: absolute;
+}
+
+.d {
+  display: block;
+}
+
+.f {
+  display: flex;
+}
+
+.g {
+  display: grid;
+}
+
+.t {
+  text-align: center;
+}
+
+/* @media (min-width: 1025px){
+  .pg {
+    left: calc(50% - 375px);
+  }
+} */
+
+
+</style>
+
+<body></body>
