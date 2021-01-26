@@ -67,9 +67,6 @@ u.qht = qht
 import { qcs } from './qcs.js'
 u.qcs = qcs
 
-const str = e => typeof e == 'string'
-const num = e => typeof e == 'number'
-
 async function pgdata(path) {
   u.tag('base')[0].setAttribute('href', `./${path}/`)
 
@@ -93,7 +90,7 @@ async function pgdata(path) {
     u.rules.html = html.replace(/rpx/g, 'px')
   } else if (c) {
     const data = await u.net.get('data.css', 0, {text: 1})
-    const { trans, jn } = await import('./to3.js')
+    const { trans, jn } = await import('./to.js')
     const json = jn(data)
     json.rules = u.rules
     json.config = u.rules.config
@@ -103,12 +100,14 @@ async function pgdata(path) {
     u.rules.html = html.replace(/rpx/g, 'px')
   } else {
     const tpl = await u.net.get('in.html', null, {text: true})
-    const ht = tpl.match(/\<tpl\>([\s\S]+?)\<\/tpl\>/)[1]
+    const ht = tpl.match(/\<template\>([\s\S]+?)\<\/template\>/)[1]
     const css = tpl.match(/\<style.*?\>([\s\S]+?)\<\/style\>/)[1]
-    const html = ['<tpl>', qht(ht.t()), '</tpl>', '<style>', qcs(css).replace(/rpx/g, 'px'), '</style>'].join('\n')
+    const html = ['<tpl>', qht(ht.t()), '</tpl>', '<style scoped>', qcs(css).replace(/rpx/g, 'px'), '</style>'].join('\n')
     const code = tpl.match(/\<script.*?\>([\s\S]+?)\<\/script\>/)
     if(code?.[1]){
-      u.rules = eval(code[1].replace(/export(\s+){([\s\S]*?)rs([\s\S]*?)}/, 'rs'))
+      // const ce = code[1].replace(/export(\s+){([\s\S]*?)rs([\s\S]*?)}/, 'rs')
+      const ce = code[1].replace(/export(\s+)([\s\S]*?)rs([\s\S]*?)\)/, 'rs')
+      u.rules = eval(ce)
     }
     u.rules.html = html
   }

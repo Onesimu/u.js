@@ -84,6 +84,7 @@ const dt = {
     ab: 'absolute',
     re: 'relative',
     ib: 'inline-block',
+    bl: 'block',
   }
 };
 

@@ -48,8 +48,10 @@ u.n1 = n => u.n(n + 1).slice(1)
 // Function.prototype.e = Function.prototype.apply
 Function.prototype.i = Function.prototype.call
 Function.prototype.t = Function.prototype.bind
-Function.prototype.n = function(){ return this.length() }
-// Function.prototype.n = function(...a){ return new this(...a) }
+// Function.prototype.n = function(...i){
+//   if(i) return new this(...i)
+//   return this.length() }
+Function.prototype.n = function(...i){ return new this(...i) }
 
 const va = v => ['string', 'boolean', 'number'].includes(typeof v)
 
