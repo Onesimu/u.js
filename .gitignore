@@ -6,5 +6,4 @@ unpackage/
 package-lock.json
 
 **/tmp/*/
-dev/
 pg/

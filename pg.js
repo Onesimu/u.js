@@ -71,9 +71,9 @@ async function initCSX() {
   }
 }
 
-import { qht } from './qht.js'
+import { qht } from './dev/qht.js'
 u.qht = qht
-import { qcs } from './qcs.js'
+import { qcs } from './dev/qcs.js'
 u.qcs = qcs
 
 async function pgdata(path) {
@@ -99,7 +99,7 @@ async function pgdata(path) {
     u.rules.html = html.replace(/rpx/g, 'px')
   } else if (c) {
     const data = await u.net.get('data.css', 0, {text: 1})
-    const { trans, jn } = await import('./to.js')
+    const { trans, jn } = await import('./figma.js')
     const json = jn(data)
     json.rules = u.rules
     json.config = u.rules.config
