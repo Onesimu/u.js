@@ -85,14 +85,8 @@ Element.prototype.s = function(k, v) {
   const c = getComputedStyle(this)
   return k ? c[k] : c
 }
-Element.prototype.n = function(k, v) {
-  if (k == '_p') { return this.parentNode }
-  if (k == '_c') { return Array.from(this.children) }
-  if (k == '_b') { return Array.from(this.parentNode.children) }
-  if (k == 'html' || k == '_h') {
-    if (v) { this.innerHTML = v; return this }
-    return this.innerHTML
-  }
+
+Element.prototype.h = function(k, v) {
   if (k == '_o') {
     if (v) { this.outerHTML = v; return this }
     return this.outerHTML
@@ -102,6 +96,18 @@ Element.prototype.n = function(k, v) {
     if (v) { this.insertAdjacentHTML(ps[k - 1], v); return this }
     return this
   }
+  if (k == 'html' || k == '_h') {
+    if (v) { this.innerHTML = v; return this }
+    return this.innerHTML
+  }
+  if (k) { this.innerHTML = k; return this }
+  return this.innerHTML
+}
+
+Element.prototype.n = function(k, v) {
+  if (k == '_p') { return this.parentNode }
+  if (k == '_c') { return Array.from(this.children) }
+  if (k == '_b') { return Array.from(this.parentNode.children) }
   if(k.startsWith('#') || k.startsWith('[')) return this.shadowRoot ? this.shadowRoot.querySelector(k) : this.querySelector(k)
   return this.shadowRoot ? this.shadowRoot.querySelectorAll(k) : this.querySelectorAll(k)
 }

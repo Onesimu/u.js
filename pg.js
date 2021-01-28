@@ -16,7 +16,7 @@ const list = rs => {
     const s = rs.db[k]
     const r = sr.n('#' + k)
     if (!r) return
-    const tpl = r.n('_c')[0].n('_o')
+    const tpl = r.n('_c')[0].h('_o')
 
     const h = s.map((i, t) => tpl).join('')
 
@@ -24,7 +24,7 @@ const list = rs => {
     const p = r
     // sr.n('.' + k).forEach(i => i.remove())
     // p.n(3, h)
-    p.n('_h', h)
+    p.h('_h', h)
     // o(p, h)
     // sr.n('.' + k).forEach((i, t) => i.i('_i', t))
     // sr.q('.' + k).forEach((i, t) => i.i('a', ''))
@@ -102,7 +102,7 @@ async function pgdata(path) {
     const tpl = await u.net.get('in.html', null, {text: true})
     const ht = tpl.match(/\<template\>([\s\S]+?)\<\/template\>/)[1]
     const css = tpl.match(/\<style.*?\>([\s\S]+?)\<\/style\>/)[1]
-    const html = ['<tpl>', qht(ht.t()).e(/\s{2,}/g, '').e(/\n/g, ''), '</tpl>', '<style scoped>', qcs(css).replace(/rpx/g, 'px'), '</style>'].join('\n')
+    const html = ['<tpl>', qht(ht.t()).e(/>\s+</g, '><'), '</tpl>', '<style scoped>', qcs(css).replace(/rpx/g, 'px'), '</style>'].join('\n')
     const code = tpl.match(/\<script.*?\>([\s\S]+?)\<\/script\>/)
     if(code?.[1]){
       // const ce = code[1].replace(/export(\s+){([\s\S]*?)rs([\s\S]*?)}/, 'rs')
