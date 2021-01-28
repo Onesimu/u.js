@@ -53,7 +53,7 @@ Function.prototype.t = Function.prototype.bind
 //   return this.length() }
 Function.prototype.n = function(...i){ return new this(...i) }
 
-const va = v => ['string', 'boolean', 'number'].includes(typeof v)
+u.va = v => ['string', 'boolean', 'number'].includes(typeof v)
 
 String.prototype.i = function(i, t, e) {
   if (i === void 0) return this.length

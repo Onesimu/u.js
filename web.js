@@ -3,8 +3,6 @@ u.tag = document.getElementsByTagName.bind(document)
 // u.q = document.querySelectorAll.bind(document)
 // u.qi = document.querySelector.bind(document)
 
-// const va = v => ['string', 'boolean', 'number'].includes(typeof v)
-
 u.path = location
 u.disk = localStorage
 
@@ -50,7 +48,7 @@ Element.prototype.on = Element.prototype.addEventListener
 
 Element.prototype.i = function(k, v) {
   if (typeof k == 'object') {
-    u.en(k).forEach(([k, v]) => va(v) && this.i(k, v))
+    u.en(k).forEach(([k, v]) => u.va(v) && this.i(k, v))
     return this
   }
 
@@ -59,11 +57,11 @@ Element.prototype.i = function(k, v) {
   }
 
   if (k == 'text' || k == '_t') {
-    if (va(v)) { this.textContent = v; return this }
+    if (u.va(v)) { this.textContent = v; return this }
     return this.textContent
   }
 
-  if (k && va(v)) {
+  if (k && u.va(v)) {
     // v === false ? this.removeAttribute(k) : this.setAttribute(k, v)
     v === false && this.removeAttribute(k)
     typeof v == 'string' && this.style.setProperty('--' + k, '"' + v + '"')
@@ -78,7 +76,7 @@ Element.prototype.s = function(k, v) {
     u.en(k).forEach(([k, v]) => this.s(k, v))
     return this
   }
-  if (k && va(v)) {
+  if (k && u.va(v)) {
     v === false ? this.style.removeProperty(k) : this.style.setProperty(k, v)
     return this
   }

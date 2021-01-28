@@ -1,3 +1,9 @@
+import './u.js'
+import './ut.js'
+import './web.js'
+// import './vue.js'
+import './net.js'
+
 u.csx = {}
 u.rules = {
   config: {},
@@ -41,8 +47,7 @@ const list = rs => {
 }
 
 async function initCSX() {
-  const path = u.path.hash.split('?')[0].replace('#', '') || u.sq(u.path.search.slice(1)).hash ||
-    localStorage.hash || 'index'
+  const path = u.path.hash.t('?')[0].t(1) || u.sq(u.path.search.t(1)).hash || u.disk.hash || 'index'
   if (!path) {return}
   u.path.hash = path
 
@@ -133,10 +138,10 @@ async function pgdata(path) {
     itm(rs)
     u.rules.db.set = val => {
       u.set(rs.db, val)
-      u.en(val).forEach(([k, v]) => va(v) && sr.n('#pg').i(k, v))
+      u.en(val).forEach(([k, v]) => u.va(v) && sr.n('#pg').i(k, v))
 
       if (u.en(val).length > 1) return
-      if (va(u.en(val)[0][1])) return
+      if (u.va(u.en(val)[0][1])) return
       list(rs)
     }
     u.rules.db.set(rs.db)
