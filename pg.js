@@ -13,26 +13,19 @@ u.rules = {
 const list = rs => {
   const sr = document.body
   u.en(rs.list).forEach(([k, v]) => {
-    const s = rs.db[k]
     const r = sr.n('#' + k)
     if (!r) return
+    const s = rs.db[k]
+
     const tpl = r.n('_c')[0].h('_o')
-
     const h = s.map((i, t) => tpl).join('')
-
-    // const p = sr.n('.' + pi)
-    const p = r
-    // sr.n('.' + k).forEach(i => i.remove())
-    // p.n(3, h)
-    p.h('_h', h)
-    // o(p, h)
+    r.h('_h', h)
     // sr.n('.' + k).forEach((i, t) => i.i('_i', t))
     // sr.q('.' + k).forEach((i, t) => i.i('a', ''))
 
-    const c = Array.from(sr.n('#' + k).n('_c'))
-    // o(k, v,  c)
-    if(v === 0) return c.forEach((i, t) => i.i('_t', s[t]))
-    c.forEach((i, t) => v.e(a => i.i(a, s[t][a])))
+    const c = r.n('_c')
+    if(v === 0) return c.e((i, t) => i.i('_t', s[t]))
+    c.e((i, t) => v.e(a => i.i(a, s[t][a])))
   })
 }
 
