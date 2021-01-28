@@ -10,6 +10,17 @@ u.rules = {
   }
 }
 
+const itm = rs => {
+  const sr = document.body
+  u.en(rs.list).forEach(([k, v]) => {
+    const r = sr.n('#' + k)
+    if (!r) return
+    const tpl = r.h('_h')
+    r.i('_li', tpl)
+    r.h('')
+  })
+}
+
 const list = rs => {
   const sr = document.body
   u.en(rs.list).forEach(([k, v]) => {
@@ -17,7 +28,7 @@ const list = rs => {
     if (!r) return
     const s = rs.db[k]
 
-    const tpl = r.n('_c')[0].h('_o')
+    const tpl = r.s('--_li').t().t(1, -1)
     const h = s.map((i, t) => tpl).join('')
     r.h('_h', h)
     // sr.n('.' + k).forEach((i, t) => i.i('_i', t))
@@ -119,6 +130,7 @@ async function pgdata(path) {
 
     const rs = u.rules
     const sr = document.body
+    itm(rs)
     u.rules.db.set = val => {
       u.set(rs.db, val)
       u.en(val).forEach(([k, v]) => va(v) && sr.n('#pg').i(k, v))

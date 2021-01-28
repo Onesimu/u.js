@@ -83,7 +83,7 @@ Element.prototype.s = function(k, v) {
     return this
   }
   const c = getComputedStyle(this)
-  return k ? c[k] : c
+  return k ? c.getPropertyValue(k) : c
 }
 
 Element.prototype.h = function(k, v) {
@@ -100,7 +100,7 @@ Element.prototype.h = function(k, v) {
     if (v) { this.innerHTML = v; return this }
     return this.innerHTML
   }
-  if (k) { this.innerHTML = k; return this }
+  if (k !== void 0) { this.innerHTML = k; return this }
   return this.innerHTML
 }
 
