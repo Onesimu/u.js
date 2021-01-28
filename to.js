@@ -56,6 +56,7 @@ const trans = json => {
   .e(/left:/g, 'l:').e(/top:/g, 't:').e(/right:/g, 'r:').e(/bottom:/g, 'b:')
   .e(/font-size:/g, 'f:').e(/font-weight:/g, 'fw:').e(/fw: bold;/g, 'fw: bd;')
   .e(/background-color:/g, 'bgc:').e(/background-image:/g, 'bgi:').e(/border-radius:/g, 'bo:')
+  .e(/border:/g, 'bd:').e(/box-shadow:/g, 'bsd:')
   .e(/color:/g, 'c:').e(/px;/g, ';').e(/linear-gradient/g, 'lg')
   .e(/\bl: .+?;/g, '').e(/\bt: .+?;/g, '').e(/\br: .+?;/g, '').e(/\bb: .+?;/g, '')
   .e(/\s{2,}/g, ' ').e(/}/g, '}\n')
