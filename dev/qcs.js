@@ -44,6 +44,7 @@ const dt = {
     ti: 'text-indent',
     ps: 'position',
     o: 'opacity',
+    ov: 'overflow',
     zm: 'zoom',
     z: 'z-index',
     h: 'height',
@@ -65,6 +66,8 @@ const dt = {
     con: 'content',
     pe: 'pointer-events',
     fl: 'float',
+    ai: 'align-items',
+    jc: 'justify-content',
   },
   v: {
     a: 'auto',
@@ -85,6 +88,7 @@ const dt = {
     re: 'relative',
     ib: 'inline-block',
     bl: 'block',
+    nw: 'nowrap'
   }
 };
 
@@ -168,7 +172,7 @@ const qcs = e => {
     return i
   })
   const c = lnc.t(i => i['_s'] + ' { ' + u.en(u.e(i, '_s')).t(i => i.t(': ')).t('; ') + '; }').t('\n')
-  return c
+  return c.replace(/lg\(/g, 'linear-gradient(')
 }
 
 export {qcs}

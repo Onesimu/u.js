@@ -1,74 +1,26 @@
 import './u.js'
-import './ut.js'
+// import './ut.js'
 import './web.js'
+import './ui.js'
 // import './vue.js'
 import './net.js'
 
-u.csx = {}
-u.rules = {
-  config: {},
-  funs: {},
-  db: {
-    set(val) {
-      Object.assign(u.rules.db, val)
-      u.csx.dom(u.rules.dom)
-    }
-  }
-}
+import { vm } from './vm.js'
 
-const itm = rs => {
-  const sr = document.body
-  u.en(rs.list).forEach(([k, v]) => {
-    const r = sr.n('#' + k)
-    if (!r) return
-    const tpl = r.h('_h')
-    r.i('_li', tpl)
-    r.h('')
-  })
-}
-
-const list = rs => {
-  const sr = document.body
-  u.en(rs.list).forEach(([k, v]) => {
-    const r = sr.n('#' + k)
-    if (!r) return
-    const s = rs.db[k]
-
-    const tpl = r.s('--_li').t().t(1, -1)
-    const h = s.map((i, t) => tpl).join('')
-    r.h('_h', h)
-    // sr.n('.' + k).forEach((i, t) => i.i('_i', t))
-    // sr.q('.' + k).forEach((i, t) => i.i('a', ''))
-
-    const c = r.n('_c')
-    if(v === 0) return c.e((i, t) => i.i('_t', s[t]))
-    c.e((i, t) => v.e(a => i.i(a, s[t][a])))
-  })
-}
-
-async function initCSX() {
-  const path = u.path.hash.t('?')[0].t(1) || u.sq(u.path.search.t(1)).hash || u.disk.hash || 'index'
+async function init() {
+  const path = u.path.hash.t('?')[0].t(2) || u.sq(u.path.search.t(1)).hash || u.disk.hash || 'index'
   if (!path) {return}
-  u.path.hash = path
+  u.path.hash = '/' + path
+  u.disk.hash = u.path.hash.replace('#', '')
 
   if (u.id('pg')) {
-    u.csx.remove()
+    u.id('pg').h('')
   } else {
     const html = `<div id="pg" class="pg"></div>`
     document.body.insertAdjacentHTML(`beforeend`, html);
   }
 
-  if (u.tag('base')[0]) {
-    u.tag('base')[0].setAttribute('href', './')
-  } else {
-    document.head.insertAdjacentHTML(`beforeend`, `<base href="./" />`)
-  }
-
-  try {
-    pgdata(path)
-  } catch (e) {
-    log(e)
-  }
+  try {pgdata(path)} catch (e) {log(e)}
 }
 
 import { qht } from './dev/qht.js'
@@ -77,118 +29,53 @@ import { qcs } from './dev/qcs.js'
 u.qcs = qcs
 
 async function pgdata(path) {
-  u.tag('base')[0].setAttribute('href', `./${path}/`)
-
-  u.rules = {cfg: {}, db: {}, fn: {}}
-
-  // const code = await u.net.get('rule.js', null, {text: true})
-  // if(code){
-  //   u.rules = eval(code.replace(/export(\s+){([\s\S]*?)rs([\s\S]*?)}/, 'rs'))
-  // }
-
-  document.title = u.rules.cfg?.title || '首页'
+  var rs = {cfg: {}, db: {}, fn: {}}
 
   const j = u.path.search.endsWith('j')
   const c = u.path.search.endsWith('c')
-  if (j) {
-    const data = await u.net.get('data.json')
-    const { trans } = await import('./to.js')
-    data.config = u.rules.config
+  if(j || c) {
+    if (j) {
+      const data = await u.net.get('data.json')
+      const { trans } = await import('./to.js')
+    }
+    if (c) {
+      const dt = await u.net.get('data.css', 0, {text: 1})
+      const { trans, jn } = await import('./figma.js')
+      const data = jn(dt)
+    }
+    data.rules = rs
+    data.config = rs.config
     data.name = path.slice(path.lastIndexOf('/') + 1)
     const html = trans(data)
-    u.rules.html = html.replace(/rpx/g, 'px')
-  } else if (c) {
-    const data = await u.net.get('data.css', 0, {text: 1})
-    const { trans, jn } = await import('./figma.js')
-    const json = jn(data)
-    json.rules = u.rules
-    json.config = u.rules.config
-    json.name = path.slice(path.lastIndexOf('/') + 1)
-
-    const html = trans(json)
-    u.rules.html = html.replace(/rpx/g, 'px')
-  } else {
-    const tpl = await u.net.get('in.html', null, {text: true})
-    const ht = tpl.match(/\<template\>([\s\S]+?)\<\/template\>/)[1]
-    const css = tpl.match(/\<style.*?\>([\s\S]+?)\<\/style\>/)[1]
-    const html = ['<tpl>', qht(ht.t()).e(/>\s+</g, '><'), '</tpl>', '<style scoped>', qcs(css).replace(/rpx/g, 'px'), '</style>'].join('\n')
-    const code = tpl.match(/\<script.*?\>([\s\S]+?)\<\/script\>/)
-    if(code?.[1]){
-      // const ce = code[1].replace(/export(\s+){([\s\S]*?)rs([\s\S]*?)}/, 'rs')
-      const ce = code[1].replace(/export(\s+)([\s\S]*?)rs([\s\S]*?)\)/, 'rs')
-      u.rules = eval(ce)
-    }
-    u.rules.html = html
+    const htm = html.replace(/rpx/g, 'px')
+    u.id('pg').insertAdjacentHTML(`beforeend`, htm);
+    return
   }
 
-  u.csx.render(path)
-
-  // u.paths && await ximport(u.paths)
+  const tpl = await u.net.get('./pg/' + path + '.vue', null, {text: true})
+  const ht = tpl.match(/\<template\>([\s\S]+?)\<\/template\>/)[1]
+  const css = tpl.match(/\<style.*?\>([\s\S]+?)\<\/style\>/)[1]
+  const html = ['<tpl>', qht(ht.t()).e(/>\s+</g, '><'), '</tpl>', '<style scoped>', qcs(css).replace(/rpx/g, 'px'), '</style>'].join('\n')
+  const code = tpl.match(/\<script.*?\>([\s\S]+?)\<\/script\>/)
+  if(code?.[1]){
+    const ce = code[1].replace(/export[\s\S]*/, 'rs')
+    rs = eval(ce)
+  }
+  u.id('pg').insertAdjacentHTML(`beforeend`, html);
 
   const hashsearch = u.path.hash.split('?')[1]
   const props = hashsearch ? sq(hashsearch) : {}
   const search = u.sq(u.path.search.slice(1))
-  if (u.rules.db) {
-    // Object.assign(u.rules.db, u.db)
-    Object.assign(u.rules.db, props)
-    Object.assign(u.rules.db, search)
 
-    const rs = u.rules
-    const sr = document.body
-    itm(rs)
-    u.rules.db.set = val => {
-      u.set(rs.db, val)
-      u.en(val).forEach(([k, v]) => u.va(v) && sr.n('#pg').i(k, v))
+     // Object.assign(rs.db, u.db)
+      // Object.assign(rs.db, props)
+      // Object.assign(rs.db, search)
 
-      if (u.en(val).length > 1) return
-      if (u.va(u.en(val)[0][1])) return
-      list(rs)
-    }
-    u.rules.db.set(rs.db)
-  }
+  vm(rs).bind(rs)()
 
-  u.rules.fn.init && await u.rules.fn.init(path)
-
-  u.csx.bind()
-  // u.csx.redraw(path)
+  u.id('pg').addEventListener('click', u.click.bind(rs))
 }
 
-// initCSX()
-window.addEventListener("load", initCSX)
+window.addEventListener("load", init)
 
-window.addEventListener('hashchange', function(e) {
-  // log(e.oldURL, e.newURL)
-  localStorage.hash = u.path.hash.replace('#', '')
-  u.csx.remove()
-
-  // u.tag('base')[0].setAttribute('href', './')
-  // initCSX();
-  // u.path.reload()
-
-  const path = u.path.hash.split('?')[0].replace('#', '') || u.sq(u.path.search.slice(1)).hash ||
-    localStorage.hash || 'index'
-  if (!path) {return}
-
-  const html = `<div id="pg" class="p"></div>`
-  document.body.insertAdjacentHTML(`beforeend`, html);
-  pgdata(path)
-}, false);
-
-u.csx.bind = function() {
-  u.id('pg').addEventListener('click', u.click.bind(u.rules))
-}
-
-u.csx.render = function render(path) {
-  const html = u.rules.html
-  u.id('pg').insertAdjacentHTML(`beforeend`, html);
-}
-
-u.csx.remove = function() {
-  document.querySelector('#pg').remove();
-}
-
-u.csx.redraw = function(path) {
-  u.csx.remove()
-  u.csx.render(path)
-  u.csx.bind()
-}
+window.addEventListener('hashchange', init)

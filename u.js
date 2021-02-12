@@ -16,6 +16,8 @@ g.u = function(i, t, e) {
 u.i = Object.getPrototypeOf
 // u.t = JSON.stringify
 u.t = function (i, t, e) {
+  if(i === void 0) return ''
+  if(i === null) return ''
   if(['function', 'regexp'].includes(u(i))) return i.toString()
   if('string' === u(i)) return JSON.parse(i, t, e)
   // date
@@ -64,13 +66,15 @@ String.prototype.i = function(i, t, e) {
 }
 String.prototype.e = function(i, t, e) {
   if (i === void 0) return this.toLowerCase()
+  if (typeof i == 'number') return this.split('').e(i, t, e).join('')
   if (u(i) == 'object') {
     const en = u.en(i)
     var tmp = this
     for (var [k, v] of en) tmp = tmp.replace(new RegExp(k, 'g'), v)
     return tmp
   }
-  return this.replace(i, t)
+  // if (t === 1) return this.replace(i, t)
+  return this.replaceAll(i, t)
 }
 String.prototype.t = function(i, t, e) {
   if (i === void 0) return this.trim()
@@ -100,35 +104,30 @@ Array.prototype.t = function(i, t, e) {
 Array.prototype.n = function(i, t, e) {
   // if (i === void 0) return this.entries()
   // if (typeof i == 'number') return this.fill(i, t, e)
-  if (t === 1) return this.find(i, t, e)
+  if (t === 1) return this.findIndex(i, t, e)
   if (typeof i == "function") return this.filter(i, t, e)
   return this.indexOf(i)
 }
 Array.prototype.e = function(i, t, e) {
-  if (i === void 0) return this.pop()
-  if (typeof i == 'number') return this.splice(i, t, e)
+  if (i === void 0) return this.pop(), this
+  if (typeof i == 'number') return this.splice(i, t, e), this
   // if (t === !0) return this.sort(i)
   // if (t === !1) return this.reverse()
   // if (t === 0) return this.unshift(i)
   // if (t === 1) return this.shift()
-  if (typeof i == "function") return this.forEach(i, t, e)
-  return this.push(i)
+  if (typeof i == "function") return this.forEach(i, t, e), this
+  return this.push(i), this
 }
 Array.prototype.i = function(i, t, e) {
   // if(!this.length) return this
   if (i === void 0) return this.length
   if (typeof i == 'number') return i < 0 ? this[this.length + i] : this[i]
-
+  if (typeof i == "function") return this.reduce(i, t, e)
   return this.includes(i)
 }
 
-u.eq = function(i, t, e) {
-  return i == t
-}
-
-u.ee = function(i, t, e) {
-  return i === t
-}
+// u.eq = function(i, t, e) {return i == t}
+// u.ee = function(i, t, e) {return i === t}  Object.is
 
 u.log = o
 u.jn = JSON.parse
@@ -137,3 +136,40 @@ u.nj = JSON.stringify
 u.set = Object.assign
 u.en = Object.entries
 u.ne = Object.fromEntries
+
+// function sleep(time) {
+//   return new Promise((resolve) => setTimeout(resolve, time * 1000))
+// }
+
+function tm(t = Date.now()) {
+  const f = new Date(t).getTimezoneOffset() * 60000
+  return new Date(t - f).toJSON().replace('T', ' ').replace(/\..*/, '')
+}
+
+// u.ut = { sleep,  time }
+
+u.tm = tm
+u.set(u.tm, {
+  ms: 1,
+  s: 1000, // second
+  m: 1000 * 60, // minute
+  h: 1000 * 60 * 60, // hour
+  d: 1000 * 60 * 60 * 24 // day
+})
+
+u.mt = function(i, t, e){
+  if (i === void 0) return Math.random()
+  return Math.floor(i)
+}
+
+u.set(u.mt, {
+  a: (a, b) => a + b, // add
+  s: (a, b) => a - b, // substract
+  m: (a, b) => a * b, // multiply
+  d: (a, b) => a / b, // divide
+  e: (a, b) => a % b, // rem mod
+})
+
+// u.tm = e => {
+//   setTimeout(e, 1000)
+// }

@@ -1,32 +1,76 @@
-// function sleep(time) {
-//   return new Promise((resolve) => setTimeout(resolve, time * 1000))
-// }
-
-function tm(t = Date.now()) {
-  const f = new Date(t).getTimezoneOffset() * 60000
-  return new Date(t - f).toJSON().replace('T', ' ').replace(/\..*/, '')
+const numc = (num) => {
+  const changeNum = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
+  const unit = ['', '十', '百', '千', '万']
+  num = parseInt(num)
+  const getWan = (temp) => {
+    const strArr = temp
+      .toString()
+      .split('')
+      .reverse()
+    var newNum = ''
+    for (var i = 0; i < strArr.length; i++) {
+      newNum =
+        (i === 0 && strArr[i] === 0
+          ? ''
+          : i > 0 && strArr[i] === 0 && strArr[i - 1] === 0
+            ? ''
+            : changeNum[strArr[i]] + (strArr[i] === 0 ? unit[0] : unit[i])) + newNum
+    }
+    return newNum.replace('一十', '十')
+  }
+  const overWan = Math.floor(num / 10000)
+  var noWan = num % 10000
+  if (noWan.toString().length < 4) {
+    noWan = '0' + noWan
+  }
+  return overWan ? getWan(overWan) + '万' + getWan(noWan) : getWan(num)
 }
 
-// u.ut = { sleep,  time }
-
-u.tm = tm
-u.set(u.tm, {
-  ms: 1,
-  s: 1000, // second
-  m: 1000 * 60, // minute
-  h: 1000 * 60 * 60, // hour
-  d: 1000 * 60 * 60 * 24 // day
-})
-
-u.mt = {
-  a: (a, b) => a + b, // add
-  s: (a, b) => a - b, // substract
-  m: (a, b) => a * b, // multiply
-  d: (a, b) => a / b, // divide
-  e: (a, b) => a % b, // rem mod
-  r: Math.random
+function cnum(chnStr) {
+  var chnNumChar = {零: 0,一: 1,二: 2,三: 3,四: 4,五: 5,六: 6,七: 7,八: 8,九: 9}
+  var chnNameValue = {十: {value: 10,secUnit: false},百: {value: 100,secUnit: false},千: {value: 1000,secUnit: false},万: {value: 10000,secUnit: true},亿: {value: 100000000,secUnit: true}}
+  var expNumChar = {十: 10,十一: 11,十二: 12,十三: 13,十四: 14,十五: 15,十六: 16,十七: 17,十八: 18,十九: 19}
+  if (expNumChar[chnStr]) {
+    return expNumChar[chnStr]
+  }
+  var rtn = 0
+  var section = 0
+  var number = 0
+  var secUnit = false
+  var str = chnStr.split('')
+  for (var i = 0; i < str.length; i++) {
+    var num = chnNumChar[str[i]]
+    if (typeof num !== 'undefined') {
+      number = num
+      if (i === str.length - 1) {
+        section += number
+      }
+    } else {
+      var cunit = chnNameValue[str[i]]
+      if (typeof cunit === 'undefined') {
+        return false
+      }
+      var unit = chnNameValue[str[i]].value
+      secUnit = chnNameValue[str[i]].secUnit
+      if (secUnit) {
+        section = (section + number) * unit
+        rtn += section
+        section = 0
+      } else {
+        section += number * unit
+      }
+      number = 0
+    }
+  }
+  return rtn + section
 }
 
-// u.tm = e => {
-//   setTimeout(e, 1000)
-// }
+u.ut = function(i, t, e){
+  return i + ''
+}
+
+u.ut.numc = i => {
+  if (typeof i == 'number') return numc(i)
+  if (typeof i == 'string' && isFinite(i)) return numc(i)
+  if (typeof i == 'string') return cnum(i)
+}

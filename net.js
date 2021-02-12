@@ -14,7 +14,7 @@ function _fet(url, body, config) {
   config && config.form && Object.assign(init, {
     headers: {'Content-Type': ContentType.form},
   });
-  config && config.form && body && Object.assign(init, {body: qs(body)})
+  config && config.form && body && Object.assign(init, {body: u.qs(body)})
 
   if (u.wx && wx.showLoading) {
     config && config.loading && wx.showLoading({
@@ -47,7 +47,7 @@ function _fet(url, body, config) {
 function _get(url, body, config) {
   var l = url
   if (!url.includes('?') && body) {
-    l += '?' + (body ? qs(body) : '')
+    l += '?' + (body ? u.qs(body) : '')
   }
   if (u.wx && wx.showLoading) {
     config && config.loading && wx.showLoading({

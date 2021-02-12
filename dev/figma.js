@@ -40,13 +40,12 @@ const trans = json => {
   css = cs.join('\n')
 
   css = css.e(/\b(\d+(\.\d+)?)px\b/ig, (m, x) => x == 0 ? 0 : Math.round(x) + 'px')
-  css = css.e(/\brgba\((.+?)\)/ig, (m, x) => 'rgba(' +  x.split(',').map(it => Math.round(it)).join(', ') + ')')
+  // css = css.e(/\brgba\((.+?)\)/ig, (m, x) => 'rgba(' +  x.split(',').map(it => Math.round(it)).join(', ') + ')')
 
     // const toFixed = (n, fixed) => ~~(Math.pow(10, fixed) * n) / Math.pow(10, fixed);
   // if(info[0].width == 375){
   //   css = css.e(/\b(\d+(\.\d+)?)px\b/ig, (m, x) => x * 2 + 'px')
   // css.e(/\b(\d+(\.\d+)?)px\b/ig, (m, x) => x / 100 + 'rem')
-  // css.e(/\b(\d+(\.\d+)?)px\b/ig, (m, x) => x / (750 / 100) + 'vw')
   // css.e(/\b(\d+(\.\d+)?)px\b/ig, (m, x) => x > 5 ? x / (750 / 100) + 'vw' : x + 'px')
   // css.e(/\b(\d+(\.\d+)?)px\b/ig, (m, x) => x > 5 ? Number(x / (750 / 100)).toFixed(2) + 'vw' : x + 'px')
   // }
