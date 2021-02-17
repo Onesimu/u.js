@@ -1,4 +1,5 @@
 import { qcs } from './dev/qcs.js'
+import { vm } from './vm.js'
 
 // 插入shadowDom实现弹窗
 const po = (html, css, opt) => {
@@ -17,17 +18,12 @@ const po = (html, css, opt) => {
   root.appendChild(node)
 
   const rs = opt.rs
-  sr.qi('#po').on('click', u.click.bind(rs))
   rs.r = root
+  
+  sr.qi('#po').on('click', u.click.bind(rs))
 
-  rs.db.set = val => {
-    u.set(rs.db, val)
-    u.en(val).forEach(([k, v]) => u.va(v) && sr.qi('#po').i(k, v))
-    u.en(rs.dom).forEach(([k, v]) => sr.qi(k).i('_t', rs.db[v]))
-  }
-  rs.db.set(rs.db)
+  vm(rs).bind(rs)()
 
-  rs?.fn?.init?.()
   return sr
 }
 
