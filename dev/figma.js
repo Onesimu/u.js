@@ -9,7 +9,8 @@ const jn = data => {
   .e(/box-sizing: .+;/g, '')
   .e(/background: url/g, 'background-image: url').e(/background: #/g, 'background-color: #')
   .e(/background: rgb/g, 'background-color: rgb').e(/background: linear-gradient/g, 'background-image: linear-gradient')
-  .e(/line-height: .+;/g, '').e(/height/g, 'line-height')
+  .e(/line-height: .+;/g, '').e(/left: .+;/g, '').e(/top: .+;/g, '')
+  // .e(/height/g, 'line-height')
 
   // .e(/\b(\d+(\.\d+)?)%/ig, (m, x) => (375 * x / 100) + 'px')
   const parts = ncss.split(/^\s*\/\*([\s\S]+?)\*\/$/gm)
@@ -32,8 +33,8 @@ const trans = json => {
   const info = json
   // .reverse()
 
-  const htm = info.map((it, i) => `<div id="i${i}" class="i t i${i}">${it[0]}</div>`)
-  const cs = info.map((it, i) => `.i${i} ${it[1]}`)
+  const htm = info.map((it, i) => `<div id="f${i}" class="f f${i}">${it[0]}</div>`)
+  const cs = info.map((it, i) => `.f${i} ${it[1]}`)
 
 	var css = ''
 

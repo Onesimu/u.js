@@ -75,7 +75,8 @@ Element.prototype.i = function(k, v) {
   // Array.from(this.attributes).forEach(attr => this.removeAttribute(attr.name))
   if (k) return this.getAttribute(k)
   // return Array.from(this.attributes).map(i => [i.name, i.value]).filter(i => !(['id', 'class', 'style'].includes(i[0]) && i[0].startsWith('data')))
-  return Array.from(this.attributes).map(i => [i.name, i.value]).filter(i => !(['id', 'class', 'style'].includes(i[0]))).filter(i => !(i[0].startsWith('data'))) |> Object.fromEntries
+  const im = Array.from(this.attributes).map(i => [i.name, i.value]).filter(i => !(['id', 'class', 'style'].includes(i[0]))).filter(i => !(i[0].startsWith('data')))
+  return Object.fromEntries(im)
 }
 
 Element.prototype.e = function(v) {

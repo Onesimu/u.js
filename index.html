@@ -4,6 +4,8 @@
 <meta name=renderer content=webkit>
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 
+<meta name="referrer" content="never">
+
 <meta http-equiv=Cache-Control content="no-cache, no-store, must-revalidate">
 <meta http-equiv=Pragma content=no-cache>
 <meta http-equiv=Expires content=0>
@@ -16,6 +18,23 @@
     document.head.appendChild(script)
     script.onload = function () {eruda.init()}
   }
+</script>
+
+<script>
+  var s = 1;
+  var metaEl = document.querySelector('meta[name="viewport"]');
+  function update(ctx, evt, wth) {
+    var width = wth || 750
+    var curWidth = window.screen.width
+    var ts = curWidth / width
+
+    if (s !== ts) {
+      s = ts
+      metaEl.setAttribute('content', 'width=device-width,initial-scale=' + ts + ',maximum-scale='+ ts +',minimum-scale='+ ts +',user-scalable=no');
+    }
+  }
+  window.addEventListener('resize', update);
+  update()
 </script>
 
 <script src="https://res2.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
@@ -71,6 +90,7 @@ div, ::before, ::after {
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: auto;
 }
 
 .g {

@@ -34,15 +34,16 @@ async function pgdata(path) {
   const j = u.path.search.endsWith('j')
   const c = u.path.search.endsWith('c')
   if(j || c) {
-    if (j) {
-      const data = await u.net.get('data.json')
-      const { trans } = await import('./to.js')
-    }
-    if (c) {
-      const dt = await u.net.get('data.css', 0, {text: 1})
-      const { trans, jn } = await import('./figma.js')
-      const data = jn(dt)
-    }
+    var data = {}
+    // if (j) {
+    //   data = await u.net.get('data.json')
+    //   const { trans } = await import('./to.js')
+    // }
+    // if (c) {
+      const dt = await u.net.get('pg/' + 'data.css', 0, {text: 1})
+      const { trans, jn } = await import('./dev/figma.js')
+      data = jn(dt)
+    // }
     data.rules = rs
     data.config = rs.config
     data.name = path.slice(path.lastIndexOf('/') + 1)
