@@ -148,7 +148,7 @@ const qcs = e => {
     if (k == '_s') return [k, v]
     if (k == '_c') return [k, v]
 
-    if (v.n('lg(', 0)) return [dt.k[k] || k, v.e('lg(', 'linear-gradient(')]
+    // if (v.n('lg(', 0)) return [dt.k[k] || k, v.e('lg(', 'linear-gradient(')]
     if (v.i('(')) return [dt.k[k] || k, v]
     if (!dt.k[k]) return [k, v]
     else {

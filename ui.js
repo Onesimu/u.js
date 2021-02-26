@@ -19,11 +19,11 @@ const po = (html, css, opt) => {
 
   const rs = opt.rs
   rs.r = root
-  
+
   sr.qi('#po').on('click', u.click.bind(rs))
 
   vm(rs).bind(rs)()
-
+  
   return sr
 }
 
@@ -37,7 +37,7 @@ const pop2 = (html, css, opt) => {
     }
     ul, li {display: block;margin: auto;padding: 0;}div, ::before, ::after {background-repeat: no-repeat;background-size: 100%;background-position: center;}.i {display: inline-block;}.p {position: relative;}.a {position: absolute;}.d {display: block;}.f {display: flex;}.g {display: grid;}.t {text-align: center;}
       `
-  const c = qcs(css)
+  const c = qcs(css).e(/\b(\d+(\.\d+)?)px\b/ig, (m, x) => x > 5 ? Number(x / (375 / 100)).toFixed(2) + 'vw' : x + 'px')
 
   const h = `<div class="mask"><style>${style}</style><style>${c}</style>${html}</div>`
 

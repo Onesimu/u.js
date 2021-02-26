@@ -8,7 +8,8 @@ function gen(rs) {
   opt.methods = u.set(rs.fn, { click: u.click })
   opt.mounted = vm(rs)
 
-  opt.beforeDestroy = rs.fn.last?.bind(this)
+  opt.beforeDestroy = e => { rs.fn.last?.bind(this)(); u.qi('.screen') && u.qi('.screen').remove() }
+  // opt.destoryed = e => u.qi('.screen') && u.qi('.screen').remove()
 
   return opt
 }

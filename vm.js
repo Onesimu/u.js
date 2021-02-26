@@ -40,6 +40,7 @@ function vm(rs) {
     this && (this != rs) && (this.rs = rs)
     const sr = this.$el || document.body.n('#pg')
     rs.sr = sr
+    // u.en(sr.i()).e(([i, t]) => sr.i(i, !1))
 
     if (rs.db) {
       u.set(rs.db, query)
@@ -50,7 +51,7 @@ function vm(rs) {
         // this.$data && u.set(this.$data, val)
 
         u.en(val).forEach(([k, v]) => u.va(v) && sr.i(k, v))
-        
+
         if (!rs.list) return
         if (u.en(val).length > 1) return
         if (u.va(u.en(val)[0][1])) return

@@ -9,9 +9,9 @@ const jn = data => {
   .e(/box-sizing: .+;/g, '')
   .e(/background: url/g, 'background-image: url').e(/background: #/g, 'background-color: #')
   .e(/background: rgb/g, 'background-color: rgb').e(/background: linear-gradient/g, 'background-image: linear-gradient')
-  .e(/\b(\d+(\.\d+)?)%/ig, (m, x) => (375 * x / 100) + 'px')
   .e(/line-height: .+;/g, '').e(/height/g, 'line-height')
 
+  // .e(/\b(\d+(\.\d+)?)%/ig, (m, x) => (375 * x / 100) + 'px')
   const parts = ncss.split(/^\s*\/\*([\s\S]+?)\*\/$/gm)
   // log(parts.join('\n'))
 

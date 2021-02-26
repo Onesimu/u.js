@@ -17,16 +17,16 @@ function ck(qs) {
 
 const db = {}
 
-const cdb = u.disk.db ? JSON.parse(u.disk.db) : {}
-Object.assign(db, cdb)
+// const cdb = u.disk.db ? JSON.parse(u.disk.db) : {}
+// Object.assign(db, cdb)
 
-db.set = function(val) {
-  Object.assign(db, val)
-  u.disk.db = JSON.stringify(db)
-}
+// db.set = function(val) {
+//   Object.assign(db, val)
+//   u.disk.db = JSON.stringify(db)
+// }
 
-const cookie = document.cookie && ck(document.cookie)
-Object.assign(db, cookie)
+// const cookie = document.cookie && ck(document.cookie)
+// Object.assign(db, cookie)
 
 u.db = db
 
@@ -72,7 +72,10 @@ Element.prototype.i = function(k, v) {
     // if (typeof v === 'string') this.setAttribute(k, v), this.style.setProperty('--' + k, '"' + v + '"')
     // return this
   }
-  return this.getAttribute(k)
+  // Array.from(this.attributes).forEach(attr => this.removeAttribute(attr.name))
+  if (k) return this.getAttribute(k)
+  // return Array.from(this.attributes).map(i => [i.name, i.value]).filter(i => !(['id', 'class', 'style'].includes(i[0]) && i[0].startsWith('data')))
+  return Array.from(this.attributes).map(i => [i.name, i.value]).filter(i => !(['id', 'class', 'style'].includes(i[0]))).filter(i => !(i[0].startsWith('data'))) |> Object.fromEntries
 }
 
 Element.prototype.e = function(v) {
@@ -147,22 +150,16 @@ env.rt = isWeixin ? 'wx' : 'web'
 env.os = agt ? 'i' : 'a'
 u.env = env
 
-const go = (href, body, config) => {
+const go = (href, body, cfg) => {
   if(!href) return u.path.hash = '/index'
   if(href == 0) {return history.reload()}
   if(href == -1) {return history.go(-1)}
   const search = body ? '?' + u.qs(body) : ''
   const url = href + search
-  if (href.startsWith('http') || href.startsWith('/')) {
-    return u.path.assign(url)
-  }
-   // if(cfg && cfg.r){
-   //    vapp.$router.replace({
-   //      path: url,
-   //      query: search
-   //    })
-   //  }
-  u.path.hash = '/' + url
+
+  const jp = ((cfg && cfg.r) ? u.path.replace : u.path.assign).bind(u.path)
+  if (href.startsWith('http') || href.startsWith('/')) return jp(url)
+  return jp('#/' + url)
 }
 u.go = go
 

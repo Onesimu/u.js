@@ -57,6 +57,18 @@ Function.prototype.n = function(...i){ return new this(...i) }
 
 u.va = v => ['string', 'boolean', 'number'].includes(typeof v)
 
+const replaceAll = function(str, newStr){
+
+  // If a regex pattern
+  if (Object.prototype.toString.call(str).toLowerCase() === '[object regexp]') {
+    return this.replace(str, newStr);
+  }
+
+  // If a string
+  return this.replace(new RegExp(str, 'g'), newStr);
+
+}
+
 String.prototype.i = function(i, t, e) {
   if (i === void 0) return this.length
   if (typeof i == 'number') return i < 0 ? this[this.length + i] : this[i]
@@ -74,7 +86,8 @@ String.prototype.e = function(i, t, e) {
     return tmp
   }
   // if (t === 1) return this.replace(i, t)
-  return this.replaceAll(i, t)
+  // return this.replace(i, t)
+  return replaceAll.bind(this)(i, t)
 }
 String.prototype.t = function(i, t, e) {
   if (i === void 0) return this.trim()
