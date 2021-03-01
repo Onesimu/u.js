@@ -68,6 +68,8 @@ const dt = {
     fl: 'float',
     ai: 'align-items',
     jc: 'justify-content',
+    fd: 'flex-direction',
+    fr: 'flex-wrap'
   },
   v: {
     a: 'auto',
@@ -88,7 +90,11 @@ const dt = {
     re: 'relative',
     ib: 'inline-block',
     bl: 'block',
-    nw: 'nowrap'
+    nw: 'nowrap',
+    st: 'flex-start',
+    ed: 'flex-end',
+    col: 'column',
+    wr: 'wrap'
   }
 };
 

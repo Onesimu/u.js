@@ -64,14 +64,6 @@ async function pgdata(path) {
   }
   u.id('pg').insertAdjacentHTML(`beforeend`, html);
 
-  const hashsearch = u.path.hash.split('?')[1]
-  const props = hashsearch ? sq(hashsearch) : {}
-  const search = u.sq(u.path.search.slice(1))
-
-     // Object.assign(rs.db, u.db)
-      // Object.assign(rs.db, props)
-      // Object.assign(rs.db, search)
-
   vm(rs).bind(rs)()
 
   u.id('pg').addEventListener('click', u.click.bind(rs))

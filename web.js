@@ -66,7 +66,8 @@ Element.prototype.i = function(k, v) {
 
     if (!v && v !== 0) return
     // if (!v) return
-    return this.setAttribute(k, v), this.style.setProperty('--' + k, '"' + v + '"'), this
+    return this.setAttribute(k, v), this
+    // return this.setAttribute(k, v), this.style.setProperty('--' + k, '"' + v + '"'), this
     // if (typeof v === 'number') return this.setAttribute(k, v), this
     // // typeof v === 'string' && isFinite(v) && this.setAttribute(k, v)
     // if (typeof v === 'string') this.setAttribute(k, v), this.style.setProperty('--' + k, '"' + v + '"')

@@ -6,7 +6,7 @@ const jn = data => {
   .e(/font-style: normal;/g, '').e(/font-weight: normal;/g, '')
   .e(/font-feature-settings: .+;/g, '').e(/font-weight: 500;/g, 'font-weight: bold;')
   .e(/display: flex;/g, '').e(/align-items: center;/g, '').e(/text-transform: .+;/g, '')
-  .e(/box-sizing: .+;/g, '')
+  .e(/box-sizing: .+;/g, '').e(/visibility: hidden;/g, '').e(/#(\d)+;/g, '#$1$1$1;').e(/#([a-z])+;/gi, '#$1$1$1;')
   .e(/background: url/g, 'background-image: url').e(/background: #/g, 'background-color: #')
   .e(/background: rgb/g, 'background-color: rgb').e(/background: linear-gradient/g, 'background-image: linear-gradient')
   .e(/line-height: .+;/g, '').e(/left: .+;/g, '').e(/top: .+;/g, '')
@@ -22,7 +22,9 @@ const jn = data => {
       const content = parts[index + 1]
       const box = parts[index - 1]
       if(content.includes('font')){
-       list.push([name, `{${content}\n${box}}`])
+        list.push([name, `{${content} \n ${box}}`])
+       // list.push([name, `{${content}}`])
+       // list.push([name, `{${box}}`])
       }
     }
   })
@@ -52,7 +54,7 @@ const trans = json => {
   // }
   css = css.e(/{/g, " { ").e(/\;/g, "; ").e(/\s+/g," ").e(/\n/g,"").e(/}/g,"}\n").e(/\*\//g,"*/\n")
 
-  css = css.e(/line-height:/g, 'lh:').e(/height:/g, 'h:').e(/width:/g, 'w:')
+  const c = css.e(/line-height:/g, 'lh:').e(/height:/g, 'h:').e(/width:/g, 'w:')
   .e(/left:/g, 'l:').e(/top:/g, 't:').e(/right:/g, 'r:').e(/bottom:/g, 'b:')
   .e(/font-size:/g, 'f:').e(/font-weight:/g, 'fw:').e(/fw: bold;/g, 'fw: bd;')
   .e(/background-color:/g, 'bgc:').e(/background-image:/g, 'bgi:').e(/border-radius:/g, 'bo:')
@@ -60,6 +62,8 @@ const trans = json => {
   .e(/color:/g, 'c:').e(/px;/g, ';').e(/linear-gradient/g, 'lg')
   .e(/\bl: .+?;/g, '').e(/\bt: .+?;/g, '').e(/\br: .+?;/g, '').e(/\bb: .+?;/g, '')
   .e(/\s{2,}/g, ' ').e(/}/g, '}\n')
+  const tpl = ['<template><div id="pg" class="pg">', htm.join('\n'), '</div></template>', '<style scoped>', c, '</style>'].join('\n')
+  o(tpl)
 
   return ['<tpl>', htm.join('\n'), '</tpl>', '<style scoped>', css, '</style>'].join('\n')
 }
