@@ -8,10 +8,10 @@ import './net.js'
 import { vm } from './vm.js'
 
 async function init() {
-  const path = u.path.hash.t('?')[0].t(2) || u.sq(u.path.search.t(1)).hash || u.disk.hash || 'index'
+  const path = u.path.hash.t('?')[0].t(2) || u.qs(u.path.search.t(1)).hash || u.fs.hash || 'index'
   if (!path) {return}
   u.path.hash = '/' + path
-  u.disk.hash = u.path.hash.replace('#', '')
+  u.fs.hash = u.path.hash.replace('#', '')
 
   if (u.id('pg')) {
     u.id('pg').h('')

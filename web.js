@@ -1,61 +1,46 @@
 u.id = document.getElementById.bind(document)
-u.tag = document.getElementsByTagName.bind(document)
+// u.tag = document.getElementsByTagName.bind(document)
 // u.q = document.querySelectorAll.bind(document)
 u.qi = document.querySelector.bind(document)
 
 u.path = location
-u.disk = localStorage
+u.fs = localStorage
 
-function bind(fn, args) {
-  return function(it) {
-    return fn.bind(it)(args)
-  }
-}
-function ck(qs) {
-  return Object.fromEntries(qs.split('; ').map(bind(''.split, '=')))
-}
+// function bind(fn, args) {
+//   return function(it) {
+//     return fn.bind(it)(args)
+//   }
+// }
+// function ck(qs) {
+//   return Object.fromEntries(qs.split('; ').map(bind(''.split, '=')))
+// }
 
 const db = {}
 
-// const cdb = u.disk.db ? JSON.parse(u.disk.db) : {}
+// const cdb = u.fs.db ? JSON.parse(u.fs.db) : {}
 // Object.assign(db, cdb)
 
-// db.set = function(val) {
-//   Object.assign(db, val)
-//   u.disk.db = JSON.stringify(db)
-// }
+db.set = function(val) {
+  Object.assign(db, val)
+  u.fs.db = JSON.stringify(db)
+}
 
 // const cookie = document.cookie && ck(document.cookie)
 // Object.assign(db, cookie)
 
 u.db = db
 
-function qs(obj) {
-  if (!obj) {return ''}
-  return Object.entries(obj).map(bind([].join, '=')).join('&')
+Event.prototype.i = function(){ return this.target }
+
+Element.prototype.on = function(i, t) {
+  if (u(i) == 'function') return this.addEventListener('click', i)
+  this.addEventListener(i, t)
 }
-
-function sq(qs) {
-  if (!qs) {return {}}
-  return Object.fromEntries(qs.split('&').map(bind(''.split, '=')))
-}
-
-u.qs = qs
-u.sq = sq
-
-Event.prototype.i = function(){return this.target}
-
-Element.prototype.on = Element.prototype.addEventListener
 
 Element.prototype.i = function(k, v) {
   if (typeof k == 'object') {
     u.en(k).forEach(([k, v]) => u.va(v) && this.i(k, v))
     return this
-  }
-
-  if (k == 'text' || k == '_t') {
-    if (u.va(v)) { this.textContent = v; return this }
-    return this.textContent
   }
 
   if (k && u.va(v)) {
@@ -64,14 +49,12 @@ Element.prototype.i = function(k, v) {
     if (v === false) return this.removeAttribute(k), this
     if (v === true) return this.setAttribute(k, 1), this
 
-    if (!v && v !== 0) return
-    // if (!v) return
-    return this.setAttribute(k, v), this
+    if (v || v === 0) return this.setAttribute(k, v), this
+    return this
     // return this.setAttribute(k, v), this.style.setProperty('--' + k, '"' + v + '"'), this
     // if (typeof v === 'number') return this.setAttribute(k, v), this
     // // typeof v === 'string' && isFinite(v) && this.setAttribute(k, v)
     // if (typeof v === 'string') this.setAttribute(k, v), this.style.setProperty('--' + k, '"' + v + '"')
-    // return this
   }
   // Array.from(this.attributes).forEach(attr => this.removeAttribute(attr.name))
   if (k) return this.getAttribute(k)
@@ -80,7 +63,33 @@ Element.prototype.i = function(k, v) {
   return Object.fromEntries(im)
 }
 
-Element.prototype.e = function(v) {
+Element.prototype.s = function(k, v) {
+  if (typeof k == 'string' && k.includes('{')) {
+    const rid = u.mt().toString(36).t(2, 5)
+    const kk = k.e('}', `} [${rid}] `)
+    this.i(rid, '')
+    this.h(3, `<style scoped>${kk}</style>`)
+    return this
+  }
+  if (typeof k == 'string') {
+    this.style += k
+    return this
+  }
+  if (typeof k == 'object') {
+    u.en(k).forEach(([k, v]) => this.s(k, v))
+    return this
+  }
+  if (k && u.va(v)) {
+    v === false ? this.style.removeProperty(k) : this.style.setProperty(k, v)
+    return this
+  }
+  const c = getComputedStyle(this)
+  if (k) return c.getPropertyValue(k)
+  return c
+}
+
+
+const e = function(v) {
   if (v === void 0) {
     if ('src' in this) { return this.src }
     if ('value' in this) { return this.value }
@@ -99,19 +108,6 @@ Element.prototype.e = function(v) {
   if ('textContent' in this) {this.textContent = v; return this}
 }
 
-Element.prototype.s = function(k, v) {
-  if (typeof k == 'object') {
-    u.en(k).forEach(([k, v]) => this.s(k, v))
-    return this
-  }
-  if (k && u.va(v)) {
-    v === false ? this.style.removeProperty(k) : this.style.setProperty(k, v)
-    return this
-  }
-  const c = getComputedStyle(this)
-  return k ? c.getPropertyValue(k) : c
-}
-
 Element.prototype.h = function(k, v) {
   if (k == '_o') {
     if (v) { this.outerHTML = v; return this }
@@ -126,22 +122,22 @@ Element.prototype.h = function(k, v) {
     if (v) { this.innerHTML = v; return this }
     return this.innerHTML
   }
-  if (k !== void 0) { this.innerHTML = k; return this }
-  return this.innerHTML
+  // if (k !== void 0) { this.innerHTML = k; return this }
+  // return this.innerHTML
+  return e(k)
 }
 
+
 Element.prototype.n = function(k, v) {
-  if (k == '_p') { return this.parentNode }
-  if (k == '_c') { return Array.from(this.children) }
+  if (k === void 0) { return this.parentNode }
+  if (typeof k === 'number') { return this.children[k] }
+  // if (k == '_p') { return this.parentNode }
+  // if (k == '_c') { return Array.from(this.children) }
   if (k == '_b') { return Array.from(this.parentNode.children) }
   if (k.startsWith('#') || k.startsWith('[')) return this.shadowRoot ? this.shadowRoot.querySelector(k) : this.querySelector(k)
   if (/^[a-z]\d+$/.test(k)) return this.shadowRoot ? this.shadowRoot.querySelector('#' + k) : this.querySelector('#' + k)
   const ql = this.shadowRoot ? this.shadowRoot.querySelectorAll(k) : this.querySelectorAll(k)
   return Array.from(ql)
-}
-
-Element.prototype.i1 = function(k, v) {
-  return this.shadowRoot ? this.shadowRoot.querySelector('#' + k) : this.querySelector('#' + k)
 }
 
 const env = {}
@@ -154,8 +150,8 @@ u.env = env
 
 const go = (href, body, cfg) => {
   if(!href) return u.path.hash = '/index'
-  if(href == 0) {return history.reload()}
-  if(href == -1) {return history.go(-1)}
+  if(href == 0) return history.reload()
+  if(href == -1) return history.go(-1)
   const search = body ? '?' + u.qs(body) : ''
   const url = href + search
 
@@ -164,15 +160,3 @@ const go = (href, body, cfg) => {
   return jp('#/' + url)
 }
 u.go = go
-
-const click = function(e) {
-  const id = e.target.id
-  const rules = this.rs || this
-
-  rules.fn[id]?.(e.target, e)
-  // if (rules.click) {
-  //   const handler = rules.funs[rules.click[id]]
-  //   handler && handler.bind(this)(e)
-  // }
-}
-u.click = click

@@ -6,7 +6,7 @@ const itm = rs => {
     const tpl = r.h('_h')
     // r.i('_li', tpl)
     r['_li'] = tpl.t()
-    r.h('')
+    r.h('_h', '')
   })
 }
 
@@ -37,7 +37,7 @@ function vm(rs) {
   return function() {
     const hashsearch = u.path.hash.split('?')[1]
     const props = hashsearch ? sq(hashsearch) : {}
-    const search = u.sq(u.path.search.slice(1))
+    const search = u.qs(u.path.search.slice(1))
     const query = this.$route?.query || u.set({}, props, search)
 
     this && (this != rs) && (this.rs = rs)
@@ -68,5 +68,12 @@ function vm(rs) {
     rs.fn.init && (rs.fn.init.bind(this)())
   }
 }
+
+const click = function(e) {
+  const id = e.target.id
+  const rs = this.rs || this
+  rs.fn[id]?.bind(this)(e.target, e)
+}
+u.click = click
 
 export { vm }
