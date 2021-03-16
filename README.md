@@ -2,7 +2,7 @@ Now days the web develop become much more complex, we need to know node, npm, ba
 but I think we can still keep simple, like jQuery. so I write some methods to simplify daily work. It's no other thing but some short name for native methods.
 I think it's enough for most develop work.
 
-### about the name:
+### About the name
 
 I think one charactor name is clear enough, 'iOS' is also just one charactor name, but I think it's more cute than a long name like 'Android', so I arrange all
 charactor, and sort them to three groups.
@@ -22,4 +22,4 @@ more concretely, 'g' means 'global', and it usually be the name of global object
 
 the qcs, qht, qjs method is about some thoughts to simplify the css, html, and js code, inspired from the [gulp-qcss](https://github.com/zhangxinxu/gulp-qcss)
 
-the code is simple, so you can use it as you like, add or change its name and method accoding to your habit.
+the code is simple, so you can use it as you like, add or change its name and method according to your habit.
