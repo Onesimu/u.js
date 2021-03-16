@@ -21,6 +21,8 @@ const dt = {
     bgr: 'background-repeat',
     bgp: 'background-position',
     bgs: 'background-size',
+    bgo: 'background-origin',
+    bgl: 'background-clip',
     c: 'color',
     bd: 'border',
     bl: 'border-left',
@@ -69,7 +71,8 @@ const dt = {
     ai: 'align-items',
     jc: 'justify-content',
     fd: 'flex-direction',
-    fr: 'flex-wrap'
+    fr: 'flex-wrap',
+    bx: 'box-sizing'
   },
   v: {
     a: 'auto',
@@ -81,6 +84,7 @@ const dt = {
     n: 'normal',
     c: 'center',
     no: 'none',
+    h: 'hidden',
     ih: 'inherit',
     l: 'left',
     t: 'top',
@@ -95,7 +99,9 @@ const dt = {
     ed: 'flex-end',
     col: 'column',
     wr: 'wrap',
-    if: 'inline-flex'
+    if: 'inline-flex',
+    cb: 'content-box',
+    bb: 'border-box'
   }
 };
 
@@ -142,20 +148,20 @@ const cl = {
 
 const qcs = e => {
 
-  const l = e.t().t('}').n(Boolean).t(i => {
+  const l = e.e(/bgi:/g, 'background-image:').e(/lg\(/g, 'linear-gradient(').e(/\/\*(\s|.)*?\*\//g, '')
+    .t().t('}').n(Boolean).t(i => {
     const [s, v] = i.t('{')
     const s1 = ['_s', s.t()]
     const v1 = v.t().t(';').t().t(i => i.t(': ').t(i => i.t()))
     v1.e(s1)
-    return u.ne(v1)
+    return u.en(v1)
   })
 
-  const ln = l.t(i => u.ne(u.en(i).t(([k, v]) => {
+  const ln = l.t(i => u.en(u.en(i).t(([k, v]) => {
     // if (k == '_s' || v.n('(') || !dt.k[k]) return [k, v]
     if (k == '_s') return [k, v]
     if (k == '_c') return [k, v]
 
-    // if (v.n('lg(', 0)) return [dt.k[k] || k, v.e('lg(', 'linear-gradient(')]
     if (v.i('(')) return [dt.k[k] || k, v]
     if (!dt.k[k]) return [k, v]
     else {
@@ -172,14 +178,14 @@ const qcs = e => {
 
   const lnc = ln.t(i => {
     if (i['_c']) {
-      // const c = u.ne(i['_c'].t(' ').t(i => cl[i].t(';').t(i => i.t().t(': '))))
-      const c = u.ne(i['_c'].t(' ').t(i => cl[i].t(': ')))
+      // const c = u.en(i['_c'].t(' ').t(i => cl[i].t(';').t(i => i.t().t(': '))))
+      const c = u.en(i['_c'].t(' ').t(i => cl[i].t(': ')))
       return u.set(i.e('_c'), c)
     }
     return i
   })
   const c = lnc.t(i => i['_s'] + ' { ' + u.en(u.e(i, '_s')).t(i => i.t(': ')).t('; ') + '; }').t('\n')
-  return c.replace(/lg\(/g, 'linear-gradient(')
+  return c
 }
 
 export {qcs}

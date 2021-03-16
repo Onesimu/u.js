@@ -75,4 +75,4 @@ u.ut.numc = i => {
   if (typeof i == 'string') return cnum(i)
 }
 
-// u.ne(fd.t('\n').t(i => i.t('\t')).t(i => [i[1], i[2]]))
+// u.en(fd.t('\n').t(i => i.t('\t')).t(i => [i[1], i[2]]))
