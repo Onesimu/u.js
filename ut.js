@@ -74,3 +74,5 @@ u.ut.numc = i => {
   if (typeof i == 'string' && isFinite(i)) return numc(i)
   if (typeof i == 'string') return cnum(i)
 }
+
+// u.ne(fd.t('\n').t(i => i.t('\t')).t(i => [i[1], i[2]]))

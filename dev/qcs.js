@@ -35,7 +35,7 @@ const dt = {
     btr: 'border-top-right-radius',
     bbr: 'border-bottom-right-radius',
     bbl: 'border-bottom-left-radius',
-    ot: 'outline',
+    ol: 'outline',
     f: 'font-size',
     ff: 'font-family',
     fs: 'font-style',
@@ -94,7 +94,8 @@ const dt = {
     st: 'flex-start',
     ed: 'flex-end',
     col: 'column',
-    wr: 'wrap'
+    wr: 'wrap',
+    if: 'inline-flex'
   }
 };
 

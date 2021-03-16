@@ -3,7 +3,7 @@ const qjs = e => {
   const dt = {
     val: 'const',
     fn: 'function',
-    rtn: 'return',
+    rn: 'return',
     // at: 'await',
     // as: 'async',
     aw: 'await',
