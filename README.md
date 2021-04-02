@@ -1,8 +1,8 @@
-Now days the web develop become much more complex, we need to know node, npm, babel, webpack, React, Vue, and many router and state library to finish work.
+Nowdays the web develop become much more complex, we need to know node, npm, babel, webpack, React, Vue, and many router and state library to finish work.
 but I think we can still keep simple, like jQuery. so I write some methods to simplify daily work. It's no other thing but some short name for native methods.
 I think it's enough for most develop work.
 
-### about the name:
+### About the name
 
 I think one charactor name is clear enough, 'iOS' is also just one charactor name, but I think it's more cute than a long name like 'Android', so I arrange all
 charactor, and sort them to three groups.

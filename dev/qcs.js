@@ -148,7 +148,7 @@ const cl = {
 
 const qcs = e => {
 
-  const l = e.e(/bgi:/g, 'background-image:').e(/lg\(/g, 'linear-gradient(').e(/\/\*(\s|.)*?\*\//g, '')
+  const l = e.e(/bgi:/g, 'background-image:').e(/lg\(/g, 'linear-gradient(').e(/\/\*(\s|.)*?\*\//g, '').replace(/;base64,/g, '%%%%%%')
     .t().t('}').n(Boolean).t(i => {
     const [s, v] = i.t('{')
     const s1 = ['_s', s.t()]
@@ -185,7 +185,7 @@ const qcs = e => {
     return i
   })
   const c = lnc.t(i => i['_s'] + ' { ' + u.en(u.e(i, '_s')).t(i => i.t(': ')).t('; ') + '; }').t('\n')
-  return c
+  return c.replace(/%%%%%%/g, ';base64,')
 }
 
 export {qcs}
