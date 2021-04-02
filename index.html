@@ -37,41 +37,38 @@
   update()
 </script>
 
-<!-- <script src="https://res2.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
-<script src="/cms/webapp/home/static/baidu.js"></script>
-<script src="/cms/webapp/home/static/sx.js"></script> -->
-
 <script src="pg.js" type="module"></script>
 
 <style>
-html, body {
-	margin: auto;
-}
-
-ul, li {
-  display: block;
-  margin: auto;
-  padding: 0;
-}
-
-div, ul, li, dt, dd, ::before, ::after {
+*, ::before, ::after {
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
-}
-
-/* div, ::before, ::after {
+  text-overflow: ellipsis;
   border-style: solid;
   border-width: 0;
+  justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
-} */
+  margin: auto;
+  text-align: center;
+}
 
-/* ::before, ::after {
-  display: inline-block;
-} */
+ul, li {
+  display: flex;
+  padding: 0;
+}
 
 .i {
-  display: inline-block;
+  display: inline-flex;
+}
+
+.f {
+  display: flex;
+}
+
+.g {
+  display: grid;
 }
 
 .p {
@@ -87,19 +84,7 @@ div, ul, li, dt, dd, ::before, ::after {
 }
 
 .e {
-  margin: auto;
-}
-
-.f {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: auto;
-}
-
-.g {
-  display: grid;
+  display: block;
 }
 
 .t {
