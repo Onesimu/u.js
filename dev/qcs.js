@@ -146,13 +146,17 @@ const cl = {
   toe: 'text-overflow: ellipsis'
 }
 
+const de = function(i, t, e) {
+  return u.en(u.en(i).filter(k => k[0] != t))
+}
+
 const qcs = e => {
 
   const l = e.e(/bgi:/g, 'background-image:').e(/lg\(/g, 'linear-gradient(').e(/\/\*(\s|.)*?\*\//g, '').replace(/;base64,/g, '%%%%%%')
     .t().t('}').n(Boolean).t(i => {
     const [s, v] = i.t('{')
     const s1 = ['_s', s.t()]
-    const v1 = v.t().t(';').t().t(i => i.t(': ').t(i => i.t()))
+    const v1 = v.t().t(';').n().t(i => i.t(': ').t(i => i.t()))
     v1.e(s1)
     return u.en(v1)
   })
@@ -184,7 +188,7 @@ const qcs = e => {
     }
     return i
   })
-  const c = lnc.t(i => i['_s'] + ' { ' + u.en(u.e(i, '_s')).t(i => i.t(': ')).t('; ') + '; }').t('\n')
+  const c = lnc.t(i => i['_s'] + ' { ' + u.en(de(i, '_s')).t(i => i.t(': ')).t('; ') + '; }').t('\n')
   return c.replace(/%%%%%%/g, ';base64,')
 }
 

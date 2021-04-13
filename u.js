@@ -1,8 +1,10 @@
+// if (global) { global.g = global }
+// if (this) {this.g = this}
 window.g = window
 
 g.o = console.log.bind(console)
 
-const _u = function (i, t, e) {
+const _u = function(i, t, e) {
   const s = typeof i
   if (s != 'object') return s
   return Object.prototype.toString.call(i).slice(8, -1).toLowerCase()
@@ -15,9 +17,9 @@ g.u = function(i, t, e) { return _u(i, t, e) }
 
 u.set = Object.assign
 
-// u.en = Object.fromEntries
+// u.ne = Object.fromEntries
 u.en = function(i, t, e) {
-  if('array' === u(i)) return Object.fromEntries(i, t, e)
+  if (u(i) === 'array') return Object.fromEntries(i, t, e)
   return Object.entries(i, t, e)
 }
 
@@ -30,19 +32,19 @@ u.env = env
 
 // u.i = Object.getPrototypeOf
 // u.t = JSON.stringify
-u.t = function (i, t, e) {
-  if(i === void 0) return ''
-  if(i === null) return ''
-  if(['function', 'regexp'].includes(u(i))) return i.toString()
-  if('string' === u(i)) return JSON.parse(i, t, e)
-  if('date' === u(i)) return u.tm(i, t, e)
+u.t = function(i, t, e) {
+  if (i === void 0) return ''
+  if (i === null) return ''
+  if (['function', 'regexp'].includes(u(i))) return i.toString()
+  if (u(i) === 'string') return JSON.parse(i, t, e)
+  if (u(i) === 'date') return u.tm(i, t, e)
   return JSON.stringify(i, t, e)
 }
 
 // u.e = Object.assign
-u.e = function(i, t, e) {
-  return u.en(u.en(i).filter(k => k[0] != t))
-}
+// u.e = function(i, t, e) {
+//   return u.en(u.en(i).filter(k => k[0] != t))
+// }
 u.n = n => Array.from(Array(n).keys())
 u.n1 = n => u.n(n + 1).slice(1)
 
@@ -52,14 +54,14 @@ u.n1 = n => u.n(n + 1).slice(1)
 // Function.prototype.n = function(...i){
 //   if(i) return new this(...i)
 //   return this.length() }
-Function.prototype.n = function(...i){ return new this(...i) }
+Function.prototype.n = function(...i) { return new this(...i) }
 
 u.va = v => ['string', 'boolean', 'number'].includes(typeof v)
 
 String.prototype.i = function(i, t, e) {
   if (i === void 0) return this.length
   if (typeof i == 'number') return i < 0 ? this[this.length + i] : this[i]
-  if (u(i) == "regexp") return this.match(i)
+  if (u(i) == 'regexp') return this.match(i)
   // return this.slice(0, this.indexOf(i))
   return this.includes(i)
 }
@@ -85,50 +87,53 @@ String.prototype.n = function(i, t, e) {
   // if (i === void 0) return String.raw({ raw: this })
   if (typeof i == 'number') return this.repeat(i, t, e)
   // padStart
-  if (u(i) == "regexp") return this.search(i)
+  if (u(i) == 'regexp') return this.search(i)
   if (t === 0) return this.startsWith(i)
   if (t === -1) return this.endsWith(i)
   if (t === !0) return this.lastIndexOf(i)
   return this.indexOf(i)
 }
 Array.prototype.t = function(i, t, e) {
-  if (i === void 0) return this.filter(Boolean)
+  if (i === void 0) return u.en(this)
   if (typeof i == 'number') return this.slice(i, t, e)
-  if (u(i) == "array") return this.concat(i)
-  if (typeof i == "function") return this.map(i, t, e)
+  if (u(i) == 'array') return this.concat(i)
+  if (typeof i == 'function') return this.map(i, t, e)
   return this.join(i)
 }
 Array.prototype.n = function(i, t, e) {
   // if (i === void 0) return this.entries()
+  if (i === void 0) return this.filter(Boolean)
   // if (typeof i == 'number') return this.fill(i, t, e)
   if (t === 1) return this.findIndex(i, t, e)
-  if (typeof i == "function") return this.filter(i, t, e)
+  if (typeof i == 'function') return this.filter(i, t, e)
   return this.indexOf(i)
 }
 Array.prototype.e = function(i, t, e) {
   if (i === void 0) return this.pop(), this
   if (typeof i == 'number') return this.splice(i, t, e), this
-  // if (t === !0) return this.sort(i)
-  // if (t === !1) return this.reverse()
+  if (t === !0) return this.sort(i)
+  if (i === !1) return this.reverse()
   // if (t === 0) return this.unshift(i), this
   // if (t === 1) return this.shift()
-  if (typeof i == "function") return this.forEach(i, t, e), this
+  if (typeof i == 'function') return this.forEach(i, t, e), this
   return this.push(i), this
 }
 Array.prototype.i = function(i, t, e) {
   // if(!this.length) return this
   if (i === void 0) return this.length
   if (typeof i == 'number') return i < 0 ? this[this.length + i] : this[i]
-  if (typeof i == "function") return this.reduce(i, t, e)
+  if (typeof i == 'function') return this.reduce(i, t, e)
   return this.includes(i)
 }
+
+;['i', 't', 'e', 'n'].forEach(i => Object.defineProperty(Array.prototype, i, { enumerable: false }))
 
 // u.eq = function(i, t, e) {return i == t}
 // u.ee = function(i, t, e) {return i === t}  Object.is
 
 function tm(i, t, e) {
-  if (typeof i == "function") return setTimeout(i, t || 1000)
-  if (typeof i == "string") return new Date(i).getTime()
+  if (typeof i == 'function') return setTimeout(i, t || 1000)
+  if (typeof i == 'string') return new Date(i).getTime()
   const d = new Date(i || Date.now())
   return d.toJSON().t(0, 11).e('T', ' ') + d.toString().t(16, 24)
 }
@@ -142,7 +147,7 @@ u.set(u.tm, {
   d: 1000 * 60 * 60 * 24 // day
 })
 
-u.mt = function(i, t, e){
+u.mt = function(i, t, e) {
   if (i === void 0) return Math.random()
   return Math.floor(i)
 }
@@ -152,7 +157,7 @@ u.set(u.mt, {
   s: (a, b) => a - b, // substract
   m: (a, b) => a * b, // multiply
   d: (a, b) => a / b, // divide
-  e: (a, b) => a % b, // rem mod
+  e: (a, b) => a % b // rem mod
 })
 
 u.qs = function qs(i) {
