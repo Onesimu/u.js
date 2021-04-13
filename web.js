@@ -1,33 +1,17 @@
 u.id = document.getElementById.bind(document)
 // u.tag = document.getElementsByTagName.bind(document)
 // u.q = document.querySelectorAll.bind(document)
-u.qi = document.querySelector.bind(document)
+// u.qi = document.querySelector.bind(document)
+u.bd = document.body
 
 u.path = location
 u.fs = localStorage
 
-// function bind(fn, args) {
-//   return function(it) {
-//     return fn.bind(it)(args)
-//   }
-// }
-// function ck(qs) {
-//   return Object.fromEntries(qs.split('; ').map(bind(''.split, '=')))
-// }
-
 const db = {}
-
-// const cdb = u.fs.db ? JSON.parse(u.fs.db) : {}
-// Object.assign(db, cdb)
-
 db.set = function(val) {
   Object.assign(db, val)
   u.fs.db = JSON.stringify(db)
 }
-
-// const cookie = document.cookie && ck(document.cookie)
-// Object.assign(db, cookie)
-
 u.db = db
 
 Event.prototype.i = function(){ return this.target }
@@ -51,10 +35,6 @@ Element.prototype.i = function(k, v) {
 
     if (v || v === 0) return this.setAttribute(k, v), this
     return this
-    // return this.setAttribute(k, v), this.style.setProperty('--' + k, '"' + v + '"'), this
-    // if (typeof v === 'number') return this.setAttribute(k, v), this
-    // // typeof v === 'string' && isFinite(v) && this.setAttribute(k, v)
-    // if (typeof v === 'string') this.setAttribute(k, v), this.style.setProperty('--' + k, '"' + v + '"')
   }
   // Array.from(this.attributes).forEach(attr => this.removeAttribute(attr.name))
   if (k) return this.getAttribute(k)
@@ -122,9 +102,9 @@ Element.prototype.h = function(k, v) {
     if (v) { this.innerHTML = v; return this }
     return this.innerHTML
   }
-  // if (k !== void 0) { this.innerHTML = k; return this }
-  // return this.innerHTML
-  return e(k)
+  if (k === void 0) { return this.innerHTML }
+  if (k !== void 0 && k.startsWith('<')) { this.innerHTML = k; return this }
+  return e.bind(this)(k)
 }
 
 
@@ -155,8 +135,13 @@ const go = (href, body, cfg) => {
   const search = body ? '?' + u.qs(body) : ''
   const url = href + search
 
+  if (cfg && cfg.o) return window.open(url)
   const jp = ((cfg && cfg.r) ? u.path.replace : u.path.assign).bind(u.path)
   if (href.startsWith('http') || href.startsWith('/')) return jp(url)
   return jp('#/' + url)
 }
 u.go = go
+
+u.web = function(i, t, e){
+  return '<table><tr><td>' + u.i(i).e(',', '<td>').e('\n', '\n<tr><td>')
+}

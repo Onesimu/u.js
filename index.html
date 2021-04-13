@@ -14,9 +14,9 @@
 <script>
   if (/e=t/.test(window.location.href)){
     var script = document.createElement('script')
-    script.src = "https://cdn.bootcss.com/eruda/2.4.1/eruda.js"
+    script.src = "//cdn.jsdelivr.net/npm/eruda"
     document.head.appendChild(script)
-    script.onload = function () {eruda.init()}
+    script.onload = function () { eruda.init() }
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/cookie-store/index.js"></script>

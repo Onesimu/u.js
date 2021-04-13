@@ -7,7 +7,7 @@ const qjs = e => {
     // at: 'await',
     // as: 'async',
     aw: 'await',
-    ac: 'async',
+    // ac: 'async',
     ay: 'async',
     ti: 'this',
     es: 'else'
