@@ -1,11 +1,16 @@
-import './u.js'
+import './u/u.js'
 // import './ut.js'
-import './web.js'
-import './ui.js'
+import './u/web.js'
+import './u/ui.js'
 // import './vue.js'
-import './net.js'
+import './u/net.js'
 
-import { vm } from './vm.js'
+import { vm } from './u/vm.js'
+
+import { qht } from './dev/qht.js'
+u.qht = qht
+import { qcs } from './dev/qcs.js'
+u.qcs = qcs
 
 async function init() {
   const path = u.path.hash.t('?')[0].t(2) || u.qs(u.path.search.t(1)).hash || u.fs.hash || 'index'
@@ -22,11 +27,6 @@ async function init() {
 
   try {pgdata(path)} catch (e) {log(e)}
 }
-
-import { qht } from './dev/qht.js'
-u.qht = qht
-import { qcs } from './dev/qcs.js'
-u.qcs = qcs
 
 async function pgdata(path) {
   var rs = {cfg: {}, db: {}, fn: {}}
