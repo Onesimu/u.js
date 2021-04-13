@@ -22,4 +22,4 @@ more concretely, 'g' means 'global', and it usually be the name of global object
 
 the qcs, qht, qjs method is about some thoughts to simplify the css, html, and js code, inspired from the [gulp-qcss](https://github.com/zhangxinxu/gulp-qcss)
 
-the code is simple, so you can use it as you like, add or change its name and method accoding to your habit.
+the code is simple, so you can use it as you like, add or change its name and method according to your habit.
