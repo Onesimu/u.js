@@ -19,6 +19,8 @@ u.set = Object.assign
 
 // u.ne = Object.fromEntries
 u.en = function(i, t, e) {
+  if (t === 0) return Object.keys(i, t, e)
+  if (t === 1) return Object.values(i, t, e)
   if (u(i) === 'array') return Object.fromEntries(i, t, e)
   return Object.entries(i, t, e)
 }
@@ -41,11 +43,20 @@ u.t = function(i, t, e) {
   return JSON.stringify(i, t, e)
 }
 
+// Object.prototype.t = u.t
+// ;['i', 't', 'e', 'n'].forEach(i => Object.defineProperty(Object.prototype, i, { enumerable: false }))
+
+u.i = function(i, t, e) {
+  const h = u.en(i[0], 0).t(',') + '\n'
+  const b = i.t(i => u.en(i, 1).t(',')).t('\n')
+  return h + b
+}
+
 // u.e = Object.assign
 // u.e = function(i, t, e) {
 //   return u.en(u.en(i).filter(k => k[0] != t))
 // }
-u.n = n => Array.from(Array(n).keys())
+u.n0 = n => Array.from(Array(n).keys())
 u.n1 = n => u.n(n + 1).slice(1)
 
 // Function.prototype.e = Function.prototype.apply
@@ -74,7 +85,7 @@ String.prototype.e = function(i, t, e) {
     for (var [k, v] of en) tmp = tmp.replace(new RegExp(k, 'g'), v)
     return tmp
   }
-  // if (t === 1) return this.replace(i, t)
+  if (e === 1) return this.replace(i, t)
   return this.replace(u(i) == 'regexp' ? i : new RegExp(i, 'g'), t)
 }
 String.prototype.t = function(i, t, e) {
@@ -88,13 +99,13 @@ String.prototype.n = function(i, t, e) {
   if (typeof i == 'number') return this.repeat(i, t, e)
   // padStart
   if (u(i) == 'regexp') return this.search(i)
-  if (t === 0) return this.startsWith(i)
-  if (t === -1) return this.endsWith(i)
-  if (t === !0) return this.lastIndexOf(i)
+  // if (t === 0) return this.startsWith(i)
+  // if (t === -1) return this.endsWith(i)
+  // if (t === !0) return this.lastIndexOf(i)
   return this.indexOf(i)
 }
 Array.prototype.t = function(i, t, e) {
-  if (i === void 0) return u.en(this)
+  if (i === void 0) return Object.fromEntries(this)
   if (typeof i == 'number') return this.slice(i, t, e)
   if (u(i) == 'array') return this.concat(i)
   if (typeof i == 'function') return this.map(i, t, e)
