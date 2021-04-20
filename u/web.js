@@ -126,6 +126,10 @@ const isWeixin = ua.indexOf('micromessenger') != -1
 const agt = /(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)
 env.rt = isWeixin ? 'wx' : 'web'
 env.os = agt ? 'i' : 'a'
+// const p = navigator.platform
+// const isPC = p.indexOf("Win") > -1
+// // const isPC = p.indexOf("Win") > -1 || p.indexOf("Mac") > -1 || p.indexOf("Linux") > -1 || p.indexOf("X11") > -1
+// const isMob = /(iPhone|iPad|iOS|Android)/i.test(navigator.userAgent)
 u.env = env
 
 const go = (href, body, cfg) => {
