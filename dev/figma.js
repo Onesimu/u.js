@@ -35,8 +35,8 @@ const trans = json => {
   const info = json
   // .reverse()
 
-  const htm = info.map((it, i) => `<div id="f${i}" class="f f${i}">${it[0]}</div>`)
-  const cs = info.map((it, i) => `.f${i} ${it[1]}`)
+  const htm = info.map((it, i) => `<div id=f${i}>${it[0]}</div>`)
+  const cs = info.map((it, i) => `#f${i} ${it[1]}`)
 
 	var css = ''
 

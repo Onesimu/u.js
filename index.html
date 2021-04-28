@@ -25,7 +25,7 @@
   var s = 1;
   var metaEl = document.querySelector('meta[name="viewport"]');
   function update(ctx, evt, wth) {
-    var width = wth || 750
+    var width = wth || 375
     var curWidth = window.screen.width
     var ts = curWidth / width
 
@@ -55,7 +55,7 @@
   text-align: center;
 }
 
-ul, li {
+div, dl, ul, li {
   display: flex;
   padding: 0;
 }
@@ -84,13 +84,15 @@ ul, li {
   display: block;
 }
 
-.e {
+#pg { display: block; }
+
+/* .e {
   display: block;
 }
 
 .t {
   text-align: center;
-}
+} */
 
 /* @media (min-width: 1025px){
   .pg {
