@@ -53,11 +53,16 @@
   flex-wrap: wrap;
   margin: auto;
   text-align: center;
+  box-sizing: border-box;
 }
 
-div, dl, ul, li {
+#pg div, ul, li {
   display: flex;
   padding: 0;
+}
+
+dl {
+  overflow: auto;
 }
 
 .i {
@@ -84,25 +89,12 @@ div, dl, ul, li {
   display: block;
 }
 
-#pg { display: block; }
-
-/* .e {
+img {
   display: block;
+  max-width: 100%;
 }
 
-.t {
-  text-align: center;
-} */
-
-/* @media (min-width: 1025px){
-  .pg {
-    left: calc(50% - 375px);
-  }
-} */
-
-/*    .close:before {
-    content: "\2716";
-  } */
+#pg { display: block; }
 </style>
 
 <body><div id="app"></div></body>
