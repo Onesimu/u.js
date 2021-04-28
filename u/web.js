@@ -1,7 +1,7 @@
 u.id = document.getElementById.bind(document)
 // u.tag = document.getElementsByTagName.bind(document)
 // u.q = document.querySelectorAll.bind(document)
-// u.qi = document.querySelector.bind(document)
+u.qi = document.querySelector.bind(document)
 u.bd = document.body
 
 u.path = location
@@ -93,7 +93,7 @@ Element.prototype.h = function(k, v) {
     if (v) { this.outerHTML = v; return this }
     return this.outerHTML
   }
-  if (k in [1, 2, 3, 4]) {
+  if (u(k) === 'number' && k in [1, 2, 3, 4]) {
     const ps = ['beforebegin', 'afterbegin', 'beforeend', 'afterend']
     if (v) { this.insertAdjacentHTML(ps[k - 1], v); return this }
     return this

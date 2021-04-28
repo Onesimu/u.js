@@ -173,6 +173,6 @@ u.set(u.mt, {
 
 u.qs = function qs(i) {
   if (!i) return ''
-  if (u(i) == 'string') return Object.fromEntries(i.split('&').map(it => it.split('=')))
-  return Object.entries(i).map(it => it.join('=')).join('&')
+  if (u(i) == 'string') return Object.fromEntries(i.split('&').map(it => it.split('=').map(decodeURIComponent)))
+  return Object.entries(i).filter(i => u.va(i[1])).map(it => it.join('=')).join('&')
 }

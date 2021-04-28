@@ -36,9 +36,10 @@ const list = (rs, val) => {
 function vm(rs) {
   return function() {
     const hashsearch = u.path.hash.split('?')[1]
-    const props = hashsearch ? sq(hashsearch) : {}
+    const props = hashsearch ? u.qs(hashsearch) : {}
     const search = u.qs(u.path.search.slice(1))
-    const query = this.$route?.query || u.set({}, props, search)
+    // const query = this.$route?.query || u.set({}, props, search)
+    const query = u.set({}, props, search, this.$route?.query)
 
     this && (this != rs) && (this.rs = rs)
     const sr = this.$el || document.body.n('#pg')

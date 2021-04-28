@@ -200,7 +200,7 @@ const pop = (content, type, opt) => {
 
   // 设置图片地址
   if (content) {
-    u.qi('.mask .bg').e(content)
+    u.qi('.mask .bg').h(content)
   }
   // 设置弹窗类型, 默认为img
   const t = type || 'img'
