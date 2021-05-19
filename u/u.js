@@ -143,6 +143,7 @@ Array.prototype.i = function(i, t, e) {
 // u.ee = function(i, t, e) {return i === t}  Object.is
 
 function tm(i, t, e) {
+  if (t === 1) return new Promise(r => setTimeout(r, i))
   if (typeof i == 'function') return setTimeout(i, t || 1000)
   if (typeof i == 'string') return new Date(i).getTime()
   const d = new Date(i || Date.now())
