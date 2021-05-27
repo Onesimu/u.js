@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimum-scale=1, viewport-fit=cover">
+    <title></title>
+
+    <script src=https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/u.js></script>
+    <script type=module src=https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/web.js></script>
+    <!-- <script type=module src=https://cdn.jsdelivr.net/gh/Onesimu/u.js/dev/qcs.js></script> -->
+    <script src="https://cdn.jsdelivr.net/gh/js2coffee/js2coffee/dist/js2coffee.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gkz/LiveScript/browser/livescript-min.js"></script>
+
+   <script type=module>
+      import { qcs } from 'https://cdn.jsdelivr.net/gh/Onesimu/u.js/dev/qcs.js'
+      u.qcs = qcs
+    </script>
+
+    <script type="text/ls">
+      o "boom2 #{window.location}"
+    </script>
+
+	</head>
+	<body>
+    <textarea id=f1 contenteditable></textarea>
+    <dd id=f2>run</dd>
+    <dd id=f4>clear</dd>
+    <textarea id=f3 contenteditable></textarea>
+
+    <script type="text/ls">
+      u.id \f2 .on ->
+        # src = u.id \f1 .h!
+        # src = u.id \f1 .innerText
+        src = u.id \f1 .value
+        o src
+        res = js2coffee.build(src)
+        o res
+        u.id \f3 .h res.code
+      u.id \f4 .on -> u.id \f1 .h ''
+    </script>
+    <script type=text/ls>
+      l = u.bd.getElementsByTagName \style
+      [].forEach .call l, -> it.innerHTML = u.qcs it.innerHTML
+    </script>
+    <script>
+      var LiveScript = require("livescript")
+      window.onload = function(){ LiveScript.go() }
+    </script>
+    <style>
+      #f1 { w: 100%; height: 200px; border: 1px solid wheat;}
+      #f3 { width: 100%; height: 200px; border: 1px solid wheat; }
+      #f2, #f4 { width: 50px; margin: 10px auto; text-align: center;  border: 1px solid wheat; }
+    </style>
+	</body>
+</html>
