@@ -53,9 +53,9 @@ u.i = function(i, t, e) {
 // u.e = Object.assign
 u.e = function(i, t, e) {
   if (u(t) == 'object') return Object.assign(i, t)
-  if (u(t) == 'string' && e === void 0) delete i[t], return i
-  if (u(t) == 'string' && u(e) == 'string') i[t] = i[e], return i
-  if (u(t) == 'string' && u(e) == 'function') i[t] = e(i[t]), return i
+  if (u(t) == 'string' && e === void 0) return (delete i[t]), i
+  if (u(t) == 'string' && u(e) == 'string') return (i[t] = i[e]), i
+  if (u(t) == 'string' && u(e) == 'function') return (i[t] = e(i[t])), i
   // return u.en(u.en(i).filter(k => k[0] != t))
 }
 

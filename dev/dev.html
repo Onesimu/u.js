@@ -38,9 +38,9 @@
       u.id \f4 .on -> u.id \f1 .h ''
     </script>
     <script type=text/ls>
-      String::qcs = -> u.qcs @
+      # String::qcs = -> u.qcs @
       l = document.getElementsByTagName \style
-      [].forEach .call l, -> it.innerHTML .= qcs!
+      [].forEach .call l, -> u.e it, \innerHTML, u.qcs
     </script>
     <script>
       window.ls = require("livescript")
