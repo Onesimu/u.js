@@ -8,8 +8,11 @@
     <script src="https://cdn.jsdelivr.net/gh/js2coffee/js2coffee/dist/js2coffee.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/gkz/LiveScript/browser/livescript-min.js"></script>
 
-    <script src=https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/u.js></script>
-    <script type=module src=https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/web.js></script>
+<!--    <script src=https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/u.js></script>
+    <script type=module src=https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/web.js></script> -->
+
+    <script src=../u/u.js></script>
+    <script src=../u/web.js></script>
 
     <script type=module>
       import { qcs } from 'https://cdn.jsdelivr.net/gh/Onesimu/u.js/dev/qcs.js'
@@ -38,7 +41,7 @@
     </script>
     <script type=text/ls>
       String::qcs = -> u.qcs @
-      l = u.bd.getElementsByTagName \style
+      l = document.getElementsByTagName \style
       [].forEach .call l, -> it.innerHTML .= qcs!
     </script>
     <script>

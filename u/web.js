@@ -52,7 +52,7 @@ Element.prototype.s = function(k, v) {
     return this
   }
   if (typeof k == 'string') {
-    this.style += k
+    this.style.cssText += k
     return this
   }
   if (typeof k == 'object') {
@@ -68,18 +68,18 @@ Element.prototype.s = function(k, v) {
   return c
 }
 
-
 const e = function(v) {
   if (v === void 0) {
     if ('src' in this) { return this.src }
     if ('value' in this) { return this.value }
     if ('textContent' in this) { return this.textContent }
+    return this.innerHTML
   }
   if (u(v) == 'array') {
-    return v.t(i => this.i1(i).e())
+    return v.t(i => this.n(i).e())
   }
   if (typeof v == 'object') {
-    u.en(v).forEach(([k, v]) => u.va(v) && this.i1(k).e(v))
+    u.en(v).forEach(([k, v]) => u.va(v) && this.n(k).e(v))
     return this
   }
 
@@ -102,8 +102,8 @@ Element.prototype.h = function(k, v) {
     if (v) { this.innerHTML = v; return this }
     return this.innerHTML
   }
-  if (k === void 0) { return this.innerHTML }
-  if (k !== void 0 && k.startsWith('<')) { this.innerHTML = k; return this }
+  // if (k === void 0) { return this.innerHTML }
+  if (u(k) == 'string' && k.startsWith('<')) { this.innerHTML = k; return this }
   return e.bind(this)(k)
 }
 
