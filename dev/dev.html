@@ -25,7 +25,6 @@
       <textarea id=f3 contenteditable></textarea>
     </dl>
 
-
     <script type="text/ls">
       u.id \f2 .on ->
         # src = u.id \f1 .h!
@@ -38,8 +37,9 @@
       u.id \f4 .on -> u.id \f1 .h ''
     </script>
     <script type=text/ls>
+      String::qcs = -> u.qcs @
       l = u.bd.getElementsByTagName \style
-      [].forEach .call l, -> it.innerHTML = u.qcs it.innerHTML
+      [].forEach .call l, -> it.innerHTML .= qcs!
     </script>
     <script>
       var LiveScript = require("livescript")

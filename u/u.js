@@ -27,10 +27,8 @@ u.en = function(i, t, e) {
 
 u.db = {}
 
-const env = {}
-// env.rt = isWeixin ? 'wx' : 'web'
-// env.os = agent ? 'i' : 'a'
-u.env = env
+// const env = {}
+// u.env = env
 
 // u.i = Object.getPrototypeOf
 // u.t = JSON.stringify
