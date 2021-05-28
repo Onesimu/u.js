@@ -8,11 +8,11 @@
     <script src="https://cdn.jsdelivr.net/gh/js2coffee/js2coffee/dist/js2coffee.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/gkz/LiveScript/browser/livescript-min.js"></script>
 
-<!--    <script src=https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/u.js></script>
-    <script type=module src=https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/web.js></script> -->
+    <script src=https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/u.js></script>
+    <script type=module src=https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/web.js></script>
 
-    <script src=../u/u.js></script>
-    <script src=../u/web.js></script>
+<!--   <script src=../u/u.js></script>
+    <script src=../u/web.js></script> -->
 
     <script type=module>
       import { qcs } from 'https://cdn.jsdelivr.net/gh/Onesimu/u.js/dev/qcs.js'
@@ -30,9 +30,7 @@
 
     <script type="text/ls">
       u.id \f2 .on ->
-        # src = u.id \f1 .h!
-        # src = u.id \f1 .innerText
-        src = u.id \f1 .value
+        src = u.id \f1 .h!
         o src
         res = js2coffee.build(src)
         o res

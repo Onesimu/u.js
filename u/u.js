@@ -52,12 +52,13 @@ u.i = function(i, t, e) {
 
 // u.e = Object.assign
 u.e = function(i, t, e) {
-  return Object.assign(i, t)
-  // i[t] = i[e] rename
-  // i[t] = e(i[t]) update field
-  // delete i[t] remove
+  if (u(t) == 'object') return Object.assign(i, t)
+  if (u(t) == 'string' && e === void 0) delete i[t], return i
+  if (u(t) == 'string' && u(e) == 'string') i[t] = i[e], return i
+  if (u(t) == 'string' && u(e) == 'function') i[t] = e(i[t]), return i
   // return u.en(u.en(i).filter(k => k[0] != t))
 }
+
 u.n0 = n => Array.from(Array(n).keys())
 u.n1 = n => u.n0(n + 1).slice(1)
 
@@ -68,6 +69,10 @@ u.n1 = n => u.n0(n + 1).slice(1)
 //   if(i) return new this(...i)
 //   return this.length() }
 Function.prototype.n = function(...i) { return new this(...i) }
+Number.prototype.t = function(i, t, e) {
+  if (i === void 0) return String.fromCharCode(this)
+  return this.toFixed(i)
+}
 
 u.va = v => ['string', 'boolean', 'number'].includes(typeof v)
 
@@ -117,6 +122,7 @@ Array.prototype.t = function(i, t, e) {
 }
 Array.prototype.n = function(i, t, e) {
   // if (i === void 0) return Array.from(this.entries())
+  if (i === void 0) return this.flat()
   // if (typeof i == 'number') return this.fill(i, t, e)
   if (t === 1) return this.findIndex(i, t, e)
   if (typeof i == 'function') return this.filter(i, t, e)
@@ -137,6 +143,8 @@ Array.prototype.i = function(i, t, e) {
   if (i === void 0) return this.length
   if (typeof i == 'number') return i < 0 ? this[this.length + i] : this[i]
   if (typeof i == 'function') return this.reduce(i, t, e)
+  // if (t === 0) return this.some(i)
+  // if (t === 1) return this.every(i)
   return this.includes(i)
 }
 
