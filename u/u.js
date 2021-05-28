@@ -70,7 +70,9 @@ u.va = v => ['string', 'boolean', 'number'].includes(typeof v)
 String.prototype.i = function(i, t, e) {
   if (i === void 0) return this.length
   if (typeof i == 'number') return i < 0 ? this[this.length + i] : this[i]
-  if (u(i) == 'regexp') return this.match(i)
+  if (u(i) == 'regexp') return this.test(i)
+  if (t === 0) return this.startsWith(i)
+  if (t === -1) return this.endsWith(i)
   // return this.slice(0, this.indexOf(i))
   return this.includes(i)
 }
@@ -89,6 +91,7 @@ String.prototype.e = function(i, t, e) {
 String.prototype.t = function(i, t, e) {
   if (i === void 0) return this.trim()
   if (typeof i == 'number') return this.slice(i, t, e)
+  if (u(i) == 'regexp') return this.match(i)
   if (t === 1) return [this.slice(0, this.indexOf(i)), this.slice(this.indexOf(i + 1))]
   return this.split(i)
 }
@@ -97,21 +100,19 @@ String.prototype.n = function(i, t, e) {
   if (typeof i == 'number') return this.repeat(i, t, e)
   // padStart
   if (u(i) == 'regexp') return this.search(i)
-  // if (t === 0) return this.startsWith(i)
-  // if (t === -1) return this.endsWith(i)
   // if (t === !0) return this.lastIndexOf(i)
   return this.indexOf(i)
 }
 Array.prototype.t = function(i, t, e) {
-  if (i === void 0) return Object.fromEntries(this)
+  if (i === void 0) return this.filter(Boolean)
+  // if (i === void 0) return Object.fromEntries(this)
   if (typeof i == 'number') return this.slice(i, t, e)
   if (u(i) == 'array') return this.concat(i)
   if (typeof i == 'function') return this.map(i, t, e)
   return this.join(i)
 }
 Array.prototype.n = function(i, t, e) {
-  // if (i === void 0) return this.entries()
-  if (i === void 0) return this.filter(Boolean)
+  // if (i === void 0) return Array.from(this.entries())
   // if (typeof i == 'number') return this.fill(i, t, e)
   if (t === 1) return this.findIndex(i, t, e)
   if (typeof i == 'function') return this.filter(i, t, e)

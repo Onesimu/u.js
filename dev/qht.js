@@ -2,7 +2,7 @@ const qht = e => {
   const id = /\.([a-z]\d+)/g
   if (id.test(e)) return e.e(id, '<dd id=$1 class=$1>')
   if(e.startsWith('<', 0)) return e
-  const l = e.t().t('\n').n(i => i.t()).t(i => i.i(/^\s*/)[0].i() / 2 + i.t())
+  const l = e.t().t('\n').n(i => i.t()).t(i => i.t(/^\s*/)[0].i() / 2 + i.t())
   o(l)
 
   const a = []
