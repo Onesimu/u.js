@@ -74,6 +74,7 @@ const dt = {
     fl: 'float',
     ai: 'align-items',
     jc: 'justify-content',
+    ac: 'align-content',
     fd: 'flex-direction',
     fr: 'flex-wrap',
     bx: 'box-sizing'
