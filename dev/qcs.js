@@ -150,6 +150,22 @@ const cl = {
   toe: 'text-overflow: ellipsis'
 }
 
+const se = {
+  ':a ': '::after',
+  ':b ': '::before',
+  ':f ': '::first-letter',
+  ':l ': '::first-line',
+  ':h ': ':hover',
+  ':c ': ':checked',
+  ':r ': ':root',
+  ':e ': ':empty',
+  ':fc ': ':first-child',
+  ':lc ': ':last-child',
+  ':oc ': ':only-child',
+  ':n': ':nth-child',
+  ':nt': ':nth-of-type'
+}
+
 const de = function(i, t, e) {
   return u.en(u.en(i).filter(k => k[0] != t))
 }
@@ -167,7 +183,7 @@ const qcs = e => {
 
   const ln = l.t(i => u.en(u.en(i).t(([k, v]) => {
     // if (k == '_s' || v.n('(') || !dt.k[k]) return [k, v]
-    if (k == '_s') return [k, v]
+    if (k == '_s') return [k, (v + ' ').e(se).t()]
     if (k == '_c') return [k, v]
 
     if (v.i('(')) return [dt.k[k] || k, v]

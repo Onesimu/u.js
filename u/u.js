@@ -55,7 +55,7 @@ u.i = function(i, t, e) {
 //   return u.en(u.en(i).filter(k => k[0] != t))
 // }
 u.n0 = n => Array.from(Array(n).keys())
-u.n1 = n => u.n(n + 1).slice(1)
+u.n1 = n => u.n0(n + 1).slice(1)
 
 // Function.prototype.e = Function.prototype.apply
 // Function.prototype.i = Function.prototype.call
