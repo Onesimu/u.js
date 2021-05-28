@@ -1,4 +1,5 @@
 const qht = e => {
+  if (/\.([a-z]\d+)/.test(e)) return e.e(/\.([a-z]\d+)/g, '<dd id=$1 class=$1>')
   if(e.startsWith('<', 0)) return e
   const l = e.t().t('\n').n(i => i.t()).t(i => i.i(/^\s*/)[0].i() / 2 + i.t())
   o(l)

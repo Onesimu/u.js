@@ -34,8 +34,8 @@ const jn = data => {
 const trans = json => {
   const info = json
 
-  const htm = info.map((it, i) => `<dd #f${i}>${it[0]}`)
-  const cs = info.map((it, i) => `#f${i} ${it[1]}`)
+  const htm = info.map((it, i) => `.f${i} ${it[0]}`)
+  const cs = info.map((it, i) => `.f${i} ${it[1]}`)
 
 	var css = ''
 
