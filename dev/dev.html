@@ -42,8 +42,8 @@
       [].forEach .call l, -> it.innerHTML .= qcs!
     </script>
     <script>
-      var LiveScript = require("livescript")
-      window.onload = function(){ LiveScript.go() }
+      window.ls = require("livescript")
+      window.onload = function(){ ls.go() }
     </script>
     <style>
       dl { m: a; }

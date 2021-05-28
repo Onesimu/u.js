@@ -60,7 +60,9 @@ async function pgdata(path) {
   const code = tpl.match(/\<script.*?\>([\s\S]+?)\<\/script\>/)
   if(code?.[1]){
     const ce = code[1].replace(/export[\s\S]*/, 'rs')
-    rs = eval(ce)
+    const c = ls.compile(ce, {bare: 1, header: 0, const: 1})
+    o(c)
+    rs = eval(c)
   }
   u.id('pg').insertAdjacentHTML(`beforeend`, html);
 
