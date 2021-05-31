@@ -68,24 +68,24 @@ Element.prototype.s = function(k, v) {
   return c
 }
 
-const e = function(v) {
-  if (v === void 0) {
+const e = function(k) {
+  if (k === void 0) {
     if ('src' in this) { return this.src }
     if ('value' in this) { return this.value }
     if ('textContent' in this) { return this.textContent }
     return this.innerHTML
   }
-  if (u(v) == 'array') {
-    return v.t(i => this.n(i).e())
+  if (u(k) == 'array') {
+    return k.t(i => this.n(i).e())
   }
-  if (typeof v == 'object') {
-    u.en(v).forEach(([k, v]) => u.va(v) && this.n(k).e(v))
+  if (typeof k == 'object') {
+    u.en(k).forEach(([k, v]) => u.va(v) && this.n(k).e(v))
     return this
   }
 
-  if ('src' in this) {this.src = v; return this}
-  if ('value' in this) {this.value = v; return this}
-  if ('textContent' in this) {this.textContent = v; return this}
+  if ('src' in this) {this.src = k; return this}
+  if ('value' in this) {this.value = k; return this}
+  if ('textContent' in this) {this.textContent = k; return this}
 }
 
 Element.prototype.h = function(k, v) {
