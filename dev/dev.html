@@ -33,9 +33,9 @@
       u.id \f2 .on ->
         src = u.id \f1 .h!
         o src
-        res = js2coffee.build(src)
+        res = js2coffee(src)
         o res
-        u.id \f3 .h coffee2ls.compile coffee2ls.parse res.code
+        u.id \f3 .h coffee2ls.compile coffee2ls.parse res
       u.id \f4 .on -> u.id \f1 .h ''
     </script>
     <script type=text/ls>
