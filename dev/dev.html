@@ -7,6 +7,7 @@
 
     <script src="https://cdn.jsdelivr.net/gh/js2coffee/js2coffee/dist/js2coffee.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/gkz/LiveScript/browser/livescript-min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gkz/coffee2ls/extras/coffee2ls.min.js"></script>
 
     <script src=https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/u.js></script>
     <script type=module src=https://cdn.jsdelivr.net/gh/Onesimu/u.js/u/web.js></script>
@@ -34,11 +35,10 @@
         o src
         res = js2coffee.build(src)
         o res
-        u.id \f3 .h res.code
+        u.id \f3 .h coffee2ls.compile coffee2ls.parse res.code
       u.id \f4 .on -> u.id \f1 .h ''
     </script>
     <script type=text/ls>
-      # String::qcs = -> u.qcs @
       l = document.getElementsByTagName \style
       [].forEach .call l, -> u.e it, \innerHTML, u.qcs
     </script>
