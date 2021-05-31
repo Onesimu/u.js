@@ -12,23 +12,13 @@ const _u = function(i, t, e) {
 
 g.u = function(i, t, e) { return _u(i, t, e) }
 
-// const _t = u.toString()
-// u.toString  = function(){ o(u.en(u.en(u))); return _t  }
-
-u.set = Object.assign
-
-// u.ne = Object.fromEntries
+// u.set = Object.assign
 u.en = function(i, t, e) {
   if (t === 0) return Object.keys(i, t, e)
   if (t === 1) return Object.values(i, t, e)
   if (u(i) === 'array') return Object.fromEntries(i, t, e)
   return Object.entries(i, t, e)
 }
-
-u.db = {}
-
-// const env = {}
-// u.env = env
 
 // u.i = Object.getPrototypeOf
 // u.t = JSON.stringify
@@ -41,7 +31,6 @@ u.t = function(i, t, e) {
   return JSON.stringify(i, t, e)
 }
 
-// Object.prototype.t = u.t
 // ;['i', 't', 'e', 'n'].forEach(i => Object.defineProperty(Object.prototype, i, { enumerable: false }))
 
 u.i = function(i, t, e) {
@@ -53,10 +42,10 @@ u.i = function(i, t, e) {
 // u.e = Object.assign
 u.e = function(i, t, e) {
   if (u(t) == 'object') return Object.assign(i, t)
+  if (u(t) == 'array') return t.e(n => u.e(i, n)), i
   if (u(t) == 'string' && e === void 0) return (delete i[t]), i
   if (u(t) == 'string' && u(e) == 'string') return (i[t] = i[e]), i
   if (u(t) == 'string' && u(e) == 'function') return (i[t] = e(i[t])), i
-  // return u.en(u.en(i).filter(k => k[0] != t))
 }
 
 u.n = function(i, t, e) {
@@ -64,15 +53,9 @@ u.n = function(i, t, e) {
   if (u(i) === 'array') return Array.from(new Set(i));
   if (i.length) return Array.from(i)
 }
-u.n0 = n => Array.from(Array(n).keys())
-u.n1 = n => u.n0(n + 1).slice(1)
+// u.n0 = n => Array.from(Array(n).keys())
+// u.n1 = n => u.n0(n + 1).slice(1)
 
-// Function.prototype.e = Function.prototype.apply
-// Function.prototype.i = Function.prototype.call
-// Function.prototype.t = Function.prototype.bind
-// Function.prototype.n = function(...i){
-//   if(i) return new this(...i)
-//   return this.length() }
 Function.prototype.n = function(...i) { return new this(...i) }
 Number.prototype.t = function(i, t, e) {
   if (i === void 0) return String.fromCharCode(this)

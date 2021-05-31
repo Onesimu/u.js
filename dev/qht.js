@@ -7,7 +7,7 @@ const qht = e => {
 
   const a = []
   a.e(l[0])
-  for (var i of u.n0(l.i()).t(1, -1)) {
+  for (var i of u.n(l.i()).t(1, -1)) {
     // for(var x = l.i(), i = 1; i < x - 1; i++){
     // if (i == l.i() - 1) {a.i(-1).e([l[i]]); break}
     // if (i == 0) {a.e(l[i]); break}

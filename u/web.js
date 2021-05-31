@@ -1,6 +1,5 @@
 u.id = document.getElementById.bind(document)
-// u.tag = document.getElementsByTagName.bind(document)
-// u.q = document.querySelectorAll.bind(document)
+u.tag = document.getElementsByTagName.bind(document)
 u.qi = document.querySelector.bind(document)
 u.bd = document.body
 
@@ -101,7 +100,6 @@ Element.prototype.h = function(k, v) {
   if (k && u(k) == 'function') return this[n] = k(this[n]), this
   this[n] = k; return this
 }
-
 
 Element.prototype.n = function(k, v) {
   if (k === void 0) { return this.parentNode }

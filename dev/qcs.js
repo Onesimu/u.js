@@ -167,10 +167,6 @@ const se = {
   ':nt': ':nth-of-type'
 }
 
-const de = function(i, t, e) {
-  return u.en(u.en(i).filter(k => k[0] != t))
-}
-
 const qcs = e => {
 
   const l = e.e(/bgi:/g, 'background-image:').e(/lg\(/g, 'linear-gradient(').e(/\/\*(\s|.)*?\*\//g, '').replace(/;base64,/g, '%%%%%%')
@@ -205,11 +201,11 @@ const qcs = e => {
     if (i['_c']) {
       // const c = u.en(i['_c'].t(' ').t(i => cl[i].t(';').t(i => i.t().t(': '))))
       const c = u.en(i['_c'].t(' ').t(i => cl[i].t(': ')))
-      return u.set(i.e('_c'), c)
+      return u.e(i.e('_c'), c)
     }
     return i
   })
-  const c = lnc.t(i => i['_s'] + ' { ' + u.en(de(i, '_s')).t(i => i.t(': ')).t('; ') + '; }').t('\n')
+  const c = lnc.t(i => i['_s'] + ' { ' + u.en(u.e(i, '_s')).t(i => i.t(': ')).t('; ') + '; }').t('\n')
   return c.replace(/%%%%%%/g, ';base64,')
 }
 
