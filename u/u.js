@@ -150,7 +150,7 @@ function tm(i, t, e) {
 }
 
 u.tm = tm
-u.set(u.tm, {
+u.e(u.tm, {
   ms: 1,
   s: 1000, // second
   m: 1000 * 60, // minute
@@ -163,7 +163,7 @@ u.mt = function(i, t, e) {
   return Math.floor(i)
 }
 
-u.set(u.mt, {
+u.e(u.mt, {
   a: (a, b) => a + b, // add
   s: (a, b) => a - b, // substract
   m: (a, b) => a * b, // multiply
