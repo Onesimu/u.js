@@ -21,7 +21,8 @@
 	<body>
     <dl>
       <textarea id=f1 contenteditable></textarea>
-      <dd id=f2>run</dd>
+      <dd id=f2>></dd>
+      <dd id=f5><</dd>
       <dd id=f4>clear</dd>
       <textarea id=f3 contenteditable></textarea>
     </dl>
@@ -34,10 +35,13 @@
         o res
         u.id \f3 .h coffee2ls.compile coffee2ls.parse res
       u.id \f4 .on -> u.id \f1 .h ''
+      u.id \f5 .on ->
+        src = u.id \f3 .h!
+        o src
+        u.id \f1 .h ls.compile src, {bare: 1, header: 0, const: 1}
     </script>
     <script type=text/ls>
-      l = u.bd.n \style
-      l.e -> it.h u.qcs
+      u.bd.n \style .e -> it.h u.qcs
     </script>
     <script>
       window.ls = require("livescript")
@@ -48,7 +52,7 @@
       dl > * { bd: 1 s wheat; }
       #f1 { w: 100%; h: 200; }
       #f3 { w: 100%; h: 200; }
-      #f2, #f4 { w: 50; m: 10 a; ta: c; }
+      #f2, #f4, #f5 { w: 50; m: 10 a; ta: c; }
     </style>
 	</body>
 </html>
