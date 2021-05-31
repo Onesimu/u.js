@@ -69,12 +69,6 @@ Element.prototype.s = function(k, v) {
 }
 
 const e = function(k) {
-  if (k === void 0) {
-    if ('src' in this) { return this.src }
-    if ('value' in this) { return this.value }
-    if ('textContent' in this) { return this.textContent }
-    return this.innerHTML
-  }
   if (u(k) == 'array') {
     return k.t(i => this.n(i).e())
   }
@@ -83,9 +77,13 @@ const e = function(k) {
     return this
   }
 
-  if ('src' in this) {this.src = k; return this}
-  if ('value' in this) {this.value = k; return this}
-  if ('textContent' in this) {this.textContent = k; return this}
+  var n = 'innerHTML'
+  if ('src' in this) { n = 'src' }
+  if ('value' in this) { n = 'value' }
+  if ('textContent' in this) { n = 'textContent' }
+
+  if (k === void 0) { return this[n] }
+  this[n] = k; return this
 }
 
 Element.prototype.h = function(k, v) {
@@ -102,7 +100,6 @@ Element.prototype.h = function(k, v) {
     if (v) { this.innerHTML = v; return this }
     return this.innerHTML
   }
-  // if (k === void 0) { return this.innerHTML }
   if (u(k) == 'string' && k.startsWith('<')) { this.innerHTML = k; return this }
   return e.bind(this)(k)
 }
