@@ -68,24 +68,6 @@ Element.prototype.s = function(k, v) {
   return c
 }
 
-const e = function(k) {
-  if (u(k) == 'array') {
-    return k.t(i => this.n(i).e())
-  }
-  if (typeof k == 'object') {
-    u.en(k).forEach(([k, v]) => u.va(v) && this.n(k).e(v))
-    return this
-  }
-
-  var n = 'innerHTML'
-  if ('src' in this) { n = 'src' }
-  if ('value' in this) { n = 'value' }
-  if ('textContent' in this) { n = 'textContent' }
-
-  if (k === void 0) { return this[n] }
-  this[n] = k; return this
-}
-
 Element.prototype.h = function(k, v) {
   if (k == '_o') {
     if (v) { this.outerHTML = v; return this }
@@ -101,7 +83,23 @@ Element.prototype.h = function(k, v) {
     return this.innerHTML
   }
   if (u(k) == 'string' && k.startsWith('<')) { this.innerHTML = k; return this }
-  return e.bind(this)(k)
+
+  if (u(k) == 'array') {
+    return k.t(i => this.n(i).h())
+  }
+  if (typeof k == 'object') {
+    u.en(k).forEach(([k, v]) => u.va(v) && this.n(k).h(v))
+    return this
+  }
+
+  var n = 'innerHTML'
+  if ('src' in this) { n = 'src' }
+  if ('value' in this) { n = 'value' }
+  if ('textContent' in this) { n = 'textContent' }
+
+  if (k === void 0) { return this[n] }
+  if (k && u(k) == 'function') return this[n] = k(this[n]), this
+  this[n] = k; return this
 }
 
 
