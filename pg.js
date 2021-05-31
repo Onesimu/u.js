@@ -56,7 +56,7 @@ async function pgdata(path) {
   const tpl = await u.net.get('./pg/' + path + '.vue', null, {text: true})
   const ht = tpl.match(/\<template\>([\s\S]+?)\<\/template\>/)[1]
   const css = tpl.match(/\<style.*?\>([\s\S]+?)\<\/style\>/)[1]
-  const html = ['<tpl>', qht(ht.t()).e(/>\s+</g, '><'), '</tpl>', '<style scoped>', qcs(css).replace(/rpx/g, 'px'), '</style>'].join('\n')
+  const html = ['<tpl>', qht(ht.t()), '</tpl>', '<style scoped>', qcs(css).replace(/rpx/g, 'px'), '</style>'].join('\n')
   const code = tpl.match(/\<script.*?\>([\s\S]+?)\<\/script\>/)
   if(code?.[1]){
     const ce = code[1].replace(/export[\s\S]*/, 'rs')
@@ -64,6 +64,7 @@ async function pgdata(path) {
     o(c)
     rs = eval(c)
   }
+  o(html)
   u.id('pg').insertAdjacentHTML(`beforeend`, html);
 
   vm(rs).bind(rs)()

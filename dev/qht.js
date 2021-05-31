@@ -1,6 +1,6 @@
 const qht = e => {
-  const id = /\.([a-z]\d+)/g
-  if (id.test(e)) return e.e(id, '<dd id=$1 class=$1>')
+  const id = /\.([a-z]\d+)\s/g
+  if (id.test(e)) return e.e(/\.(f\d+)\s/g, '<dd id=$1 class=$1>').e(/\.(e\d+)\s/g, '<dl id=$1 class=$1>\n').e(/^\//gm, '</dl>')
   if(e.startsWith('<', 0)) return e
   const l = e.t().t('\n').n(i => i.t()).t(i => i.t(/^\s*/)[0].i() / 2 + i.t())
   o(l)
