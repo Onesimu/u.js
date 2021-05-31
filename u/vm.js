@@ -38,8 +38,8 @@ function vm(rs) {
     const hashsearch = u.path.hash.split('?')[1]
     const props = hashsearch ? u.qs(hashsearch) : {}
     const search = u.qs(u.path.search.slice(1))
-    // const query = this.$route?.query || u.set({}, props, search)
-    const query = u.set({}, props, search, this.$route?.query)
+    // const query = this.$route?.query || u.e({}, props, search)
+    const query = u.e({}, props, search, this.$route?.query)
 
     this && (this != rs) && (this.rs = rs)
     const sr = this.$el || document.body.n('#pg')
@@ -47,12 +47,12 @@ function vm(rs) {
     // u.en(sr.i()).e(([i, t]) => sr.i(i, !1))
 
     if (rs.db) {
-      u.set(rs.db, query)
+      u.e(rs.db, query)
       rs.db.set = (i, t) => {
         const val = (t === void 0) ? i : {[i]: t}
-        u.set(rs.db, val)
+        u.e(rs.db, val)
 
-        // this.$data && u.set(this.$data, val)
+        // this.$data && u.e(this.$data, val)
 
         u.en(val).forEach(([k, v]) => u.va(v) && sr.i(k, v))
 

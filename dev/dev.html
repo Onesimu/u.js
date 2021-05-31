@@ -6,6 +6,7 @@
     <title></title>
 
     <script src="https://cdn.jsdelivr.net/gh/gkz/LiveScript/browser/livescript-min.js"></script>
+    <script src=http://www.preludels.com/prelude-browser-min.js></script>
     <script src="https://cdn.jsdelivr.net/gh/js2coffee/js2coffee/dist/js2coffee.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/gkz/coffee2ls/extras/coffee2ls.min.js"></script>
 
@@ -30,14 +31,12 @@
     <script type="text/ls">
       u.id \f2 .on ->
         src = u.id \f1 .h!
-        o src
         res = js2coffee(src)
         o res
         u.id \f3 .h coffee2ls.compile coffee2ls.parse res
       u.id \f4 .on -> u.id \f1 .h ''
       u.id \f5 .on ->
         src = u.id \f3 .h!
-        o src
         u.id \f1 .h ls.compile src, {bare: 1, header: 0, const: 1}
     </script>
     <script type=text/ls>
