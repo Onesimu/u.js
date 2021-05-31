@@ -163,8 +163,8 @@ const se = {
   ':fc ': ':first-child',
   ':lc ': ':last-child',
   ':oc ': ':only-child',
-  ':n': ':nth-child',
-  ':nt': ':nth-of-type'
+  ':nc': ':nth-child',
+  ':n': ':nth-of-type'
 }
 
 const qcs = e => {
