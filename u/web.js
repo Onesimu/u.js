@@ -93,12 +93,13 @@ Element.prototype.h = function(k, v) {
 
   var n = 'innerHTML'
   if ('textContent' in this) { n = 'textContent' }
-  if ('src' in this) { n = 'src' }
-  if ('value' in this) { n = 'value' }
+  else if ('src' in this) { n = 'src' }
+  else if ('value' in this) { n = 'value' }
 
   if (k === void 0) { return this[n] }
   if (k && u(k) == 'function') return this[n] = k(this[n]), this
-  this[n] = k; return this
+  this[n] = k
+  return this
 }
 
 Element.prototype.n = function(k, v) {

@@ -1,6 +1,7 @@
-// if (global) { global.g = global }
-// if (this) {this.g = this}
-window.g = window
+if (globalThis) { globalThis.g = globalThis }
+else if (global) { global.g = global }
+else if (this) { this.g = this }
+else if (window) { window.g = window }
 
 g.o = console.log.bind(console)
 
@@ -49,7 +50,7 @@ u.e = function(i, t, e) {
 }
 
 u.n = function(i, t, e) {
-  if (typeof i == 'number') return Array.from(Array(n).keys())
+  if (typeof i == 'number') return Array.from(Array(i).keys())
   if (u(i) === 'array') return Array.from(new Set(i));
   if (i.length) return Array.from(i)
 }
