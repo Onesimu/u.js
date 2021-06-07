@@ -59,9 +59,8 @@ async function pgdata(path) {
   const html = ['<tpl>', qht(ht.t()), '</tpl>', '<style scoped>', qcs(css).replace(/rpx/g, 'px'), '</style>'].join('\n')
   const code = tpl.match(/\<script.*?\>([\s\S]+?)\<\/script\>/)
   if(code?.[1]){
-    const ce = code[1].replace(/export[\s\S]*/, 'rs')
+    const ce = code[1].replace(/export[\s\S]*/, 'rs').e(/^\s*\/\//gm, '\n#')
     const c = ls.compile(ce, {bare: 1, header: 0, const: 1})
-    o(c)
     rs = eval(c)
   }
   o(html)

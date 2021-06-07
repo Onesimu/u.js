@@ -1,5 +1,4 @@
 const qjs = e => {
-
   const dt = {
     val: 'const',
     fn: 'function',
