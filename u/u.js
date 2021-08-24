@@ -1,9 +1,16 @@
-if (globalThis) { globalThis.g = globalThis }
-else if (global) { global.g = global }
-else if (this) { this.g = this }
-else if (window) { window.g = window }
+// if (globalThis) { globalThis.g = globalThis }
+// else if (global) { global.g = global }
+// else if (this) { this.g = this }
+// else if (window) { window.g = window }
 
-g.o = console.log.bind(console)
+var _global = typeof window === 'object' && window.window === window
+    ? window : typeof self === 'object' && self.self === self
+    ? self : typeof global === 'object' && global.global === global
+    ? global
+    : this
+_global.g = _global
+
+g.o = (console.table || console.log).bind(console)
 
 const _u = function(i, t, e) {
   const s = typeof i
@@ -13,6 +20,7 @@ const _u = function(i, t, e) {
 
 g.u = function(i, t, e) { return _u(i, t, e) }
 
+u.log = (console.log).bind(console)
 // u.set = Object.assign
 u.en = function(i, t, e) {
   if (t === 0) return Object.keys(i, t, e)
@@ -32,20 +40,18 @@ u.t = function(i, t, e) {
   return JSON.stringify(i, t, e)
 }
 
-// ;['i', 't', 'e', 'n'].forEach(i => Object.defineProperty(Object.prototype, i, { enumerable: false }))
-
-u.i = function(i, t, e) {
-  const h = u.en(i[0], 0).t(',') + '\n'
-  const b = i.t(i => u.en(i, 1).t(',')).t('\n')
-  return h + b
-}
+// u.i = function(i, t, e) {
+//   const h = u.en(i[0], 0).t(',') + '\n'
+//   const b = i.t(i => u.en(i, 1).t(',')).t('\n')
+//   return h + b
+// }
 
 // u.e = Object.assign
 u.e = function(i, t, e) {
-  if (u(t) == 'object') return Object.assign(i, t)
+  if (u(t) == 'object') return Object.assign(i, t, e)
   if (u(t) == 'array') return t.e(n => u.e(i, n)), i
   if (u(t) == 'string' && e === void 0) return (delete i[t]), i
-  if (u(t) == 'string' && u(e) == 'string') return (i[t] = i[e]), i
+  if (u(t) == 'string' && u(e) == 'string') return (i[e] = i[t]), (delete i[t]), i
   if (u(t) == 'string' && u(e) == 'function') return (i[t] = e(i[t])), i
 }
 
@@ -119,11 +125,11 @@ Array.prototype.n = function(i, t, e) {
 }
 Array.prototype.e = function(i, t, e) {
   if (i === void 0) return this.pop(), this
-  if (typeof i == 'number') return this.splice(i, t, e), this
+  if (typeof i == 'number') return this.splice(i, t, e), this.filter(Boolean)
   if (t === !0) return this.sort(i)
   if (i === !1) return this.reverse()
-  // if (t === 0) return this.unshift(i), this
-  // if (t === 1) return this.shift()
+  if (t === 0) return this.unshift(i), this
+  // if (t === 1) return this.shift(), this
   if (typeof i == 'function') return this.forEach(i, t, e), this
   return this.push(i), this
 }

@@ -1,38 +1,31 @@
-function _fet(url, body, config) {
+function _fet(url, body, cfg) {
   const ContentType = {
-    json: 'application/json;charset=UTF-8',
-    form: 'application/x-www-form-urlencoded; charset=UTF-8'
+    jn: 'application/json',
+    fm: 'application/x-www-form-urlencoded',
+    fd: 'multipart/form-data'
   }
 
   const init = {
     method: 'post',
     credentials: 'include',
-    headers: {'Content-Type': ContentType.json},
   }
-  body && Object.assign(init, {body: JSON.stringify(body)})
 
-  config && config.form && Object.assign(init, {
-    headers: {'Content-Type': ContentType.form},
-  });
-  config && config.form && body && Object.assign(init, {body: u.qs(body)})
-
-  if (u.wx && wx.showLoading) {
-    config && config.loading && wx.showLoading({
-      title: '加载中',
-      mask: true
-    });
+  if (body instanceof FormData) {
+    Object.assign(init, {body})
+  } else if (cfg && cfg.fm) {
+    Object.assign(init, {headers: {'Content-Type': ContentType.fm}})
+    body && Object.assign(init, {body: u.qs(body)})
+  } else {
+    Object.assign(init, {headers: {'Content-Type': ContentType.jn}})
+    body && Object.assign(init, {body: JSON.stringify(body)})
   }
-  config && config.headers && Object.assign(init, config.headers)
+
+  cfg && cfg.headers && Object.assign(init, cfg.headers)
   return fetch(url, init).then(res => {
-    if (u.wx && wx.hideLoading) {
-      res.json().then(d => console.log('请求:' + url, body, "\n结果：", d))
-      config && config.loading && wx.hideLoading();
-    }
-
     if (res.status == 200) { //响应成功
-      if (config && config.text) {
+      if (cfg && cfg.text) {
         return res.text()
-      } else if (config && config.blob) {
+      } else if (cfg && cfg.blob) {
         return res.blob()
       } else {
         return res.json()
@@ -41,45 +34,32 @@ function _fet(url, body, config) {
     const error = new Error(res.statusText);
     error.data = res;
     throw error
-  }).catch(e => console.log(e))
+  }).catch(e => console.error(e))
 }
 
-function _get(url, body, config) {
+function _get(url, body, cfg) {
   var l = url
   if (!url.includes('?') && body) {
     l += '?' + (body ? u.qs(body) : '')
   }
-  if (u.wx && wx.showLoading) {
-    config && config.loading && wx.showLoading({
-      title: '加载中',
-      mask: true
-    });
-  }
   const init = {
     credentials: 'include',
   }
-  config && config.headers && Object.assign(init, config.headers)
+  cfg && cfg.headers && Object.assign(init, cfg.headers)
   return fetch(l, init).then(res => {
-    if (u.wx && wx.hideLoading) {
-      config && config.loading && wx.hideLoading();
-    }
-
     if (res.status == 200) {
-      if (config && config.text) {
+      if (cfg && cfg.text) {
         return res.text()
-      } else if (config && config.blob) {
+      } else if (cfg && cfg.blob) {
         return res.blob()
       } else {
-        if (u.wx && wx.hideLoading) {
-          res.json().then(d => console.log('请求:' + l, "\n结果：", d))
-        }
         return res.json()
       }
     }
     const error = new Error(res.statusText);
     error.data = res;
     throw error
-  }).catch(e => console.log(e))
+  }).catch(e => console.error(e))
 }
 
 u.net = {}
