@@ -11,6 +11,7 @@ var _global = typeof window === 'object' && window.window === window
 _global.g = _global
 
 g.o = (console.table || console.log).bind(console)
+o.o = (console.log).bind(console)
 
 const _u = function(i, t, e) {
   const s = typeof i
@@ -20,7 +21,6 @@ const _u = function(i, t, e) {
 
 g.u = function(i, t, e) { return _u(i, t, e) }
 
-u.log = (console.log).bind(console)
 // u.set = Object.assign
 u.en = function(i, t, e) {
   if (t === 0) return Object.keys(i, t, e)
