@@ -1,0 +1,28 @@
+{
+  "name": "u.js",
+  "version": "1.0.0",
+  "description": "a tiny simple native web library",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "u": "pnpx webpack"
+  },
+  "keywords": ["native", "web", "library"],
+  "author": "onesimu",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.12.0",
+    "@babel/plugin-transform-runtime": "^7.14.5",
+    "@babel/preset-env": "^7.14.7",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.40.0",
+    "webpack-cli": "^4.7.2"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 10"
+  ]
+}

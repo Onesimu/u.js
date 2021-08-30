@@ -4,6 +4,8 @@ node_modules/
 .DS_Store
 unpackage/
 package-lock.json
+pnpm-lock.yaml
 
 **/tmp/*/
 pg/
+lib/

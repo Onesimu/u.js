@@ -1,4 +1,4 @@
-// import './rt.js'
+import './rt.js'
 import './u.js'
 // import './ut.js'
 import './web.js'
@@ -6,3 +6,5 @@ import './web.js'
 // import './vue.js'
 // import './net.js'
 import './xhr.js'
+import { qcs } from '../dev/qcs.js'
+u.qcs = qcs

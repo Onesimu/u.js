@@ -50,6 +50,7 @@ const trans = json => {
   // css.e(/\b(\d+(\.\d+)?)px\b/ig, (m, x) => x / 100 + 'rem')
   // css.e(/\b(\d+(\.\d+)?)px\b/ig, (m, x) => x > 5 ? x / (750 / 100) + 'vw' : x + 'px')
   // css.e(/\b(\d+(\.\d+)?)px\b/ig, (m, x) => x > 5 ? +(x / (750 / 100)).toFixed(2) + 'vw' : x + 'px')
+  // css.e(/\b(\d+(\.\d+)?)px\b/ig, (m, x) => x > 5 ? +(x / 16).toFixed(2) + 'rem' : x + 'px')
   // }
   css = css.e(/{/g, " { ").e(/\;/g, "; ").e(/\s+/g," ").e(/\n/g,"").e(/}/g,"}\n").e(/\*\//g,"*/\n")
 
