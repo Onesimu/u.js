@@ -16,22 +16,25 @@ const qht = e => {
   //   if (c == -1) a.i(-1).e([t])
   // }
 
-  var pmt = a
+  var pmt = [a]
   var tmp = a
+  var pi = 0
   for(var x = l.i(), i = 1; i < x; i++) {
       const t = l[i]
       const c = t[0] - l[i - 1][0]
       const tp = [t]
       if (c == 1) {
-        if (i > 2 && e - l[i - 2][0] == 2) pmt = tmp
+        // if (i > 2 && e - l[i - 2][0] == 2) pmt = tmp
+        pmt.e(tmp)
+        pi++
         tmp.e(tp)
       } else
       if (c == 0) {
         a.i(-1).e(tp)
       } else
       if (c == -1) {
-        // pmt = tmp
-        pmt.e(tp)
+        pi--
+        pmt[pi].e(tp)
       }
       tmp = tp
     o(c, u.t(a), pmt, tmp)
