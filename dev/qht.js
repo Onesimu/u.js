@@ -19,31 +19,21 @@ const qht = e => {
   var pmt = a
   var tmp = a
   for(var x = l.i(), i = 1; i < x; i++) {
-    // if (i == 0) {a.e(l[i])}
-    // else if (i == x - 1) {a.i(-1).e([l[i]])}
-    // else {
-      const t = l[i];
-      const e = t[0];
-      const c = e - l[i - 1][0]
-      // if (c == 1) { tmp = [t]; a.e(tmp)}
+      const t = l[i]
+      const c = t[0] - l[i - 1][0]
+      const tp = [t]
       if (c == 1) {
         if (i > 2 && e - l[i - 2][0] == 2) pmt = tmp
-        const tp = [t]
         tmp.e(tp)
-        tmp = tp
       } else
       if (c == 0) {
-        const tp = [t]
         a.i(-1).e(tp)
-        tmp = tp
       } else
       if (c == -1) {
         // pmt = tmp
-        const tp = [t]
         pmt.e(tp)
-        tmp = tp
       }
-    // }
+      tmp = tp
     o(c, u.t(a), pmt, tmp)
   }
   // a.i(-1).e([l.i(-1)])
