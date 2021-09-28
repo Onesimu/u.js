@@ -7,13 +7,13 @@ const qht = e => {
 
   const a = [l[0]]
 
-  var pmt = [a]
-  var pi = 0
-  var tmp = a
+  var pmt = [a] // parent list
+  var pi = 0 // parent index
+  var tmp = a //
   for(var x = l.i(), i = 1; i < x; i++) {
       const t = l[i]
-      const c = t[0] - l[i - 1][0]
       const tp = [t]
+      const c = t[0] - l[i - 1][0]
       if (c == 1) {
         pmt.e(tmp)
         pi++
