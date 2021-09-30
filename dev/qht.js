@@ -3,8 +3,8 @@ const qht = e => {
   if (id.test(e)) return e.e(/\.(f\d+)\s/g, '<dd id=$1 class=$1>').e(/\.(e\d+)\s/g, '<dl id=$1 class=$1>\n').e(/^\//gm, '</dl>')
   if(e.startsWith('<', 0)) return e
   const l = e.t().t('\n').n(i => i.t())
-    .t((i, t) => i.t(/^\s*/)[0].i() / 2 + 'f' + t)
-    // .t(i => i.t(/^\s*/)[0].i() / 2 + i.t())
+    // .t((i, t) => i.t(/^\s*/)[0].i() / 2 + 'f' + t)
+    .t(i => i.t(/^\s*/)[0].i() / 2 + i.t())
   o(l)
 
   const a = [l[0]]
@@ -27,7 +27,7 @@ const qht = e => {
         pmt[pi].e(tp)
       }
       tmp = tp
-    o(c, pmt, tmp, pi, pmt[pi], u.t(a))
+    // o(c, pmt, tmp, pi, pmt[pi], u.t(a))
   }
 
   const tl = u.t(a).e(/"\d/g, '"')

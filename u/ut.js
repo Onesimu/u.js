@@ -1,78 +1,32 @@
-const numc = (num) => {
-  const changeNum = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
-  const unit = ['', '十', '百', '千', '万']
-  num = parseInt(num)
-  const getWan = (temp) => {
-    const strArr = temp
-      .toString()
-      .split('')
-      .reverse()
-    var newNum = ''
-    for (var i = 0; i < strArr.length; i++) {
-      newNum =
-        (i === 0 && strArr[i] === 0
-          ? ''
-          : i > 0 && strArr[i] === 0 && strArr[i - 1] === 0
-            ? ''
-            : changeNum[strArr[i]] + (strArr[i] === 0 ? unit[0] : unit[i])) + newNum
-    }
-    return newNum.replace('一十', '十')
-  }
-  const overWan = Math.floor(num / 10000)
-  var noWan = num % 10000
-  if (noWan.toString().length < 4) {
-    noWan = '0' + noWan
-  }
-  return overWan ? getWan(overWan) + '万' + getWan(noWan) : getWan(num)
+// Base64 转 Blob
+const base64ToBlob = base64 => {
+  let arr = base64.split(','), type = arr[0].match(/:(.*?);/)[1], bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+  while(n--){u8arr[n] = bstr.charCodeAt(n);}
+  return new Blob([u8arr], {type});
 }
+const b64toBlob = (base64, type = 'application/octet-stream') => fetch(`data:${type};base64,${base64}`).then(res => res.blob())
 
-function cnum(chnStr) {
-  var chnNumChar = {零: 0,一: 1,二: 2,三: 3,四: 4,五: 5,六: 6,七: 7,八: 8,九: 9}
-  var chnNameValue = {十: {value: 10,secUnit: false},百: {value: 100,secUnit: false},千: {value: 1000,secUnit: false},万: {value: 10000,secUnit: true},亿: {value: 100000000,secUnit: true}}
-  var expNumChar = {十: 10,十一: 11,十二: 12,十三: 13,十四: 14,十五: 15,十六: 16,十七: 17,十八: 18,十九: 19}
-  if (expNumChar[chnStr]) {
-    return expNumChar[chnStr]
+function getSystemInfoSync(){
+    var screen = window.screen
+    var pixelRatio = window.devicePixelRatio
+    // 横屏时 iOS 获取的屏幕宽高颠倒，进行纠正
+    const screenFix = /^Apple/.test(navigator.vendor) && typeof window.orientation === 'number'
+    const landscape = screenFix && Math.abs(window.orientation) === 90
+    var screenWidth = screenFix ? Math[landscape ? 'max' : 'min'](screen.width, screen.height) : screen.width
+    var screenHeight = screenFix ? Math[landscape ? 'min' : 'max'](screen.height, screen.width) : screen.height
+    var windowWidth = Math.min(window.innerWidth, document.documentElement.clientWidth, screenWidth) || screenWidth
+    var windowHeight = window.innerHeight
+  return {
+    windowWidth,
+    windowHeight,
+    pixelRatio,
+    screenWidth,
+    screenHeight,
   }
-  var rtn = 0
-  var section = 0
-  var number = 0
-  var secUnit = false
-  var str = chnStr.split('')
-  for (var i = 0; i < str.length; i++) {
-    var num = chnNumChar[str[i]]
-    if (typeof num !== 'undefined') {
-      number = num
-      if (i === str.length - 1) {
-        section += number
-      }
-    } else {
-      var cunit = chnNameValue[str[i]]
-      if (typeof cunit === 'undefined') {
-        return false
-      }
-      var unit = chnNameValue[str[i]].value
-      secUnit = chnNameValue[str[i]].secUnit
-      if (secUnit) {
-        section = (section + number) * unit
-        rtn += section
-        section = 0
-      } else {
-        section += number * unit
-      }
-      number = 0
-    }
-  }
-  return rtn + section
 }
 
 u.ut = function(i, t, e){
   return i + ''
-}
-
-u.ut.numc = i => {
-  if (typeof i == 'number') return numc(i)
-  if (typeof i == 'string' && isFinite(i)) return numc(i)
-  if (typeof i == 'string') return cnum(i)
 }
 
 // u.en(fd.t('\n').t(i => i.t('\t')).t(i => [i[1], i[2]]))

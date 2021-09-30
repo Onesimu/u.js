@@ -48,10 +48,16 @@ u.t = function(i, t, e) {
 
 // u.e = Object.assign
 u.e = function(i, t, e) {
+  // remove unused keys, according to another object
+  if (u(t) == 'object' && e === 1) return u.en(u.en(t).n(it => u.en(i, 0).includes(it[0])))
   if (u(t) == 'object') return Object.assign(i, t, e)
+  // delete certain keys in string array
   if (u(t) == 'array') return t.e(n => u.e(i, n)), i
+  // delete certain key
   if (u(t) == 'string' && e === void 0) return (delete i[t]), i
+  // update key name
   if (u(t) == 'string' && u(e) == 'string') return (i[e] = i[t]), (delete i[t]), i
+  // update certain value with function
   if (u(t) == 'string' && u(e) == 'function') return (i[t] = e(i[t])), i
 }
 
