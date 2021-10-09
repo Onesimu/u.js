@@ -4,12 +4,18 @@ const qht = e => {
   if(e.startsWith('<', 0)) return e
   const l = e.t().t('\n').n(i => i.t())
     .t(i => {
+      o(i.match(/^\s*(\w+)?(#\w+)?(\((.+)\))?\s?(.*)/).t(1).t(','))
       const b = i.t(/^\s*/)[0].i() / 2
       const t = i.t().t('(')
-      const t1 = t[0].e(/(\w+)?#(\w+)/, '$1 id=$2 ')
-      const t2 = t[1] ? t[1].e(')', '>', 1) : '>'
-      o(i)
-      o(t1, t2)
+      const t1 = t[0].e(/(\w+)?#(\w+)/, '$1 id=$2')
+      // const t2 = t[1] ? ' ' + t[1].e(')', '>', 1) : '>'
+      var t2 = '>'
+      if (t[1]) {
+        // o(t[1].t(')')[1])
+        t2 = ' ' + t[1].e(')', '>', 1)
+      }
+      // o(i)
+      // o(t1, t2)
       return b + (t1 + t2).t()
     })
     // .t(i => i.t(/^\s*/)[0].i() / 2 + i.t())
