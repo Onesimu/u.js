@@ -168,7 +168,11 @@ const se = {
   ':no\\(': ':not(',
 }
 
-const qcs = e => {
+const qcs = (e, n) => {
+  if (n) {
+    dt.k = u.en(dt.k, -1)
+    dt.v = u.en(dt.v, -1)
+  }
 
   const l = e.e(/bgi:/g, 'background-image:').e(/lg\(/g, 'linear-gradient(').e(/\/\*(\s|.)*?\*\//g, '').replace(/;base64,/g, '%%%%%%')
     .t().t('}').n(Boolean).t(i => {

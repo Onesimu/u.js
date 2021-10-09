@@ -25,6 +25,7 @@ g.u = function(i, t, e) { return _u(i, t, e) }
 u.en = function(i, t, e) {
   if (t === 0) return Object.keys(i, t, e)
   if (t === 1) return Object.values(i, t, e)
+  if (t === -1) return Object.fromEntries(Object.entries(i, t, e).t(([a, b]) => [b, a]))
   if (u(i) === 'array') return Object.fromEntries(i, t, e)
   return Object.entries(i, t, e)
 }

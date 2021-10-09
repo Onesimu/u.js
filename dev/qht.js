@@ -11,7 +11,7 @@ const qht = e => {
         const q2 = p2 ? 'id=' + p2.t(1) : ''
         const q3 = p3 ? p3.t(1, -1) : ''
         const q4 = p4 ? '>' + p4 : '>'
-        return b + [q1, q2, q3, q4].t(' ').t()
+        return b + [q1, q2, q3, q4].t(' ').t().e(/\s+>/, '>')
       }, 1))
     })
   o(l)
