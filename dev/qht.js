@@ -53,8 +53,8 @@ const qht = e => {
     '\\s+>': '>'
   }
 
-  const h = tl.e(dt)
-  // .e(/<div>(.+?)</, '<div id="$1" class="$1"><')
+  const h = tl.e(dt).e(/<div is=(\S+?)(\s(.+?))?>(.*?)<\/div>/g, '<$1 $3>$4</$1>')
+  // .e(/<div is=(\S+?)\s(.+?)>(.*?)<\/div>/g, '<$1 $2>$3')
   o(h)
   return h
 }
