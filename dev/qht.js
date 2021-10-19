@@ -1,12 +1,14 @@
 const qht = e => {
-  const id = /\.([a-z]\d+)\s/g
-  if (id.test(e)) return e.e(/\.(f\d+)\s/g, '<dd id=$1 class=$1>').e(/\.(e\d+)\s/g, '<dl id=$1 class=$1>\n').e(/^\//gm, '</dl>')
+  // const id = /\.([a-z]\d+)\s/g
+  // if (id.test(e)) return e.e(/\.(f\d+)\s/g, '<dd id=$1 class=$1>').e(/\.(e\d+)\s/g, '<dl id=$1 class=$1>\n').e(/^\//gm, '</dl>')
   if(e.startsWith('<', 0)) return e
   const l = e.t().t('\n').n(i => i.t())
     .t(i => {
+      const node = /^\s*(\w+)?(#\w+)?(\(.+?\))?\s?(.*)/
+      o(i.t(node, '$1 id=$2 $3>$4', 1))
       const b = i.t(/^\s*/)[0].i() / 2
-      // o(i.e(/^\s*(\w+)?(#\w+)?(\(.+?\))?\s?(.*)/, '$1 id=$2 $3>$4', 1))
-      return (i.t().e(/^\s*(\w+)?(#\w+)?(\(.+?\))?\s?(.*)/, (m, p1, p2, p3, p4) => {
+      // o(i.e(node, '$1 id=$2 $3>$4', 1))
+      return (i.t().e(node, (m, p1, p2, p3, p4) => {
         const q1 = p1 && p1 != 'div' ? 'div is=' + p1 : 'div'
         const q2 = p2 ? 'id=' + p2.t(1) : ''
         const q3 = p3 ? p3.t(1, -1) : ''

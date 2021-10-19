@@ -81,7 +81,7 @@ u.va = v => ['string', 'boolean', 'number'].includes(typeof v)
 String.prototype.i = function(i, t, e) {
   if (i === void 0) return this.length
   if (typeof i == 'number') return i < 0 ? this[this.length + i] : this[i]
-  if (u(i) == 'regexp') return this.test(i)
+  if (u(i) == 'regexp') return i.test(this)
   if (t === 0) return this.startsWith(i)
   if (t === -1) return this.endsWith(i)
   // return this.slice(0, this.indexOf(i))
