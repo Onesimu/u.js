@@ -4,17 +4,18 @@ const qht = e => {
   if(e.startsWith('<', 0)) return e
   const l = e.t().t('\n').n(i => i.t())
     .t(i => {
-      const node = /^\s*(\w+)?(#\w+)?(\(.+?\))?\s?(.*)/
-      o(i.t(node, '$1 id=$2 $3>$4', 1))
       const b = i.t(/^\s*/)[0].i() / 2
+      const node = /^(\s*)(\w+)?(#\w+)?(\(.+?\))?\s?(.*)/
       // o(i.e(node, '$1 id=$2 $3>$4', 1))
-      return (i.t().e(node, (m, p1, p2, p3, p4) => {
+      const [p, p0, p1, p2, p3, p4] = i.t(node)
+      // return (i.t().e(node, (m, p0, p1, p2, p3, p4) => {
+        // const b = p0 ? p0.i() / 2 : 0
         const q1 = p1 && p1 != 'div' ? 'div is=' + p1 : 'div'
         const q2 = p2 ? 'id=' + p2.t(1) : ''
         const q3 = p3 ? p3.t(1, -1) : ''
         const q4 = p4 ? '>' + p4 : '>'
         return b + [q1, q2, q3, q4].t(' ').t().e(/\s+>/, '>')
-      }, 1))
+      // }, 1))
     })
   o(l)
 
