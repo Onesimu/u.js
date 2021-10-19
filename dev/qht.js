@@ -1,7 +1,19 @@
 const qht = e => {
   // const id = /\.([a-z]\d+)\s/g
   // if (id.test(e)) return e.e(/\.(f\d+)\s/g, '<dd id=$1 class=$1>').e(/\.(e\d+)\s/g, '<dl id=$1 class=$1>\n').e(/^\//gm, '</dl>')
-  if(e.startsWith('<', 0)) return e
+
+  if (e.startsWith('<', 0)) {
+    // dt = u.en(dts.t('\n').t().t(i => i.t().t(' ')))
+    // dt = u.en(dt, -1)
+    // o(dt)
+    // const idt = e.e('"', "'").e(/<\/\w+>/g, '"],').e('<', '["').e('>', '",')
+    // o(e, idt)
+    // o(u.t(idt))
+    const node = /^(\s*)<(\w+)(?:\sid="?(\w+)"?)?(\sclass="?[^"]+"?)?(.+?)?>(.*)?(<\/\w+>)?/m
+    o(e.t(node))
+    return e
+  }
+
   const l = e.t().t('\n').n(i => i.t())
     .t(i => {
       // o(i.e(node, '$1 id=$2 $3>$4', 1))
@@ -53,14 +65,16 @@ const qht = e => {
   //   '\\"': '',
   //   '\\,': '',
   // }
-  const dts = `
-  [ <
-  ] </div>
-`
-  const dt = u.en(dts.t('\n').t().t(i => i.t().t(' ')).e(i => i[0] =  '\\' + i[0]) )
+
     // '\\s+>': '>'
   // '<div>((\\w)\\d+)': '<div id="$1">',
   // '<div>#(\\w+)': '<div id="$1">',
+
+  const dts = `
+    ] </div>
+    [ <
+`
+  var dt = u.en(dts.t('\n').t().t(i => i.t().t(' ')).e(i => i[0] =  '\\' + i[0]) )
 
   const h = tl.e(dt).e('"', '').e(',', '')
   .e(/<div is=(\S+?)(\s(.+?))?>(.*?)<\/div>/g, '<$1 $3>$4</$1>')
