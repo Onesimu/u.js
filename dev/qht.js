@@ -4,18 +4,18 @@ const qht = e => {
   if(e.startsWith('<', 0)) return e
   const l = e.t().t('\n').n(i => i.t())
     .t(i => {
-      const b = i.t(/^\s*/)[0].i() / 2
-      const node = /^(\s*)(\w+)?(#\w+)?(\(.+?\))?\s?(.*)/
       // o(i.e(node, '$1 id=$2 $3>$4', 1))
-      const [p, p0, p1, p2, p3, p4] = i.t(node)
-      // return (i.t().e(node, (m, p0, p1, p2, p3, p4) => {
-        // const b = p0 ? p0.i() / 2 : 0
-        const q1 = p1 && p1 != 'div' ? 'div is=' + p1 : 'div'
-        const q2 = p2 ? 'id=' + p2.t(1) : ''
-        const q3 = p3 ? p3.t(1, -1) : ''
-        const q4 = p4 ? '>' + p4 : '>'
-        return b + [q1, q2, q3, q4].t(' ').t().e(/\s+>/, '>')
-      // }, 1))
+      // const b = i.t(/^\s*/)[0].i() / 2
+      // return (i.t().e(node, (p, p0, p1, p2, p3, p4) => { }, 1))
+      const node = /^(\s*)(\w+)?(#\w+)?(\.[^(^\s]+)?(\(.+?\))?\s?(.*)/
+      const [p, p0, p1, p2, p3, p4, p5] = i.t(node)
+      const b = p0 ? p0.i() / 2 : 0
+      const q1 = p1 && p1 != 'div' ? 'div is=' + p1 : 'div'
+      const q2 = p2 ? 'id=' + p2.t(1) : ''
+      const q3 = p3 ? "class='" + p3.e(/\./g, ' ').t() + "'" : ''
+      const q4 = p4 ? p4.t(1, -1) : ''
+      const q5 = p5 ? '>' + p5 : '>'
+      return b + [q1, q2, q3, q4, q5].t(' ').t().e(/\s+>/, '>')
     })
   o(l)
 
