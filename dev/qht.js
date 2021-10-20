@@ -9,8 +9,18 @@ const qht = e => {
     // const idt = e.e('"', "'").e(/<\/\w+>/g, '"],').e('<', '["').e('>', '",')
     // o(e, idt)
     // o(u.t(idt))
-    const node = /^(\s*)<(\w+)(?:\sid="?(\w+)"?)?(\sclass="?[^"]+"?)?(.+?)?>(.*)?(<\/\w+>)?/m
-    o(e.t(node))
+    const node = /^(\s*)<(\w+)(?:\sid="?(\w+)"?)?(?:\sclass="?([^"]+)"?)?([^>]+?)?>(.*)?(<\/\w+>)?/mg
+    o(e.e(/<\/\w+>/g, '').e(node, (p, p0, p1, p2, p3, p4, p5) => {
+      // o(p0.i())
+      const q1 = p1
+      const q2 = p2 ? '#' + p2 : ''
+      const q3 = p3 ? "." + p3.e(/\s/g, '.').t() : ''
+      const q4 = p4 ? '(' + p4.t() +')' : ''
+      const q5 = p5 ? ' ' + p5 : ''
+      // return `${p0}${p1}#${p2}.${p3}(${p4}) ${p5}`
+      return [p0, q1, q2, q3, q4, q5].t('')
+        .e( /\n(\n)*( )*(\n)*\n/g, '\n').e(/^(\s*)div#/gm, '$1#')
+    }, 1))
     return e
   }
 
