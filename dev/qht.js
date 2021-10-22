@@ -58,12 +58,9 @@ const qht = e => {
         tmp.e(tp)
       } else if (c == 0) {
         // pmt.i(-1).e(tp)
-        for (var n = pmt.i(); n--;) {
-          if (pmt[n][0][0] == t[0] - 1) {
-            pmt[n].e(tp)
-            break;
-          }
-        }
+        var n = pmt.i()
+        for (; n-- && pmt[n][0][0] != t[0] - 1;) {}
+        if (n > -1) pmt[n].e(tp)
       } else if (c < 0) {
         // pi += c
         // pmt[pi].e(tp)
