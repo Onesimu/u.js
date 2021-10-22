@@ -40,7 +40,7 @@ const qht = e => {
       const q5 = p5 ? '>' + p5 : '>'
       return b + [q1, q2, q3, q4, q5].t(' ').t().e(/\s+>/, '>')
     })
-  // o(l)
+  o(l)
 
   const a = [l[0]]
 
@@ -48,6 +48,7 @@ const qht = e => {
   var pi = -1 // parent index
   var tmp = a // potential parent
   for(var x = l.i(), i = 1; i < x; i++) {
+     // o(+t.t(/^\d+/)[0])
       const t = l[i]
       const tp = [t]
       const c = t[0] - l[i - 1][0]
@@ -56,18 +57,30 @@ const qht = e => {
         pi++
         tmp.e(tp)
       } else if (c == 0) {
-        pmt.i(-1).e(tp)
+        // pmt.i(-1).e(tp)
+        for (var n = pmt.i(); n--;) {
+          if (pmt[n][0][0] == t[0] - 1) {
+            pmt[n].e(tp)
+            break;
+          }
+        }
       } else if (c < 0) {
-        pi += c
-        pmt[pi].e(tp)
+        // pi += c
+        // pmt[pi].e(tp)
+        for (var n = pmt.i(); n--;) {
+          if (pmt[n][0][0] == t[0] - 1) {
+            pmt[n].e(tp)
+            break;
+          }
+        }
       }
       tmp = tp
-    // o(c, pmt, tmp, pi, pmt[pi], u.t(a))
+    // o(c, tmp, pmt, pi, pmt[pi], u.t(a))
   }
 
   const tl = u.t(a).e(/"\d/g, '"')
   o(u.t(a, null, 2), a)
-  o(tl)
+  // o(tl)
   // const dt = { '[': '(', ']': ')' }
   // const dt = { '[': '{', ']': '}' }
   // const dt = {
@@ -92,6 +105,7 @@ const qht = e => {
   // .e(/<div is=(\S+?) ([^>]*)>(<div[^>]*>.*?<\/div>)<\/div>/g, (p, p0, p1, p2, p3, p4) => { o(p0, p1, p2); return `<${p0} ${p1}>${p2}</${p0}>`}, 1)
   // .e(/<div is=(\S+?)(\s(.+?))?>(.*?)<\/div>/g, '<$1 $3>$4</$1>')
   // .e(/<div is=(\S+?)\s(.+?)>(.*?)<\/div>/g, '<$1 $2>$3')
+  // o(h.e('>', '>\n'))
   o(h)
   // o(h.t(/<(?:(?:\/?[A-Za-z]\w*\b(?:[=\s](['"]?)[\s\S]*?\1)*)|(?:!--[\s\S]*?--))\/?>/g, '<$1 $2>$3</$1>'))
   return h
