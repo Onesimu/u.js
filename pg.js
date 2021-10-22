@@ -63,7 +63,7 @@ async function pgdata(path) {
     const c = ls.compile(ce, {bare: 1, header: 0, const: 1})
     rs = eval(c)
   }
-  o(html)
+  // o(html)
   u.id('pg').insertAdjacentHTML(`beforeend`, html);
 
   vm(rs).bind(rs)()
