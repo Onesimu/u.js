@@ -1,3 +1,20 @@
+const ht2cs = e => {
+  const node = /^(\s*)<(\w+)(?:\sid="?(\w+)"?)?(?:\sclass=['"]?([^"']+?)['"]?)?([^>]+?)?>(.*)?(<\/\w+>)?$/mg
+  o(e.e(/<\/\w+>/g, '').t('\n').t(node))
+
+  o(e.e(/<\/\w+>/g, '').e(node, (p, p0, p1, p2, p3, p4, p5) => {
+    // o(p0, p1, p2, p3, p4, p5)
+    const q1 = p1
+    const q2 = p2 ? '#' + p2 : ''
+    const q3 = p3 ? "." + p3.e(/\s/g, '.').t() : ''
+    const q4 = p4 ? '(' + p4.t() +')' : ''
+    const q5 = p5 ? ' ' + p5 : ''
+    // return `${p0}${p1}#${p2}.${p3}(${p4}) ${p5}`
+    return [p0, q1, q2, q3, q4, q5].t('').e('"', "'")
+      .e( /\n(\n)*\s*(\n)*\n/g, '\n')
+      .e(/^(\s*)div#/gm, '$1#')
+  }, 1))
+}
 const qht = e => {
   // const id = /\.([a-z]\d+)\s/g
   // if (id.test(e)) return e.e(/\.(f\d+)\s/g, '<dd id=$1 class=$1>').e(/\.(e\d+)\s/g, '<dl id=$1 class=$1>\n').e(/^\//gm, '</dl>')
@@ -9,19 +26,7 @@ const qht = e => {
     // const idt = e.e('"', "'").e(/<\/\w+>/g, '"],').e('<', '["').e('>', '",')
     // o(e, idt)
     // o(u.t(idt))
-    const node = /^(\s*)<(\w+)(?:\sid="?(\w+)"?)?(?:\sclass="?([^"]+)"?)?([^>]+?)?>(.*)?(<\/\w+>)?/mg
-    o(e.e(/<\/\w+>/g, '').e(node, (p, p0, p1, p2, p3, p4, p5) => {
-      // o(p0.i())
-      const q1 = p1
-      const q2 = p2 ? '#' + p2 : ''
-      const q3 = p3 ? "." + p3.e(/\s/g, '.').t() : ''
-      const q4 = p4 ? '(' + p4.t() +')' : ''
-      const q5 = p5 ? ' ' + p5 : ''
-      // return `${p0}${p1}#${p2}.${p3}(${p4}) ${p5}`
-      return [p0, q1, q2, q3, q4, q5].t('').e('"', "'")
-        .e( /\n(\n)*\s*(\n)*\n/g, '\n')
-        .e(/^(\s*)div#/gm, '$1#')
-    }, 1))
+    ht2cs(e)
     return e
   }
 
@@ -99,12 +104,13 @@ const qht = e => {
 
   const h = tl.e(dt).e('"', '').e(',', '')
     // .e(/<[\s]*?div/g, '<div')
-  .e(/<div is=(\S+?)(\s(.+?))?>([^<]*?)<\/div>/g, '<$1 $3>$4</$1>')
+  .e(/<div is=(\S+?)(\s(.+?))?>(.*?)<\/div>/g, '<$1 $3>$4</$1>')
   .e(/<div is=(\S+?) ([^>]*)>([\s\S]*?)<\/div>/g, '<$1 $2>$3</$1>')
   // .e(/<div is=(\S+?) ([^>]*)>(<div[^>]*>[\s\S]*?<\/div>)<\/div>/g, (p, p0, p1, p2, p3, p4) => { o(p0, p1, p2); return `<${p0} ${p1}>${p2}</${p0}>`}, 1)
   // .e(/<div is=(\S+?)\s(.+?)>(.*?)<\/div>/g, '<$1 $2>$3')
   // o(h.e('>', '>\n'))
   o(h)
+  ht2cs(h)
   // o(h.t(/<(?:(?:\/?[A-Za-z]\w*\b(?:[=\s](['"]?)[\s\S]*?\1)*)|(?:!--[\s\S]*?--))\/?>/g, '<$1 $2>$3</$1>'))
   return h
 }
