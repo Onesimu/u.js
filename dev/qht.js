@@ -47,29 +47,7 @@ const jn2ht = a => {
   return h
 }
 
-
-const qht = e => {
-  // const id = /\.([a-z]\d+)\s/g
-  // if (id.test(e)) return e.e(/\.(f\d+)\s/g, '<dd id=$1 class=$1>').e(/\.(e\d+)\s/g, '<dl id=$1 class=$1>\n').e(/^\//gm, '</dl>')
-
-  if (e.startsWith('<', 0)) {
-    // dt = u.en(dts.t('\n').t().t(i => i.t().t(' ')))
-    // dt = u.en(dt, -1)
-    // o(dt)
-    // const idt = e.e('"', "'").e(/<\/\w+>/g, '"],').e('<', '["').e('>', '",')
-    const idt = e.e('"', "'").e(/<\/\w+>/g, '],').e('<', '[')
-      .e(/>$/gm, ',').e('>]', ']').e('>', ' ').e(/],(\s*)],/g, ']$1],').e(/],(\s*)],/g, ']$1],')
-      .e('\\[', '["').e('\\]', '"]').e(/,$/gm, '",')
-      .e(/^(\s*)"\]",/gm, '$1],').e(/"\]",$/gm, '"],').e(/^(\s*)"\]$/gm, '$1]').t(0, -1)
-    o(e)
-    o(idt)
-    const a = u.t(idt)
-    o(a)
-    jn2ht(a)
-    // ht2cs(e)
-    return e
-  }
-
+const cs2jn = e => {
   const l = e.t().t('\n').n(i => i.t())
     .t(i => {
       // o(i.e(node, '$1 id=$2 $3>$4', 1))
@@ -119,6 +97,33 @@ const qht = e => {
     // o(c, tmp, pmt, pi, pmt[pi], u.t(a))
   }
 
+  return a
+}
+
+
+const qht = e => {
+  // const id = /\.([a-z]\d+)\s/g
+  // if (id.test(e)) return e.e(/\.(f\d+)\s/g, '<dd id=$1 class=$1>').e(/\.(e\d+)\s/g, '<dl id=$1 class=$1>\n').e(/^\//gm, '</dl>')
+
+  if (e.startsWith('<', 0)) {
+    // dt = u.en(dts.t('\n').t().t(i => i.t().t(' ')))
+    // dt = u.en(dt, -1)
+    // o(dt)
+    // const idt = e.e('"', "'").e(/<\/\w+>/g, '"],').e('<', '["').e('>', '",')
+    const idt = e.e('"', "'").e(/<\/\w+>/g, '],').e('<', '[')
+      .e(/>$/gm, ',').e('>]', ']').e('>', ' ').e(/],(\s*)],/g, ']$1],').e(/],(\s*)],/g, ']$1],')
+      .e('\\[', '["').e('\\]', '"]').e(/,$/gm, '",')
+      .e(/^(\s*)"\]",/gm, '$1],').e(/"\]",$/gm, '"],').e(/^(\s*)"\]$/gm, '$1]').t(0, -1)
+    o(e)
+    o(idt)
+    const a = u.t(idt)
+    o(a)
+    jn2ht(a)
+    // ht2cs(e)
+    return e
+  }
+
+  const a = cs2jn(e)
   const h = jn2ht(a)
   ht2cs(h)
   // o(h.t(/<(?:(?:\/?[A-Za-z]\w*\b(?:[=\s](['"]?)[\s\S]*?\1)*)|(?:!--[\s\S]*?--))\/?>/g, '<$1 $2>$3</$1>'))
