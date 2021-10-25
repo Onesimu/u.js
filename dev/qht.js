@@ -103,14 +103,24 @@ const jn2ht = a => {
   const h = tl.e(/\[/g, '<').e(/\]/g, '</div>')
   // .e(dt)
   .e('"', '').e(',', '')
+  .e(/([^>])$/gm, '$1>')
   // .e(/<div is=(\S+?)(\s(.+?))?>(.*?)<\/div>/g, '<$1 $3>$4</$1>')
   // .e(/<div is=(\S+?) ([^>]*)>([\s\S]*?)<\/div>/g, '<$1 $2>$3</$1>')
-  .e(/([^>])$/gm, '$1>')
-  .e(/\s+>/g, '>')
+  // .e(/\s+>/g, '>')
   // .e(/<div is=(\S+?) ([^>]*)>(<div[^>]*>[\s\S]*?<\/div>)<\/div>/g, (p, p0, p1, p2, p3, p4) => { o(p0, p1, p2); return `<${p0} ${p1}>${p2}</${p0}>`}, 1)
   // .e(/<div is=(\S+?)\s(.+?)>(.*?)<\/div>/g, '<$1 $2>$3')
   // o(h.e('>', '>\n'))
-  return h
+  const hts = h.t().t('\n').n(i => i.t())
+  const ht = hts.t(i => {
+    if (i.i('is=') || !i.t().i('<div', 0)) {
+      if (i.i('</div>')) return i.e(/<div is=(\S+?)(\s(.+?))?>(.*?)<\/div>/g, '<$1 $3>$4</$1>').e(/\s+>/g, '>')
+      else {
+
+      }
+    }
+    return i
+  })
+  return ht.t('\n')
 }
 
 const ht2cs = e => {
