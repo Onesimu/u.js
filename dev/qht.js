@@ -44,6 +44,7 @@ const jn2ht = a => {
   // .e(/<div is=(\S+?)\s(.+?)>(.*?)<\/div>/g, '<$1 $2>$3')
   // o(h.e('>', '>\n'))
   o(h)
+  // ht2cs(e)
   return h
 }
 
@@ -100,26 +101,22 @@ const cs2jn = e => {
   return a
 }
 
-
 const qht = e => {
   // const id = /\.([a-z]\d+)\s/g
   // if (id.test(e)) return e.e(/\.(f\d+)\s/g, '<dd id=$1 class=$1>').e(/\.(e\d+)\s/g, '<dl id=$1 class=$1>\n').e(/^\//gm, '</dl>')
 
   if (e.startsWith('<', 0)) {
-    // dt = u.en(dts.t('\n').t().t(i => i.t().t(' ')))
-    // dt = u.en(dt, -1)
-    // o(dt)
     // const idt = e.e('"', "'").e(/<\/\w+>/g, '"],').e('<', '["').e('>', '",')
-    const idt = e.e('"', "'").e(/<\/\w+>/g, '],').e('<', '[')
+    const idt = e.e('\n', '')
+      .e('"', "'").e(/<\/\w+>/g, '],').e('<', '[')
       .e(/>$/gm, ',').e('>]', ']').e('>', ' ').e(/],(\s*)],/g, ']$1],').e(/],(\s*)],/g, ']$1],')
       .e('\\[', '["').e('\\]', '"]').e(/,$/gm, '",')
       .e(/^(\s*)"\]",/gm, '$1],').e(/"\]",$/gm, '"],').e(/^(\s*)"\]$/gm, '$1]').t(0, -1)
-    o(e)
+    o(e.e(/\s+/g, ' ').e('> <', '><'))
     o(idt)
     const a = u.t(idt)
     o(a)
-    jn2ht(a)
-    // ht2cs(e)
+    // jn2ht(a)
     return e
   }
 
