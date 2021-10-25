@@ -1,6 +1,5 @@
 const cs2jn = e => {
-  const l = e.t().t('\n').n(i => i.t())
-    .t(i => {
+  const l = e.t().t('\n').n(i => i.t()).t(i => {
       // o(i.e(node, '$1 id=$2 $3>$4', 1))
       // const b = i.t(/^\s*/)[0].i() / 2
       // return (i.t().e(node, (p, p0, p1, p2, p3, p4) => { }, 1))
@@ -55,7 +54,7 @@ const ht2jn = e => {
   const idt = e.e(/\s+/g, ' ').e('> <', '><')
     .e('"', "'").e(/<\/\w+>/g, '"],').e('<', '["').e('>', '",')
     .e(/","\],/g, '"],')
-    .e(/",([^\]\[])/g, ' $1')
+    .e(/",([^\]\[])/g, '>$1')
     .e(/],("],)+/g, m => m.e(/"\],/g, ']') + ',')
     .e(/\],\]/g, ']]')
     .t(0, -1)
@@ -79,8 +78,14 @@ const ht2jn = e => {
 const jn2ht = a => {
   const tl = u.t(a, null, 2).e(/"\d/g, '"')
       .e(/\[[\s]*?"/g, '["').e(/"[\s]*?\]/g, '"]')
-  // o(u.t(a, null, 2), a)
   o(tl)
+  // const node = /^(\s*)\["(\w+)(?:\sis=(?:\S+))?(?:\sid='?(\w+)'?)?(?:\sclass='([^']+?)')?(\s\S+)?"\]?,?$/
+  // // o(tl.t(node))
+  // o(tl.t().t('\n').n(i => i.t()).t(i => {
+  //   const r = i.t(node)
+  //   if (r && r[5]) return i.e(r[5], '>$1')
+  //   return i
+  // }))
   // const dt = { '[': '(', ']': ')' }
   // const dt = { '[': '{', ']': '}' }
   // const dt = {
@@ -96,16 +101,15 @@ const jn2ht = a => {
   `
   var dt = u.en(dts.t('\n').n(i => i.t()).t(i => i.t().t(' ')).e(i => i[0] =  '\\' + i[0]) )
 
-    // .e(/<[\s]*?div/g, '<div')
   const h = tl.e(dt).e('"', '').e(',', '')
   .e(/<div is=(\S+?)(\s(.+?))?>(.*?)<\/div>/g, '<$1 $3>$4</$1>')
   .e(/<div is=(\S+?) ([^>]*)>([\s\S]*?)<\/div>/g, '<$1 $2>$3</$1>')
+  // .e(/([^>])$/gm, '$1>')
   .e(/\s+>/g, '>')
   // .e(/<div is=(\S+?) ([^>]*)>(<div[^>]*>[\s\S]*?<\/div>)<\/div>/g, (p, p0, p1, p2, p3, p4) => { o(p0, p1, p2); return `<${p0} ${p1}>${p2}</${p0}>`}, 1)
   // .e(/<div is=(\S+?)\s(.+?)>(.*?)<\/div>/g, '<$1 $2>$3')
   // o(h.e('>', '>\n'))
   o(h)
-  // ht2cs(e)
   return h
 }
 
@@ -136,13 +140,14 @@ const qht = e => {
     const a = ht2jn(e)
     o(a)
     const h = jn2ht(a)
+    o(h)
     ht2cs(h)
     return e
   }
 
   const a = cs2jn(e)
   const h = jn2ht(a)
-  // o(h.t(/<(?:(?:\/?[A-Za-z]\w*\b(?:[=\s](['"]?)[\s\S]*?\1)*)|(?:!--[\s\S]*?--))\/?>/g, '<$1 $2>$3</$1>'))
+  // o(h.t(/<(?:(?:\/?\w*\b(?:[=\s](['"]?)[\s\S]*?\1)*))\/?>/g, '<$1 $2>$3</$1>'))
   return h
 }
 
