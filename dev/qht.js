@@ -119,7 +119,7 @@ const jn2ht = a => {
   const ht = hts
   for (var n = ht.i(); n--; ) {
     var i = ht[n]
-    if (!i.i(/^\s*<div/)) {
+    if (!i.i(/^\s*<div/) && !i.i('/')) {
       if (i.i('</div>')) {
         ht[n] = i.e(/<(\w+)(?:\s(.+?))?>(.*?)<\/div>/g, '<$1 $2>$3</$1>').e(/\s+>/g, '>')
       } else {
