@@ -97,7 +97,7 @@ Beautifier.prototype.eatWhitespace = function(allowAtLeastOneNewLine) {
     if (allowAtLeastOneNewLine && this._ch === '\n') {
       if (newline_count === 0 || newline_count < this._options.max_preserve_newlines) {
         newline_count++;
-        this._output.add_new_line(true);
+        // this._output.add_new_line(true);
       }
     }
   }
@@ -214,7 +214,7 @@ Beautifier.prototype.beautify = function() {
       // This handles scenarios where a block comment immediately
       // follows a property definition on the same line or where
       // minified code is being beautified.
-      this._output.add_new_line();
+      // this._output.add_new_line();
       this._input.back();
 
       var comment = this._input.read(block_comment_pattern);
@@ -228,11 +228,11 @@ Beautifier.prototype.beautify = function() {
       this.print_string(comment);
 
       // Ensures any new lines following the comment are preserved
-      this.eatWhitespace(true);
+      // this.eatWhitespace(true);
 
       // Block comments are followed by a new line so they don't
       // share a line with other properties
-      this._output.add_new_line();
+      // this._output.add_new_line();
     } else if (this._ch === '/' && this._input.peek() === '/') {
       // // single line comment
       // Preserves the space before a comment
@@ -242,7 +242,7 @@ Beautifier.prototype.beautify = function() {
       this.print_string(this._input.read(comment_pattern));
 
       // Ensures any new lines following the comment are preserved
-      this.eatWhitespace(true);
+      // this.eatWhitespace(true);
     } else if (this._ch === '@') {
       this.preserveSingleSpace(isAfterSpace);
 
@@ -309,7 +309,7 @@ Beautifier.prototype.beautify = function() {
 
       // The difference in print_string and indent order is necessary to indent the '{' correctly
       if (this._options.brace_style === 'expand') {
-        this._output.add_new_line();
+        // this._output.add_new_line();
         this.print_string(this._ch);
         this.indent();
         this._output.set_indent(this._indentLevel);
@@ -318,11 +318,11 @@ Beautifier.prototype.beautify = function() {
         this.print_string(this._ch);
       }
 
-      this.eatWhitespace(true);
-      this._output.add_new_line();
+      // this.eatWhitespace(true);
+      // this._output.add_new_line();
     } else if (this._ch === '}') {
       this.outdent();
-      this._output.add_new_line();
+      // this._output.add_new_line();
       if (previous_ch === '{') {
         this._output.trim(true);
       }
@@ -332,18 +332,19 @@ Beautifier.prototype.beautify = function() {
         this.outdent();
         insidePropertyValue = false;
       }
+      this._output.space_before_token = true;
       this.print_string(this._ch);
       insideRule = false;
       if (this._nestedLevel) {
         this._nestedLevel--;
       }
-
-      this.eatWhitespace(true);
+      
+      // this.eatWhitespace(true);
       this._output.add_new_line();
 
       if (this._options.newline_between_rules && !this._output.just_added_blankline()) {
         if (this._input.peek() !== '}') {
-          this._output.add_new_line(true);
+          // this._output.add_new_line(true);
         }
       }
     } else if (this._ch === ":") {
@@ -354,7 +355,7 @@ Beautifier.prototype.beautify = function() {
         if (!insidePropertyValue) {
           insidePropertyValue = true;
           this._output.space_before_token = true;
-          this.eatWhitespace(true);
+          // this.eatWhitespace(true);
           this.indent();
         }
       } else {
@@ -377,7 +378,7 @@ Beautifier.prototype.beautify = function() {
     } else if (this._ch === '"' || this._ch === '\'') {
       this.preserveSingleSpace(isAfterSpace);
       this.print_string(this._ch + this.eatString(this._ch));
-      this.eatWhitespace(true);
+      // this.eatWhitespace(true);
     } else if (this._ch === ';') {
       if (parenLevel === 0) {
         if (insidePropertyValue) {
@@ -387,24 +388,24 @@ Beautifier.prototype.beautify = function() {
         insideAtExtend = false;
         insideAtImport = false;
         this.print_string(this._ch);
-        this.eatWhitespace(true);
+        // this.eatWhitespace(true);
 
         // This maintains single line comments on the same
         // line. Block comments are also affected, but
         // a new line is always output before one inside
         // that section
         if (this._input.peek() !== '/') {
-          this._output.add_new_line();
+          // this._output.add_new_line();
         }
       } else {
         this.print_string(this._ch);
-        this.eatWhitespace(true);
+        // this.eatWhitespace(true);
         this._output.space_before_token = true;
       }
     } else if (this._ch === '(') { // may be a url
       if (this._input.lookBack("url")) {
         this.print_string(this._ch);
-        this.eatWhitespace();
+        // this.eatWhitespace();
         parenLevel++;
         this.indent();
         this._ch = this._input.next();
@@ -420,7 +421,7 @@ Beautifier.prototype.beautify = function() {
       } else {
         this.preserveSingleSpace(isAfterSpace);
         this.print_string(this._ch);
-        this.eatWhitespace();
+        // this.eatWhitespace();
         parenLevel++;
         this.indent();
       }
@@ -432,9 +433,9 @@ Beautifier.prototype.beautify = function() {
       this.print_string(this._ch);
     } else if (this._ch === ',') {
       this.print_string(this._ch);
-      this.eatWhitespace(true);
+      // this.eatWhitespace(true);
       if (this._options.selector_separator_newline && !insidePropertyValue && parenLevel === 0 && !insideAtImport) {
-        this._output.add_new_line();
+        // this._output.add_new_line();
       } else {
         this._output.space_before_token = true;
       }
@@ -446,7 +447,7 @@ Beautifier.prototype.beautify = function() {
         this._output.space_before_token = true;
       } else {
         this.print_string(this._ch);
-        this.eatWhitespace();
+        // this.eatWhitespace();
         // squash extra whitespace
         if (this._ch && whitespaceChar.test(this._ch)) {
           this._ch = '';
@@ -458,7 +459,7 @@ Beautifier.prototype.beautify = function() {
       this.preserveSingleSpace(isAfterSpace);
       this.print_string(this._ch);
     } else if (this._ch === '=') { // no whitespace before or after
-      this.eatWhitespace();
+      // this.eatWhitespace();
       this.print_string('=');
       if (whitespaceChar.test(this._ch)) {
         this._ch = '';
