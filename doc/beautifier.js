@@ -437,7 +437,7 @@ Beautifier.prototype.beautify = function() {
       if (this._options.selector_separator_newline && !insidePropertyValue && parenLevel === 0 && !insideAtImport) {
         // this._output.add_new_line();
       } else {
-        this._output.space_before_token = true;
+        // this._output.space_before_token = true;
       }
     } else if ((this._ch === '>' || this._ch === '+' || this._ch === '~') && !insidePropertyValue && parenLevel === 0) {
       //handle combinator spacing
