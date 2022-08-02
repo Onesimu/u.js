@@ -54,11 +54,11 @@ function vm(rs) {
 
         // this.$data && u.e(this.$data, val)
 
-        u.en(val).forEach(([k, v]) => u.va(v) && sr.i(k, v))
+        u.en(val).forEach(([k, v]) => u.snb(v) && sr.i(k, v))
 
         if (!rs.list) return
         if (u.en(val).length > 1) return
-        if (u.va(u.en(val)[0][1])) return
+        if (u.snb(u.en(val)[0][1])) return
         list(rs, val)
       }
 

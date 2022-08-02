@@ -76,7 +76,7 @@ Number.prototype.t = function(i, t, e) {
   return this.toFixed(i)
 }
 
-u.va = v => ['string', 'boolean', 'number'].includes(typeof v)
+u.snb = v => ['string', 'number', 'boolean'].includes(typeof v)
 
 String.prototype.i = function(i, t, e) {
   if (i === void 0) return this.length
@@ -188,5 +188,5 @@ u.e(u.mt, {
 u.qs = function qs(i) {
   if (!i) return ''
   if (u(i) == 'string') return Object.fromEntries(i.split('&').map(it => it.split('=').map(decodeURIComponent)))
-  return Object.entries(i).filter(i => u.va(i[1])).map(it => it.join('=')).join('&')
+  return Object.entries(i).filter(i => u.snb(i[1])).map(it => it.join('=')).join('&')
 }

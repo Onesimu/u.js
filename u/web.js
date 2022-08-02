@@ -22,11 +22,11 @@ Element.prototype.on = function(i, t) {
 
 Element.prototype.i = function(k, v) {
   if (typeof k == 'object') {
-    u.en(k).forEach(([k, v]) => u.va(v) && this.i(k, v))
+    u.en(k).forEach(([k, v]) => u.snb(v) && this.i(k, v))
     return this
   }
 
-  if (k && u.va(v)) {
+  if (k && u.snb(v)) {
     // v === false ? this.removeAttribute(k) : this.setAttribute(k, v)
     if (v === -1) return this.getAttribute(k) ? this.removeAttribute(k) : this.setAttribute(k, 1), this
     if (v === false) return this.removeAttribute(k), this
@@ -58,7 +58,7 @@ Element.prototype.s = function(k, v) {
     u.en(k).forEach(([k, v]) => this.s(k, v))
     return this
   }
-  if (k && u.va(v)) {
+  if (k && u.snb(v)) {
     v === false ? this.style.removeProperty(k) : this.style.setProperty(k, v)
     return this
   }
@@ -87,7 +87,7 @@ Element.prototype.h = function(k, v) {
     return k.t(i => this.n(i).h())
   }
   if (typeof k == 'object') {
-    u.en(k).forEach(([k, v]) => u.va(v) && this.n(k).h(v))
+    u.en(k).forEach(([k, v]) => u.snb(v) && this.n(k).h(v))
     return this
   }
 
