@@ -7,18 +7,25 @@
     "lib": "lib"
   },
   "scripts": {
-    "u": "pnpx webpack"
+    "u": "vite build"
   },
-  "keywords": ["native", "web", "library"],
+  "keywords": [
+    "native",
+    "web",
+    "library"
+  ],
   "author": "onesimu",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.12.0",
-    "@babel/plugin-transform-runtime": "^7.14.5",
-    "@babel/preset-env": "^7.14.7",
-    "babel-loader": "^8.2.2",
-    "webpack": "^5.40.0",
-    "webpack-cli": "^4.7.2"
+    "@babel/core": "^7.19.3",
+    "@babel/plugin-external-helpers": "^7.18.6",
+    "@babel/plugin-transform-runtime": "^7.19.1",
+    "@babel/preset-env": "^7.19.4",
+    "@babel/runtime": "^7.19.4",
+    "@rollup/plugin-babel": "^6.0.0",
+    "@vitejs/plugin-legacy": "^2.0.0",
+    "core-js": "^3.23.5",
+    "vite": "^3.0.0"
   },
   "browserslist": [
     "> 1%",
