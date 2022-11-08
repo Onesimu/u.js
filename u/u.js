@@ -10,8 +10,8 @@ var _global = typeof window === 'object' && window.window === window
     : this
 _global.g = _global
 
-g.o = (console.table || console.log).bind(console)
-o.o = (console.log).bind(console)
+g.o = (console.log).bind(console)
+o.o = (console.table || console.log).bind(console)
 
 const _u = function(i, t, e) {
   const s = typeof i
@@ -96,13 +96,15 @@ String.prototype.e = function(i, t, e) {
     for (var [k, v] of en) tmp = tmp.replace(new RegExp(k, 'g'), v)
     return tmp
   }
+  if (t === void 0) return this.concat(i)
   if (e === 1) return this.replace(i, t)
   return this.replace(u(i) == 'regexp' ? i : new RegExp(i, 'g'), t)
 }
 String.prototype.t = function(i, t, e) {
   if (i === void 0) return this.trim()
   if (typeof i == 'number') return this.slice(i, t, e)
-  if (u(i) == 'regexp') return this.match(i)
+  // if (u(i) == 'regexp') return this.split(i)
+  // if (u(i) == 'regexp') return this.match(i)
   if (t === 1) return [this.slice(0, this.indexOf(i)), this.slice(this.indexOf(i + 1))]
   return this.split(i)
 }
@@ -110,13 +112,15 @@ String.prototype.n = function(i, t, e) {
   // if (i === void 0) return String.raw({ raw: this })
   if (typeof i == 'number') return this.repeat(i, t, e)
   // padStart
-  if (u(i) == 'regexp') return this.search(i)
+  if (t === 1) return this.search(i)
+  if (u(i) == 'regexp') return this.match(i)
   // if (t === !0) return this.lastIndexOf(i)
-  return this.indexOf(i)
+  return this.indexOf(i, t)
 }
 Array.prototype.t = function(i, t, e) {
   if (i === void 0) return this.filter(Boolean)
   // if (i === void 0) return Object.fromEntries(this)
+// if (i === void 0) return this.flat()
   if (typeof i == 'number') return this.slice(i, t, e)
   if (u(i) == 'array') return this.concat(i)
   if (typeof i == 'function') return this.map(i, t, e)
@@ -128,7 +132,7 @@ Array.prototype.n = function(i, t, e) {
   // if (typeof i == 'number') return this.fill(i, t, e)
   if (t === 1) return this.findIndex(i, t, e)
   if (typeof i == 'function') return this.filter(i, t, e)
-  return this.indexOf(i)
+  return this.indexOf(i, t)
 }
 Array.prototype.e = function(i, t, e) {
   if (i === void 0) return this.pop(), this
