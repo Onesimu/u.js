@@ -93,7 +93,8 @@ String.prototype.e = function(i, t, e) {
   if (u(i) == 'object') {
     const en = u.en(i)
     var tmp = this
-    for (var [k, v] of en) tmp = tmp.replace(new RegExp(k, 'g'), v)
+    if ((/[一-龟]/).test(tmp)) for (var [k, v] of en) tmp = tmp.replace(new RegExp(k, 'g'), v)
+    else for (var [k, v] of en) tmp = tmp.replace(new RegExp('\\b' + k + '\\b', 'g'), v)
     return tmp
   }
   if (t === void 0) return this.concat(i)
@@ -136,9 +137,9 @@ Array.prototype.n = function(i, t, e) {
 }
 Array.prototype.e = function(i, t, e) {
   if (i === void 0) return this.pop(), this
-  if (typeof i == 'number') return this.splice(i, t, e), this.filter(Boolean)
+  if (typeof i == 'number' && i > -1) return this.splice(i, t, e), this.filter(Boolean)
   if (t === !0) return this.sort(i)
-  if (i === !1) return this.reverse()
+  if (i === !1 || i === -1) return this.reverse()
   if (t === 0) return this.unshift(i), this
   // if (t === 1) return this.shift(), this
   if (typeof i == 'function') return this.forEach(i, t, e), this
@@ -192,5 +193,8 @@ u.e(u.mt, {
 u.qs = function qs(i) {
   if (!i) return ''
   if (u(i) == 'string') return Object.fromEntries(i.split('&').map(it => it.split('=').map(decodeURIComponent)))
-  return Object.entries(i).filter(i => u.va(i[1])).map(it => it.join('=')).join('&')
+  return Object.entries(i).filter(i => u.va(i[1])).map(it => it.map(encodeURIComponent).join('=')).join('&')
 }
+
+Promise.prototype.t = Promise.prototype.then
+Promise.prototype.e = Promise.prototype.catch
