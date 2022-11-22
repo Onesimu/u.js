@@ -143,3 +143,10 @@ u.go = go
 u.web = function(i, t, e){
   return '<table><tr><td>' + u.i(i).e(',', '<td>').e('\n', '\n<tr><td>')
 }
+
+u.fdl = (b, t = 'file') => {
+  let a = document.createElement('a')
+  a.href = URL.createObjectURL(b)
+  a.download = t
+  a.click()
+}
