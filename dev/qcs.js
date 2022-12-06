@@ -37,6 +37,7 @@ const dt = {
     btr: 'border-top-right-radius',
     bbr: 'border-bottom-right-radius',
     bbl: 'border-bottom-left-radius',
+    ot: 'outline',
     ol: 'outline',
     f: 'font-size',
     ff: 'font-family',
@@ -61,6 +62,7 @@ const dt = {
     xh: 'max-height',
     lh: 'line-height',
     v: 'vertical-align',
+    vi: 'visibility',
     wh: 'white-space',
     ws: 'word-spacing',
     ls: 'letter-spacing',
@@ -77,7 +79,8 @@ const dt = {
     ac: 'align-content',
     fd: 'flex-direction',
     fr: 'flex-wrap',
-    bx: 'box-sizing'
+    bx: 'box-sizing',
+    fx: 'flex'
   },
   v: {
     a: 'auto',
@@ -87,6 +90,7 @@ const dt = {
     tt: 'transparent',
     cc: 'currentColor',
     n: 'normal',
+    m: 'middle',
     c: 'center',
     no: 'none',
     h: 'hidden',
@@ -106,7 +110,11 @@ const dt = {
     wr: 'wrap',
     if: 'inline-flex',
     cb: 'content-box',
-    bb: 'border-box'
+    bb: 'border-box',
+    spbt: 'space-between',
+    spev: 'space-evenly',
+    spar: 'space-around',
+    fx: 'flex'
   }
 };
 
