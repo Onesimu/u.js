@@ -5,7 +5,8 @@ const srct = it => it.e(/^\s*[\/]{2}/gm, '#')
 .e(/\brn\b/gm, 'return')
 .e(/^\s*(import .+)$/gm, '\n``$1``\n').e(/^\s*(export default)/gm, '\n``$1``')
             
-const dett = it => it.e(/;$/gm, '').e(/function\s*\((.*)\)/g, '($1) => ')
+const dett = it => it.e(/;$/gm, '').e(/:\s*function/g, '')
+.e(/function\s*\((.*)\)/g, '($1) => ')
 .e(/\((\w+)\) => /g, '$1 => ')
 .e(/=>\s*?\{\s*?return ([\S ]+)\s*?\}\)/g, '=> $1)')
 
