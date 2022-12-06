@@ -11,7 +11,8 @@ var _global = typeof window === 'object' && window.window === window
 _global.g = _global
 
 g.o = (console.log).bind(console)
-o.o = (console.table || console.log).bind(console)
+g.oo = i => (console.log(i), i) 
+// o.o = (console.table || console.log).bind(console)
 
 const _u = function(i, t, e) {
   const s = typeof i
@@ -23,9 +24,9 @@ g.u = function(i, t, e) { return _u(i, t, e) }
 
 // u.set = Object.assign
 u.en = function(i, t, e) {
-  if (t === 0) return Object.keys(i, t, e)
-  if (t === 1) return Object.values(i, t, e)
-  if (t === -1) return Object.fromEntries(Object.entries(i, t, e).t(([a, b]) => [b, a]))
+  if (t === 0 && u(i) === 'object') return Object.keys(i, t, e)
+  if (t === 1 && u(i) === 'object') return Object.values(i, t, e)
+  if (t === -1 && u(i) === 'object') return Object.fromEntries(Object.entries(i, t, e).t(([a, b]) => [b, a]))
   if (u(i) === 'array') return Object.fromEntries(i, t, e)
   return Object.entries(i, t, e)
 }
@@ -35,12 +36,14 @@ u.en = function(i, t, e) {
 u.t = function(i, t, e) {
   if (i === void 0) return ''
   if (i === null) return ''
+  if (i === '') return ''
   if (['function', 'regexp'].includes(u(i))) return i.toString()
   if (u(i) === 'string') return JSON.parse(i, t, e)
   if (u(i) === 'date') return u.tm(i, t, e)
   return JSON.stringify(i, t, e)
 }
 
+// json to csv
 // u.i = function(i, t, e) {
 //   const h = u.en(i[0], 0).t(',') + '\n'
 //   const b = i.t(i => u.en(i, 1).t(',')).t('\n')
@@ -94,7 +97,8 @@ String.prototype.e = function(i, t, e) {
     const en = u.en(i)
     var tmp = this
     if ((/[一-龟]/).test(tmp)) for (var [k, v] of en) tmp = tmp.replace(new RegExp(k, 'g'), v)
-    else for (var [k, v] of en) tmp = tmp.replace(new RegExp('\\b' + k + '\\b', 'g'), v)
+    else for (var [k, v] of en) tmp = tmp.replace(new RegExp(k, 'g'), v)
+    // else for (var [k, v] of en) tmp = tmp.replace(new RegExp('\\b' + k + '\\b', 'g'), v)
     return tmp
   }
   if (t === void 0) return this.concat(i)
@@ -123,7 +127,7 @@ Array.prototype.t = function(i, t, e) {
   // if (i === void 0) return Object.fromEntries(this)
 // if (i === void 0) return this.flat()
   if (typeof i == 'number') return this.slice(i, t, e)
-  if (u(i) == 'array') return this.concat(i)
+  if (u(i) == 'array') return this.map((ii, tt) => [ii, i[tt]])
   if (typeof i == 'function') return this.map(i, t, e)
   return this.join(i)
 }
@@ -131,13 +135,20 @@ Array.prototype.n = function(i, t, e) {
   // if (i === void 0) return Array.from(this.entries())
   if (i === void 0) return this.flat()
   // if (typeof i == 'number') return this.fill(i, t, e)
-  if (t === 1) return this.findIndex(i, t, e)
+  if (t === 1) { 
+    const ix = this.findIndex(i, t, e)
+    return ix === -1 && -1 || this[ix]
+  }
   if (typeof i == 'function') return this.filter(i, t, e)
   return this.indexOf(i, t)
 }
 Array.prototype.e = function(i, t, e) {
   if (i === void 0) return this.pop(), this
-  if (typeof i == 'number' && i > -1) return this.splice(i, t, e), this.filter(Boolean)
+  if (typeof i == 'number' && i > -1) {
+    if (e === void 0) return this.splice(i, t), this
+    return this.splice(i, t, e), this
+  }
+  // if (u(i) == 'array') return this.concat(i)
   if (t === !0) return this.sort(i)
   if (i === !1 || i === -1) return this.reverse()
   if (t === 0) return this.unshift(i), this
@@ -149,7 +160,7 @@ Array.prototype.i = function(i, t, e) {
   // if(!this.length) return this
   if (i === void 0) return this.length
   if (typeof i == 'number') return i < 0 ? this[this.length + i] : this[i]
-  if (typeof i == 'function') return this.reduce(i, t, e)
+  if (typeof i == 'function') return t !== void 0 && this.reduce(i, t) || this.reduce(i)
   // if (t === 0) return this.some(i)
   // if (t === 1) return this.every(i)
   return this.includes(i)
