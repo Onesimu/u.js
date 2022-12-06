@@ -9,5 +9,6 @@ const dett = it => it.e(/;$/gm, '').e(/:\s*function/g, '')
 .e(/function\s*\((.*)\)/g, '($1) => ')
 .e(/\((\w+)\) => /g, '$1 => ')
 .e(/=>\s*?\{\s*?return ([\S ]+)\s*?\}\)/g, '=> $1)')
+.e(/\{\n\s*(.+)\n\s*\}/g, '{ $1 }')
 
 export { srct, dett }      
