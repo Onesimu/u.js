@@ -11,6 +11,7 @@ db.set = function(val) {
   Object.assign(db, val)
   u.fs.db = JSON.stringify(db)
 }
+u.fs.db && Object.assign(db, JSON.parse(u.fs.db))
 u.db = db
 
 Event.prototype.i = function(){ return this.target }
@@ -51,7 +52,9 @@ Element.prototype.s = function(k, v) {
     return this
   }
   if (typeof k == 'string') {
-    this.style.cssText += k
+    // this.style.cssText += k
+    // this.style.setProperty(k, v)
+    v === false ? this.style.removeProperty(k) : this.style.setProperty(k, v)
     return this
   }
   if (typeof k == 'object') {
@@ -81,7 +84,7 @@ Element.prototype.h = function(k, v) {
     if (v) { this.innerHTML = v; return this }
     return this.innerHTML
   }
-  if (u(k) == 'string' && k.startsWith('<')) { this.innerHTML = k; return this }
+  if (u(k) == 'string' && k.startsWith('<')) { this.innerHTML += k; return this }
 
   if (u(k) == 'array') {
     return k.t(i => this.n(i).h())
@@ -92,9 +95,9 @@ Element.prototype.h = function(k, v) {
   }
 
   var n = 'innerHTML'
-  if ('textContent' in this) { n = 'textContent' }
+  if ('value' in this) { n = 'value' }
   else if ('src' in this) { n = 'src' }
-  else if ('value' in this) { n = 'value' }
+  else if ('textContent' in this) { n = 'textContent' }
 
   if (k === void 0) { return this[n] }
   if (k && u(k) == 'function') return this[n] = k(this[n]), this
@@ -150,3 +153,24 @@ u.fdl = (b, t = 'file') => {
   a.download = t
   a.click()
 }
+
+u.fm = function(i) {
+  const names = u.n(u.bd.n('input[name]').t(it => it.i('name')))
+  if (i === void 0) {
+    const values = names.map(i => {
+      const type = u.bd.n(`input[name='${i}']`)[0].i('type')
+       // u.bd.n("input[type='radio'][name='raoisused']").n(it => it.checked, 1).value
+      if (type == 'radio') return u.bd.n(`input[type='radio'][name='${i}']:checked`)[0].value
+      if (type == 'checkbox') return u.bd.n(`input[type='checkbox'][name='${i}']:checked`).t(it => it.value)
+    })
+    return (u.en(names.t(values)))
+  }
+  if (u(i) === 'object') {
+    const kv = u.en(i).n(it => names.i(it[0]))
+    for (const [k, v] of kv) {
+      if (u(v) == 'array') u.bd.n(`input[type='checkbox'][name='${k}']`).e(it => it.checked = v.t(String).i(it.value)) 
+      else u.bd.n(`input[type='radio'][name='${k}']`).n(it => it.value == v, 1).checked = true
+    }
+  }
+}
+
