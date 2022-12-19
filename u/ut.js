@@ -29,4 +29,30 @@ u.ut = function(i, t, e){
   return i + ''
 }
 
-// u.en(fd.t('\n').t(i => i.t('\t')).t(i => [i[1], i[2]]))
+function cmp(name, minor) {
+  return function(o, p) {
+    if (o && p && typeof o === 'object' && typeof p === 'object') {
+      const a = o[name], b = p[name];
+      if (a === b) {
+        return typeof minor === 'function' ? minor(o, p) : 0;
+      }
+      if (typeof a === typeof b) {
+        return new Intl.Collator('zh').compare(a, b)
+        // return a.localeCompare(b, "zh-CN")
+        // return a.localeCompare(b, "zh")
+      }
+      // return typeof a < typeof b ? -1 : 1;
+    }
+  }
+}
+
+function group(array, by) {
+  if (!by) return array
+  const groups = {}
+  array.forEach(it => {
+    const key = u(by) == 'string' && it[by] || by(it)
+    groups[key] = groups[key] || []
+    groups[key].push(it)
+  })
+  return Object.values(groups)
+}

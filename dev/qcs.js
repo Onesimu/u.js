@@ -186,7 +186,8 @@ const qcs = (e, n) => {
     .t().t('}').n(Boolean).t(i => {
     const [s, v] = i.t('{')
     const s1 = ['_s', s.t()]
-    const v1 = v.t().t(';').t().t(i => i.t(': ').t(i => i.t()))
+    // const v1 = v.t().t(';').t().t(i => i.t(': ').t(i => i.t()))
+    const v1 = (v.t().t(/(\S+):\s?/).t().t(i => i.t().e(';', '')).t((i,t,e) => [i, e[t+1]]).n((i,t) => t % 2 == 0))
     v1.e(s1)
     return u.en(v1)
   })
