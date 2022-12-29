@@ -1,7 +1,7 @@
 const cs2jn = e => {
   const l = e.t().t('\n').n(i => i.t()).t(i => {
       // o(i.e(node, '$1 id=$2 $3>$4', 1))
-      // const b = i.t(/^\s*/)[0].i() / 2
+      // const b = i.n(/^\s*/)[0].i() / 2
       // return (i.t().e(node, (p, p0, p1, p2, p3, p4) => { }, 1))
       const node = /^(\s*)(\w+)?(#\w+)?(\.[^(^\s]+)?(\(.+?\))?\s?(.*)/
       const [p, p0, p1, p2, p3, p4, p5] = i.t(node)
@@ -21,7 +21,7 @@ const cs2jn = e => {
   var pi = -1 // parent index
   var tmp = a // potential parent
   for(var x = l.i(), i = 1; i < x; i++) {
-     // o(+t.t(/^\d+/)[0])
+     // o(+t.n(/^\d+/)[0])
       const t = l[i]
       const tp = [t]
       const c = t[0] - l[i - 1][0]
@@ -127,7 +127,7 @@ const jn2ht = a => {
         const b = (i.n(/^\d+/)[0])
         for (var m = n + 1; m < ht.i(); m++){
           if (ht[m].i(b, 0)) {
-            ht[m] = b + '</' + i.t(/<(\w+)/)[1] + '>';break;
+            ht[m] = b + '</' + i.n(/<(\w+)/)[1] + '>';break;
           }
         }
       }
@@ -174,7 +174,7 @@ const qht = e => {
   const a = cs2jn(e)
   const h = jn2ht(a)
   o(h)
-  // o(h.t(/<(?:(?:\/?\w*\b(?:[=\s](['"]?)[\s\S]*?\1)*))\/?>/g, '<$1 $2>$3</$1>'))
+  // o(h.n(/<(?:(?:\/?\w*\b(?:[=\s](['"]?)[\s\S]*?\1)*))\/?>/g, '<$1 $2>$3</$1>'))
   return h
 }
 
