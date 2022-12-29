@@ -182,7 +182,8 @@ const qcs = (e, n) => {
     dt.v = u.en(dt.v, -1)
   }
 
-  const l = e.e(/bgi:/g, 'background-image:').e(/lg\(/g, 'linear-gradient(').e(/\/\*(\s|.)*?\*\//g, '').replace(/;base64,/g, '%%%%%%')
+  const l = e.e(/bgi:/g, 'background-image:').e(/lg\(/g, 'linear-gradient(').e(/\/\*(\s|.)*?\*\//g, '')
+    .replace(/;base64,/g, '%%%%%%').e(/data:image/g, '%%%')
     .t().t('}').n(Boolean).t(i => {
     const [s, v] = i.t('{')
     const s1 = ['_s', s.t()]
@@ -220,7 +221,7 @@ const qcs = (e, n) => {
     return i
   })
   const c = lnc.t(i => i['_s'] + ' { ' + u.en(u.e(i, '_s')).t(i => i.t(': ')).t('; ') + '; }').t('\n')
-  return c.replace(/%%%%%%/g, ';base64,')
+  return c.replace(/%%%%%%/g, ';base64,').e(/%%%/g, 'data:image')
 }
 
 export {qcs}

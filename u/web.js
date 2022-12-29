@@ -75,7 +75,7 @@ Element.prototype.h = function(k, v) {
     if (v) { this.outerHTML = v; return this }
     return this.outerHTML
   }
-  if (u(k) === 'number' && k in [1, 2, 3, 4]) {
+  if (u(k) === 'number' && [1, 2, 3, 4].includes(k) && v) {
     const ps = ['beforebegin', 'afterbegin', 'beforeend', 'afterend']
     if (v) { this.insertAdjacentHTML(ps[k - 1], v); return this }
     return this
@@ -144,7 +144,7 @@ const go = (href, body, cfg) => {
 u.go = go
 
 u.web = function(i, t, e){
-  return '<table><tr><td>' + u.i(i).e(',', '<td>').e('\n', '\n<tr><td>')
+  return '<table><tr><td>' + u.i(i, t).e(',', '<td>').e('\n', '\n<tr><td>')
 }
 
 u.fdl = (b, t = 'file') => {

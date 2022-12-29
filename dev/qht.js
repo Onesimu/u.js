@@ -113,7 +113,7 @@ const jn2ht = a => {
   const hts = h.t().t('\n').n(i => i.t())
   .t(i => i.e(/<div is=['"]?(\S+?)['"]?(?:\s(.+?))?>/g, '<$1 $2>').e(/\s+>/g, '>'))
   .t(i => {
-    const b = i.t(/^\s*/)[0].i()
+    const b = i.n(/^\s*/)[0].i()
     return b + i.t()
   })
   const ht = hts
@@ -124,7 +124,7 @@ const jn2ht = a => {
       if (i.i('</div>')) {
         ht[n] = i.e(/<(\w+)(?:\s(.+?))?>(.*?)<\/div>/g, '<$1 $2>$3</$1>').e(/\s+>/g, '>')
       } else {
-        const b = (i.t(/^\d+/)[0])
+        const b = (i.n(/^\d+/)[0])
         for (var m = n + 1; m < ht.i(); m++){
           if (ht[m].i(b, 0)) {
             ht[m] = b + '</' + i.t(/<(\w+)/)[1] + '>';break;
@@ -134,7 +134,8 @@ const jn2ht = a => {
     }
   }
   return ht.t(i => {
-    const b = (+i.t(/^\d+/)[0])
+    const b = (+i.n(/^\d+/)?.[0])
+    // if (!b) return ''
     return u.n(b).t(i => ' ').t('') + i.e(/^\d+/, '')
   }).t('\n')
 }
