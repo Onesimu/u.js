@@ -44,14 +44,21 @@ u.t = function(i, t, e) {
 }
 
 // json to csv
-// u.i = function(i, t, e) {
-//   const h = u.en(i[0], 0).t(',') + '\n'
-//   const b = i.t(i => u.en(i, 1).t(',')).t('\n')
-//   return h + b
-// }
+u.i = function(i, t, e) {
+  if (u(i) == 'object') {
+    const hd = t && t.t(',') || ''
+    return hd + '\n' + u.t(i).e('"', '').e(',', '\n').e(':', ',').e('{', '').e('}', '')
+  }
+  const h = u.en(i[0], 0).t(',') + '\n'
+  const b = i.t(i => u.en(i, 1).t(',')).t('\n')
+  return h + b
+}
 
 // u.e = Object.assign
 u.e = function(i, t, e) {
+  if (u(i) == 'array' && u(i[0]) == 'object') {
+    return i.t(n => u.e(n, t, e))
+  }
   // remove unused keys, according to another object
   if (u(t) == 'object' && e === 1) return u.en(u.en(t).n(it => u.en(i, 0).includes(it[0])))
   if (u(t) == 'object') return Object.assign(i, t, e)
@@ -126,8 +133,9 @@ Array.prototype.t = function(i, t, e) {
   if (i === void 0) return this.filter(Boolean)
   // if (i === void 0) return Object.fromEntries(this)
 // if (i === void 0) return this.flat()
-  if (typeof i == 'number') return this.slice(i, t, e)
-  if (u(i) == 'array') return this.map((ii, tt) => [ii, i[tt]])
+  if (typeof i == 'number' && i > -1) return this.slice(i, t, e)
+  if (u(i) == 'array') return this.map((ii, tt) => u(ii) === 'array' && ii.concat(i[tt]) || [ii].concat(i[tt]))
+  if (i === -1) return this.reduce(((a, b) => a.t(b)), [])
   if (typeof i == 'function') return this.map(i, t, e)
   return this.join(i)
 }
