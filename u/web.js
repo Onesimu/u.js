@@ -51,22 +51,28 @@ Element.prototype.s = function(k, v) {
     this.h(3, `<style scoped>${kk}</style>`)
     return this
   }
-  if (u(k) == 'string') {
-    // this.style.cssText += k
-    // this.style.setProperty(k, v)
-    v === false ? this.style.removeProperty(k) : this.style.setProperty(k, v)
-    return this
-  }
+  // if (u(k) == 'string' && v === false) {
+  //   this.style.removeProperty(k)
+  //   return this
+  // }
+  // if (u(k) == 'string' && v) {
+  //   // this.style.cssText += k
+  //   // this.style.setProperty(k, v)
+  //   this.style.setProperty(k, v)
+  //   return this
+  // }
   if (u(k) == 'object') {
     u.en(k).forEach(([k, v]) => this.s(k, v))
     return this
   }
-  if (k && u.va(v)) {
+  if (u(k) == 'string' && k && u.va(v)) {
     v === false ? this.style.removeProperty(k) : this.style.setProperty(k, v)
     return this
   }
-  const c = getComputedStyle(this)
-  if (k) return c.getPropertyValue(k)
+  if (u(k) == 'string') {
+    const c = getComputedStyle(this)
+    return c.getPropertyValue(k)
+  }
   return c
 }
 
@@ -173,4 +179,3 @@ u.fm = function(i) {
     }
   }
 }
-
