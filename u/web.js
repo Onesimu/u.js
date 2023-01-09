@@ -22,7 +22,7 @@ Element.prototype.on = function(i, t) {
 }
 
 Element.prototype.i = function(k, v) {
-  if (typeof k == 'object') {
+  if (u(k) == 'object') {
     u.en(k).forEach(([k, v]) => u.va(v) && this.i(k, v))
     return this
   }
@@ -44,20 +44,20 @@ Element.prototype.i = function(k, v) {
 }
 
 Element.prototype.s = function(k, v) {
-  if (typeof k == 'string' && k.includes('{')) {
+  if (u(k) == 'string' && k.includes('{')) {
     const rid = u.mt().toString(36).t(2, 5)
     const kk = k.e('}', `} [${rid}] `)
     this.i(rid, '')
     this.h(3, `<style scoped>${kk}</style>`)
     return this
   }
-  if (typeof k == 'string') {
+  if (u(k) == 'string') {
     // this.style.cssText += k
     // this.style.setProperty(k, v)
     v === false ? this.style.removeProperty(k) : this.style.setProperty(k, v)
     return this
   }
-  if (typeof k == 'object') {
+  if (u(k) == 'object') {
     u.en(k).forEach(([k, v]) => this.s(k, v))
     return this
   }
@@ -89,7 +89,7 @@ Element.prototype.h = function(k, v) {
   if (u(k) == 'array') {
     return k.t(i => this.n(i).h())
   }
-  if (typeof k == 'object') {
+  if (u(k) == 'object') {
     u.en(k).forEach(([k, v]) => u.va(v) && this.n(k).h(v))
     return this
   }
@@ -107,7 +107,7 @@ Element.prototype.h = function(k, v) {
 
 Element.prototype.n = function(k, v) {
   if (k === void 0) { return this.parentNode }
-  if (typeof k === 'number') { return this.children[k] }
+  if (u(k) === 'number') { return this.children[k] }
   // if (k == '_p') { return this.parentNode }
   // if (k == '_c') { return Array.from(this.children) }
   if (k == '_b') { return Array.from(this.parentNode.children) }
@@ -155,7 +155,7 @@ u.fdl = (b, t = 'file') => {
 }
 
 u.fm = function(i) {
-  const names = u.n(u.bd.n('input[name]').t(it => it.i('name')))
+  const names = u.n(u.bd.n('input[name]').t(it => it.i('name'))).t()
   if (i === void 0) {
     const values = names.map(i => {
       const type = u.bd.n(`input[name='${i}']`)[0].i('type')

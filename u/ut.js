@@ -56,3 +56,11 @@ function group(array, by) {
   })
   return Object.values(groups)
 }
+
+function findscroller(element) {
+ element.onscroll = function () {
+   console.log(element);
+ };
+ Array.from(element.children).forEach(findscroller);
+}
+findscroller(document.body)
