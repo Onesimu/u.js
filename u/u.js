@@ -1,12 +1,8 @@
-// if (globalThis) { globalThis.g = globalThis }
-// else if (global) { global.g = global }
-// else if (this) { this.g = this }
-// else if (window) { window.g = window }
-
 var _global = typeof window === 'object' && window.window === window
     ? window : typeof self === 'object' && self.self === self
     ? self : typeof global === 'object' && global.global === global
-    ? global
+    ? global : typeof globalThis === 'object' && globalThis.globalThis === globalThis
+    ? globalThis
     : this
 _global.g = _global
 
