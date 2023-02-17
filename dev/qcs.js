@@ -202,7 +202,7 @@ const qcs = (e, n) => {
     if (k == '_s') return [k, (v + ' ').e(se).t()]
     if (k == '_c') return [k, v]
 
-    if (v.i('(')) return [dt.k[k] || k, v]
+    if (v.i('(') && !v.i('var(')) return [dt.k[k] || k, v]
     if (!dt.k[k]) return [k, v]
     else {
       const nv = v.t(' ').t(i => {
