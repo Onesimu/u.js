@@ -40,7 +40,7 @@ const dt = {
     ot: 'outline',
     ol: 'outline',
     f: 'font-size',
-    ff: 'font-family',
+    ffy: 'font-family',
     fs: 'font-style',
     fw: 'font-weight',
     ta: 'text-align',
@@ -80,7 +80,9 @@ const dt = {
     fd: 'flex-direction',
     fr: 'flex-wrap',
     bx: 'box-sizing',
-    fx: 'flex'
+    fx: 'flex',
+    ff: 'flex-flow',
+    cs: 'cursor'
   },
   v: {
     a: 'auto',
@@ -114,7 +116,8 @@ const dt = {
     spbt: 'space-between',
     spev: 'space-evenly',
     spar: 'space-around',
-    fx: 'flex'
+    fx: 'flex',
+    pt: 'pointer'
   }
 };
 
@@ -165,6 +168,7 @@ const se = {
   ':f ': '::first-letter',
   ':l ': '::first-line',
   ':h ': ':hover',
+  ':fo ': ':focus',
   ':c ': ':checked',
   ':r ': ':root',
   ':e ': ':empty',
