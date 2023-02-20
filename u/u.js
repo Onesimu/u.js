@@ -1,3 +1,8 @@
+// if (globalThis) { globalThis.g = globalThis }
+// else if (global) { global.g = global }
+// else if (this) { this.g = this }
+// else if (window) { window.g = window }
+
 var _global = typeof window === 'object' && window.window === window
     ? window : typeof self === 'object' && self.self === self
     ? self : typeof global === 'object' && global.global === global
@@ -112,15 +117,15 @@ String.prototype.t = function(i, t, e) {
   if (i === void 0) return this.trim()
   if (typeof i == 'number') return this.slice(i, t, e)
   // if (u(i) == 'regexp') return this.split(i)
-  // if (u(i) == 'regexp') return this.match(i)
-  if (t === 1) return [this.slice(0, this.indexOf(i)), this.slice(this.indexOf(i + 1))]
+  if (t === 1 && e === 1) return [this.slice(0, this.indexOf(i)), this.slice(this.indexOf(i) + 1)]
+  if (t === 1) return this.slice(0, this.indexOf(i))
   return this.split(i)
 }
 String.prototype.n = function(i, t, e) {
   // if (i === void 0) return String.raw({ raw: this })
   if (typeof i == 'number') return this.repeat(i, t, e)
   // padStart
-  if (t === 1) return this.search(i)
+  if (t === 1 && u(i) == 'regexp') return this.search(i)
   if (u(i) == 'regexp') return this.match(i)
   // if (t === !0) return this.lastIndexOf(i)
   return this.indexOf(i, t)
@@ -130,8 +135,14 @@ Array.prototype.t = function(i, t, e) {
   // if (i === void 0) return Object.fromEntries(this)
 // if (i === void 0) return this.flat()
   if (typeof i == 'number' && i > -1) return this.slice(i, t, e)
+  if (u(i) == 'array' && t === 1) return this.map((ii, tt) => [ii, i[tt]])
   if (u(i) == 'array') return this.map((ii, tt) => u(ii) === 'array' && ii.concat(i[tt]) || [ii].concat(i[tt]))
-  if (i === -1) return this.reduce(((a, b) => a.t(b)), [])
+  // if (i === -1) return this.reduce((a, b) => a.t(b), [])
+    // if (i === -1) return this.reduce((a, b) => a.t(b))
+  if (i === -1) {
+    if (this.length == 1) return this[0].map(it => [it])
+    return this.reduce((a, b) => a.t(b))  
+  } 
   if (typeof i == 'function') return this.map(i, t, e)
   return this.join(i)
 }
@@ -152,7 +163,7 @@ Array.prototype.e = function(i, t, e) {
     if (e === void 0) return this.splice(i, t), this
     return this.splice(i, t, e), this
   }
-  // if (u(i) == 'array') return this.concat(i)
+  if (u(i) == 'array' && t === 1) return this.concat(i)
   if (t === !0) return this.sort(i)
   if (i === !1 || i === -1) return this.reverse()
   if (t === 0) return this.unshift(i), this
