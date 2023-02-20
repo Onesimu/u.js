@@ -150,7 +150,7 @@ const go = (href, body, cfg) => {
 u.go = go
 
 u.web = function(i, t, e){
-  return '<table><tr><td>' + u.i(i, t).e(',', '<td>').e('\n', '\n<tr><td>')
+  return '<table><thead><tr><td>' + u.i(i, t).e(',', '<td>').replace('\n', '<tbody><tr><td>').e('\n', '\n<tr><td>')
 }
 
 u.fdl = (b, t = 'file') => {
@@ -169,7 +169,7 @@ u.fm = function(i) {
       if (type == 'radio') return u.bd.n(`input[type='radio'][name='${i}']:checked`)[0].value
       if (type == 'checkbox') return u.bd.n(`input[type='checkbox'][name='${i}']:checked`).t(it => it.value)
     })
-    return (u.en(names.t(values)))
+    return (u.en(names.t((ii, tt) => [ii, values[tt]])))
   }
   if (u(i) === 'object') {
     const kv = u.en(i).n(it => names.i(it[0]))
