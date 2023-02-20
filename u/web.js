@@ -179,3 +179,14 @@ u.fm = function(i) {
     }
   }
 }
+
+const script = code => {
+  const tag = document.createElement("script");
+  // tag.appendChild(document.createTextNode(code));
+  tag.innerHTML = code
+  document.head.appendChild(tag);
+}
+
+const style = code => {
+  document.head.insertAdjacentHTML(`beforeend`, `<style>${code}</style>`)
+}
