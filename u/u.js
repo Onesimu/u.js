@@ -1,8 +1,3 @@
-// if (globalThis) { globalThis.g = globalThis }
-// else if (global) { global.g = global }
-// else if (this) { this.g = this }
-// else if (window) { window.g = window }
-
 var _global = typeof window === 'object' && window.window === window
     ? window : typeof self === 'object' && self.self === self
     ? self : typeof global === 'object' && global.global === global
@@ -104,9 +99,11 @@ String.prototype.e = function(i, t, e) {
   if (u(i) == 'object') {
     const en = u.en(i)
     var tmp = this
-    if ((/[一-龟]/).test(tmp)) for (var [k, v] of en) tmp = tmp.replace(new RegExp(k, 'g'), v)
-    else for (var [k, v] of en) tmp = tmp.replace(new RegExp(k, 'g'), v)
-    // else for (var [k, v] of en) tmp = tmp.replace(new RegExp('\\b' + k + '\\b', 'g'), v)
+    const opt = t && t.e('b', '') || 'g'
+    for (var [k, v] of en) {
+      const re = t?.i('b') && '\\b' + k + '\\b' || k
+      tmp = tmp.replace(new RegExp(re, opt), v)
+    }
     return tmp
   }
   if (t === void 0) return this.concat(i)
