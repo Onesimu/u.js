@@ -2,10 +2,9 @@ const scr =  (src, fn) => {
   var script = document.createElement('script')
   script.src = src
   document.head.appendChild(script)
+  if (!fn) return
   script.onload = fn
 }
-
-scr('https://static-mp-12b08abd-474c-42c9-8737-5f9e0fdc300a.next.bspapp.com/lib/livescript-min.js')
 
 const init = async () => {
   await import('https://static-mp-12b08abd-474c-42c9-8737-5f9e0fdc300a.next.bspapp.com/lib/web.js')
@@ -17,5 +16,7 @@ const init = async () => {
     ls.go()
   })
 }
+
+scr('https://static-mp-12b08abd-474c-42c9-8737-5f9e0fdc300a.next.bspapp.com/lib/livescript-min.js')
 scr('https://static-mp-12b08abd-474c-42c9-8737-5f9e0fdc300a.next.bspapp.com/lib/u.js', init)
 
