@@ -206,6 +206,7 @@ const qcs = (e, n) => {
     if (!dt.k[k]) return [k, v]
     else {
       const nv = v.t(' ').t(i => {
+        if (i.i('--', 0)) return i.e(/(--\S+)/g, 'var($1)')
         if (isNaN(i)) return (dt.v[i] || i)
         if (i == 0) return i
         if (/^(?:z|o|fw)$/.test(k)) return i
