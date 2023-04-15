@@ -6,6 +6,10 @@ var _global = typeof window === 'object' && window.window === window
     : this
 _global.g = _global
 
+// var root = (typeof self == 'object' && self.self == self && self) ||
+//            (typeof global == 'object' && global.global == global && global) ||
+//            this;
+           
 g.o = (console.log).bind(console)
 g.oo = i => (console.log(i), i) 
 // o.o = (console.table || console.log).bind(console)
