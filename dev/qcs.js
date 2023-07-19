@@ -37,9 +37,10 @@ const dt = {
     btr: 'border-top-right-radius',
     bbr: 'border-bottom-right-radius',
     bbl: 'border-bottom-left-radius',
+    ot: 'outline',
     ol: 'outline',
     f: 'font-size',
-    ff: 'font-family',
+    ffy: 'font-family',
     fs: 'font-style',
     fw: 'font-weight',
     ta: 'text-align',
@@ -61,6 +62,7 @@ const dt = {
     xh: 'max-height',
     lh: 'line-height',
     v: 'vertical-align',
+    vi: 'visibility',
     wh: 'white-space',
     ws: 'word-spacing',
     ls: 'letter-spacing',
@@ -77,7 +79,10 @@ const dt = {
     ac: 'align-content',
     fd: 'flex-direction',
     fr: 'flex-wrap',
-    bx: 'box-sizing'
+    bx: 'box-sizing',
+    fx: 'flex',
+    ff: 'flex-flow',
+    cs: 'cursor'
   },
   v: {
     a: 'auto',
@@ -87,6 +92,7 @@ const dt = {
     tt: 'transparent',
     cc: 'currentColor',
     n: 'normal',
+    m: 'middle',
     c: 'center',
     no: 'none',
     h: 'hidden',
@@ -106,7 +112,12 @@ const dt = {
     wr: 'wrap',
     if: 'inline-flex',
     cb: 'content-box',
-    bb: 'border-box'
+    bb: 'border-box',
+    spbt: 'space-between',
+    spev: 'space-evenly',
+    spar: 'space-around',
+    fx: 'flex',
+    pt: 'pointer'
   }
 };
 
@@ -157,6 +168,7 @@ const se = {
   ':f ': '::first-letter',
   ':l ': '::first-line',
   ':h ': ':hover',
+  ':fo ': ':focus',
   ':c ': ':checked',
   ':r ': ':root',
   ':e ': ':empty',
@@ -174,11 +186,13 @@ const qcs = (e, n) => {
     dt.v = u.en(dt.v, -1)
   }
 
-  const l = e.e(/bgi:/g, 'background-image:').e(/lg\(/g, 'linear-gradient(').e(/\/\*(\s|.)*?\*\//g, '').replace(/;base64,/g, '%%%%%%')
+  const l = e.e(/bgi:/g, 'background-image:').e(/lg\(/g, 'linear-gradient(').e(/\/\*(\s|.)*?\*\//g, '')
+    .replace(/;base64,/g, '%%%%%%').e(/data:image/g, '%%%')
     .t().t('}').n(Boolean).t(i => {
     const [s, v] = i.t('{')
     const s1 = ['_s', s.t()]
-    const v1 = v.t().t(';').t().t(i => i.t(': ').t(i => i.t()))
+    // const v1 = v.t().t(';').t().t(i => i.t(': ').t(i => i.t()))
+    const v1 = (v.t().t(/(\S+):\s?/).t().t(i => i.t().e(';', '')).t((i,t,e) => [i, e[t+1]]).n((i,t) => t % 2 == 0))
     v1.e(s1)
     return u.en(v1)
   })
@@ -188,10 +202,11 @@ const qcs = (e, n) => {
     if (k == '_s') return [k, (v + ' ').e(se).t()]
     if (k == '_c') return [k, v]
 
-    if (v.i('(')) return [dt.k[k] || k, v]
+    if (v.i('(') && !v.i('var(')) return [dt.k[k] || k, v]
     if (!dt.k[k]) return [k, v]
     else {
       const nv = v.t(' ').t(i => {
+        if (i.i('--', 0)) return i.e(/(--\S+)/g, 'var($1)')
         if (isNaN(i)) return (dt.v[i] || i)
         if (i == 0) return i
         if (/^(?:z|o|fw)$/.test(k)) return i
@@ -211,7 +226,7 @@ const qcs = (e, n) => {
     return i
   })
   const c = lnc.t(i => i['_s'] + ' { ' + u.en(u.e(i, '_s')).t(i => i.t(': ')).t('; ') + '; }').t('\n')
-  return c.replace(/%%%%%%/g, ';base64,')
+  return c.replace(/%%%%%%/g, ';base64,').e(/%%%/g, 'data:image')
 }
 
 export {qcs}

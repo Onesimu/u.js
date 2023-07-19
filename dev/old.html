@@ -1,0 +1,22 @@
+<script>
+  var agent = navigator.userAgent.toLowerCase();
+  var ver = agent.match(/cpu iphone os (.*?) like mac os/);
+  if(ver && ver[1]){
+    ver = ver[1].replace(/_/g,".")
+    ver = parseFloat(ver, 10);
+    console.log("当前iOS系统版本为：" + ver);
+    if(ver < 10 && window.location.href.indexOf('src') > -1){
+      window.location.href = window.location.href.replace('src', 'dst')
+    }
+  }
+
+  ver = agent.match(/chrome\/(\d+\.\d)/i)
+  if(ver && ver[1]){
+    ver = ver[1]
+    ver = parseFloat(ver, 10);
+    console.log("当前Chrome版本为：" + ver)
+    if(ver < 55 && window.location.href.indexOf('src') > -1){
+      window.location.href = window.location.href.replace('src', 'dst')
+    }
+  }
+</script>

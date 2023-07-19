@@ -11,6 +11,7 @@ db.set = function(val) {
   Object.assign(db, val)
   u.fs.db = JSON.stringify(db)
 }
+u.fs.db && Object.assign(db, JSON.parse(u.fs.db))
 u.db = db
 
 Event.prototype.i = function(){ return this.target }
@@ -21,12 +22,12 @@ Element.prototype.on = function(i, t) {
 }
 
 Element.prototype.i = function(k, v) {
-  if (typeof k == 'object') {
-    u.en(k).forEach(([k, v]) => u.snb(v) && this.i(k, v))
+  if (u(k) == 'object') {
+    u.en(k).forEach(([k, v]) => u.va(v) && this.i(k, v))
     return this
   }
 
-  if (k && u.snb(v)) {
+  if (k && u.va(v)) {
     // v === false ? this.removeAttribute(k) : this.setAttribute(k, v)
     if (v === -1) return this.getAttribute(k) ? this.removeAttribute(k) : this.setAttribute(k, 1), this
     if (v === false) return this.removeAttribute(k), this
@@ -43,27 +44,35 @@ Element.prototype.i = function(k, v) {
 }
 
 Element.prototype.s = function(k, v) {
-  if (typeof k == 'string' && k.includes('{')) {
+  if (u(k) == 'string' && k.includes('{')) {
     const rid = u.mt().toString(36).t(2, 5)
     const kk = k.e('}', `} [${rid}] `)
     this.i(rid, '')
     this.h(3, `<style scoped>${kk}</style>`)
     return this
   }
-  if (typeof k == 'string') {
-    this.style.cssText += k
-    return this
-  }
-  if (typeof k == 'object') {
+  // if (u(k) == 'string' && v === false) {
+  //   this.style.removeProperty(k)
+  //   return this
+  // }
+  // if (u(k) == 'string' && v) {
+  //   // this.style.cssText += k
+  //   // this.style.setProperty(k, v)
+  //   this.style.setProperty(k, v)
+  //   return this
+  // }
+  if (u(k) == 'object') {
     u.en(k).forEach(([k, v]) => this.s(k, v))
     return this
   }
-  if (k && u.snb(v)) {
+  if (u(k) == 'string' && k && u.va(v)) {
     v === false ? this.style.removeProperty(k) : this.style.setProperty(k, v)
     return this
   }
-  const c = getComputedStyle(this)
-  if (k) return c.getPropertyValue(k)
+  if (u(k) == 'string') {
+    const c = getComputedStyle(this)
+    return c.getPropertyValue(k)
+  }
   return c
 }
 
@@ -72,7 +81,7 @@ Element.prototype.h = function(k, v) {
     if (v) { this.outerHTML = v; return this }
     return this.outerHTML
   }
-  if (u(k) === 'number' && k in [1, 2, 3, 4]) {
+  if (u(k) === 'number' && [1, 2, 3, 4].includes(k) && v) {
     const ps = ['beforebegin', 'afterbegin', 'beforeend', 'afterend']
     if (v) { this.insertAdjacentHTML(ps[k - 1], v); return this }
     return this
@@ -81,20 +90,20 @@ Element.prototype.h = function(k, v) {
     if (v) { this.innerHTML = v; return this }
     return this.innerHTML
   }
-  if (u(k) == 'string' && k.startsWith('<')) { this.innerHTML = k; return this }
+  if (u(k) == 'string' && k.startsWith('<')) { this.innerHTML += k; return this }
 
   if (u(k) == 'array') {
     return k.t(i => this.n(i).h())
   }
-  if (typeof k == 'object') {
-    u.en(k).forEach(([k, v]) => u.snb(v) && this.n(k).h(v))
+  if (u(k) == 'object') {
+    u.en(k).forEach(([k, v]) => u.va(v) && this.n(k).h(v))
     return this
   }
 
   var n = 'innerHTML'
-  if ('textContent' in this) { n = 'textContent' }
+  if ('value' in this) { n = 'value' }
   else if ('src' in this) { n = 'src' }
-  else if ('value' in this) { n = 'value' }
+  else if ('textContent' in this) { n = 'textContent' }
 
   if (k === void 0) { return this[n] }
   if (k && u(k) == 'function') return this[n] = k(this[n]), this
@@ -104,7 +113,7 @@ Element.prototype.h = function(k, v) {
 
 Element.prototype.n = function(k, v) {
   if (k === void 0) { return this.parentNode }
-  if (typeof k === 'number') { return this.children[k] }
+  if (u(k) === 'number') { return this.children[k] }
   // if (k == '_p') { return this.parentNode }
   // if (k == '_c') { return Array.from(this.children) }
   if (k == '_b') { return Array.from(this.parentNode.children) }
@@ -141,5 +150,43 @@ const go = (href, body, cfg) => {
 u.go = go
 
 u.web = function(i, t, e){
-  return '<table><tr><td>' + u.i(i).e(',', '<td>').e('\n', '\n<tr><td>')
+  return '<table><thead><tr><td>' + u.i(i, t).e(',', '<td>').replace('\n', '<tbody><tr><td>').e('\n', '\n<tr><td>')
+}
+
+u.fdl = (b, t = 'file') => {
+  let a = document.createElement('a')
+  a.href = URL.createObjectURL(b)
+  a.download = t
+  a.click()
+}
+
+u.fm = function(i) {
+  const names = u.n(u.bd.n('input[name]').t(it => it.i('name'))).t()
+  if (i === void 0) {
+    const values = names.map(i => {
+      const type = u.bd.n(`input[name='${i}']`)[0].i('type')
+       // u.bd.n("input[type='radio'][name='raoisused']").n(it => it.checked, 1).value
+      if (type == 'radio') return u.bd.n(`input[type='radio'][name='${i}']:checked`)[0].value
+      if (type == 'checkbox') return u.bd.n(`input[type='checkbox'][name='${i}']:checked`).t(it => it.value)
+    })
+    return (u.en(names.t((ii, tt) => [ii, values[tt]])))
+  }
+  if (u(i) === 'object') {
+    const kv = u.en(i).n(it => names.i(it[0]))
+    for (const [k, v] of kv) {
+      if (u(v) == 'array') u.bd.n(`input[type='checkbox'][name='${k}']`).e(it => it.checked = v.t(String).i(it.value)) 
+      else u.bd.n(`input[type='radio'][name='${k}']`).n(it => it.value == v, 1).checked = true
+    }
+  }
+}
+
+const script = code => {
+  const tag = document.createElement("script");
+  // tag.appendChild(document.createTextNode(code));
+  tag.innerHTML = code
+  document.head.appendChild(tag);
+}
+
+const style = code => {
+  document.head.insertAdjacentHTML(`beforeend`, `<style>${code}</style>`)
 }
